@@ -78,8 +78,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'kotti.asgi.application'
-#WSGI_APPLICATION = 'kotti.wsgi.application'
+#ASGI_APPLICATION = 'kotti.asgi.application'
+WSGI_APPLICATION = 'kotti.wsgi.application'
 
 
 # Database
