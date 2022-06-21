@@ -1,7 +1,7 @@
 version: "3.9"
 services:
-  postgres:
-    container_name: postgres
+  kotti_postgres:
+    container_name: kotti_postgres
     image: postgres
     environment:
       POSTGRES_USER: ${DBUSER}
@@ -11,13 +11,8 @@ services:
     volumes:
       - ./db/data:/var/lib/postgresql/data
 
-  redis:
-    container_name: redis
-    image: redis
-    restart: unless-stopped
-
-  web:
-    container_name: web
+  kotti_web:
+    container_name: kotti_web
     build: .
     ports:
       - 8002:8000
