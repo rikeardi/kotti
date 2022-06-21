@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'tilkku.urls'
+ROOT_URLCONF = 'kotti.urls'
 
 TEMPLATES = [
     {
@@ -79,8 +79,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'tilkku.asgi.application'
-#WSGI_APPLICATION = 'tilkku.wsgi.application'
+ASGI_APPLICATION = 'kotti.asgi.application'
+#WSGI_APPLICATION = 'kotti.wsgi.application'
 
 
 # Database
@@ -97,14 +97,14 @@ DATABASES = {
     }
 }
 
-CHANNEL_LAYERS = {
-   "default": {
-      "BACKEND": "channels_redis.core.RedisChannelLayer",
-      "CONFIG": {
-         "hosts": [("redis", 6379)],
-      },
-   }
-}
+#CHANNEL_LAYERS = {
+#   "default": {
+#      "BACKEND": "channels_redis.core.RedisChannelLayer",
+#      "CONFIG": {
+#         "hosts": [("redis", 6379)],
+#      },
+#   }
+#}
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
