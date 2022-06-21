@@ -1,0 +1,156 @@
+{% block content %}
+{% load static %}
+<style>
+.chat-window {
+    height: calc(100% - 50px);
+    overflow-y: auto;
+    margin-bottom: 5px;
+    position: relative;
+}
+.chat {
+    list-style: none;
+    background: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    margin: 0 !important;
+}
+.chat li {
+    padding: 0.5rem;
+    overflow: hidden;
+    display: flex;
+}
+.self {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.self > .msg {
+    order: 1;
+    border-bottom-right-radius: 0px;
+    background-color: #3e8ed0;
+    color: #fff;
+}
+.other > .msg {
+    order: 1;
+    border-top-left-radius: 0px;
+    background-color: #eff5fb;
+    color: #296fa8;
+}
+.other .name {
+    font-size: 0.6rem;
+    display: flex;
+    color: #ccc;
+}
+.msg {
+    min-width: 50px;
+    padding: 0.3rem !important;
+    font-size: .75rem !important;
+    box-shadow: 3px 3px 5px #ccc;
+    border-radius: 10px;
+}
+.msg p {
+    margin-bottom: 3px !important;
+}
+.msg time {
+    font-size: 0.5rem;
+    color: #ccc;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.self time {
+    float: right;
+}
+.other time {
+    float: left;
+}
+.system {
+    margin: 0 !important;
+    padding: 5px !important;
+}
+.system p {
+    width: 100%;
+    text-align: center;
+    font-size: 0.6rem;
+    border-radius: 5px;
+    background-color: #fbf4f4;
+    box-shadow: 3px 3px 5px #f6f0f0;
+    padding: 2px;
+    color: #ccc;
+}
+
+</style>
+<div class="chat-window">
+    <ol id="chat-box" class="chat"></ol>
+</div>
+<input id="chat-input" class="input" type="text" />
+<audio id="chat-pop" src="{% static 'audio/msg2.wav' %}"></audio>
+
+<script>
+var username = "{{ user }}";
+var firstName = "{{ user.first_name }}";
+var lastName = "{{ user.last_name }}";
+
+var chat_pop = document.getElementById('chat-pop');
+const chatSocket = new WebSocket(
+    'wss://'
+    + window.location.host
+    + '/ws/chat/opke/'
+);
+
+chatSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    //console.log(data);
+
+    if(data.type == "user_join") {
+        elem = "<li class='system'>\n<p>" + data.time + " " + data.user + " liittyi.</p>\n</li>";
+    } else if(data.type == "user_leave") {
+        elem = "<li class='system'>\n<p>" + data.time + " " + data.user + " poistui.</p>\n</li>";
+    }
+    else if(data.type == "chat_message") {
+        if(data.user == username) {
+            elem = "<li class='self'>\n<div class='msg'>\n<p>" + data.message + "</p>\n<time>" + data.time + "</time>\n</div>\n</li>";
+        } else {
+            elem = "<li class='other'>\n<div class='msg'>\n<span class='name'>" + data.sender + "</span>\n<p>" + data.message + "</p>\n<time>" + data.time + "</time>\n</div>\n</li>";
+            chat_pop.play();
+        }
+    }
+
+    $("#chat-box").append(elem);
+
+    if(!$("#front-tools").is(":visible")) {
+        $("#front-chat-btn").addClass("newmsg");
+    }
+
+    $(".chat-window").animate({ scrollTop: $(".chat-window")[0].scrollHeight }, 1000);
+}
+
+chatSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+
+$('#chat-input').keyup(function(e) {
+    if (e.keyCode === 13) {  // enter, return
+        chat_send();
+    }
+});
+
+function chat_send() {
+    const message = $('#chat-input').val();
+    var name = username;
+    if(firstName != "" && lastName != "") {
+        name = firstName + " " + lastName;
+    }
+    chatSocket.send(JSON.stringify({
+        'message': message,
+        'sender': name,
+        'user': username
+    }));
+    $('#chat-input').val('');
+};
+</script>
+{% endblock %}

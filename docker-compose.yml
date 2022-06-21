@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPASS}
+      POSTGRES_DB: ${DBNAME}
+    restart: unless-stopped
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: unless-stopped
+
+  web:
+    container_name: web
+    build: .
+    ports:
+      - 8002:8000
+    environment:
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASS: ${DBPASS}
+      POSTGRES_DBNAME: ${DBNAME}
+      POSTGRES_HOST: postgres
+      DJANGO_SUPERUSER_USERNAME: ${ADMIN_USER}
+      DJANGO_SUPERUSER_EMAIL: ${ADMIN_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${ADMIN_PASS}
+      DJANGO_KEY: ${DJANGO_KEY}
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
