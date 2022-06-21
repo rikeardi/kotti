@@ -27,5 +27,4 @@ services:
       DJANGO_KEY: ${DJANGO_KEY}
     restart: unless-stopped
     depends_on:
-      - postgres
-      - redis
+      - kotti_postgres
