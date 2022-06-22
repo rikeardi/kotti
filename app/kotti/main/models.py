@@ -4,10 +4,48 @@ Django models for room management.
 Rooms and tables are used to manage the seating capacity of a room.
 """
 from django.db import models
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
-class KottiUser(AbstractUser):
+class KottiUserManager(BaseUserManager):
+    def create_user(self, username, email, first_name, last_name, phone, department, team, password=None):
+        """
+        Creates and saves a User with the given username, email and password.
+        """
+        if not username:
+            raise ValueError('Users must have a username')
+
+        user = self.model(
+            username=username,
+            email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
+            phone=phone,
+            department=department,
+            team=team,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, first_name, last_name, phone, department, team, password):
+        user = self.create_user(
+            username=username,
+            email=self.normalize_email(email),
+            first_name=first_name,
+            last_name=last_name,
+            phone=phone,
+            department=department,
+            team=team,
+            password=password,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
+class KottiUser(AbstractBaseUser):
     """
     User model for the room management app.
     """
@@ -23,9 +61,20 @@ class KottiUser(AbstractUser):
     team = models.CharField(max_length=200)
 
     USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'phone', 'department', 'team']
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        return self.is_admin
 
 
 class OpenTime(models.Model):
