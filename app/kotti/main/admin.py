@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from main.models import *
+from .models import *
 
 
 class KottiUserCreationForm(forms.ModelForm):
@@ -38,7 +38,7 @@ class KottiUserChangeForm(forms.ModelForm):
 
     class Meta:
         model = KottiUser
-        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password', 'is_active', 'is_admin')
 
 
 class KottiUserAdmin(UserAdmin):
@@ -48,7 +48,8 @@ class KottiUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team')
     fieldsets = ((None, {'fields': ('username', 'email', 'password')}),
                  ('Personal info', {'fields': ('first_name', 'last_name', 'phone')}),
-                 ('Team info', {'fields': ('department', 'team')}))
+                 ('Team info', {'fields': ('department', 'team')}),
+                 ('Permissions', {'fields': ('is_active', 'is_admin')}))
 
     add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password1', 'password2')}),)
 
