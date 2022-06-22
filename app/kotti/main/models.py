@@ -7,15 +7,15 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class KottiUser(User):
+class KottiUser(models.Model):
     """
     User model for the room management app.
     """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(max_length=100, choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
                                                            ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')])
     team = models.CharField(max_length=200)
-    pass
 
 
 class OpenTime(models.Model):
