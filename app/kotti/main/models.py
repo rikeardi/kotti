@@ -8,15 +8,12 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class KottiUserManager(BaseUserManager):
-    def create_user(self, username, email, password=None, first_name=None, last_name=None, phone=None, department=None, team=None):
+    def create_user(self, username, email=None, password=None, first_name=None, last_name=None, phone=None, department=None, team=None):
         """
         Creates and saves a User with the given username, email and password.
         """
         if not username:
             raise ValueError('Users must have a username')
-
-        if not email:
-            raise ValueError('Users must have an email address')
 
         user = self.model(
             username=username,
