@@ -8,12 +8,15 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class KottiUserManager(BaseUserManager):
-    def create_user(self, username, email, first_name, last_name, phone, department, team, password=None):
+    def create_user(self, username, email, first_name=None, last_name=None, phone=None, department=None, team=None, password=None):
         """
         Creates and saves a User with the given username, email and password.
         """
         if not username:
             raise ValueError('Users must have a username')
+
+        if not email:
+            raise ValueError('Users must have an email address')
 
         user = self.model(
             username=username,
@@ -52,13 +55,14 @@ class KottiUser(AbstractBaseUser):
     password = models.CharField(max_length=128, verbose_name="password")
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(max_length=254, unique=True)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     department = models.CharField(max_length=100, choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
                                                            ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
-                                                           ('KA', 'Kasvatus'), ('RE', 'Resurssit')])
-    team = models.CharField(max_length=200)
+                                                           ('KA', 'Kasvatus'), ('RE', 'Resurssit')],
+                                  default='LT')
+    team = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
