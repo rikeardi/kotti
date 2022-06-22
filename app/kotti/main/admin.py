@@ -17,7 +17,7 @@ class UserAdmin(UserAdmin):
     inlines = (KottiUserAdmin,)
 
 
-admin.site.unregister(User)
+#admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(OpenTime)
 admin.site.register(Room)
