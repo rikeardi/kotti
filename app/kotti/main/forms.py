@@ -51,6 +51,7 @@ class RegisterForm(UserCreationForm):
         user.phone = self.cleaned_data['phone']
         user.department = self.cleaned_data['department']
         user.team = self.cleaned_data['team']
+
         if commit:
             user.save()
         return user

@@ -4,10 +4,10 @@ Django models for room management.
 Rooms and tables are used to manage the seating capacity of a room.
 """
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 
-class KottiUser(models.Model):
+class KottiUser(AbstractUser):
     """
     User model for the room management app.
     """
