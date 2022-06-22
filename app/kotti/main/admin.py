@@ -18,7 +18,7 @@ class UserAdmin(UserAdmin):
 
 
 #admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(KottiUser, UserAdmin)
 admin.site.register(OpenTime)
 admin.site.register(Room)
 admin.site.register(Table)
