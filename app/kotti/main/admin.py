@@ -47,6 +47,7 @@ class KottiUserAdmin(UserAdmin):
 
     list_display = ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team')
     list_filter = ('is_admin',)
+    filter_horizontal = ()
     fieldsets = ((None, {'fields': ('username', 'email', 'password')}),
                  ('Personal info', {'fields': ('first_name', 'last_name', 'phone')}),
                  ('Team info', {'fields': ('department', 'team')}),
