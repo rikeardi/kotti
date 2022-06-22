@@ -18,6 +18,20 @@
       <form method="post" action="{% url 'main:register' %}">
         {% csrf_token %}
         <div class="field">
+          <label class="label">Etunimi</label>
+          <div class="control">
+            {{ form.first_name }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Sukunimi</label>
+          <div class="control">
+            {{ form.last_name }}
+          </div>
+        </div>
+
+        <div class="field">
           <label class="label">Käyttäjätunnus</label>
           <div class="control">
             {{ form.username }}

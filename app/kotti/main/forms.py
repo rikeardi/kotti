@@ -17,6 +17,10 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
+    first_name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input'}))
+    last_name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input'}))
     username = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'input'}))
     email = forms.EmailField(widget=forms.EmailInput(
@@ -34,3 +38,6 @@ class RegisterForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'input'}))
 
+    class Meta:
+        model = KottiUser
+        fields = ('first_name', 'last_name', 'username', 'email', 'phone', 'department', 'team', 'password1', 'password2')
