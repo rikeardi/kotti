@@ -38,6 +38,6 @@ class RegisterForm(UserCreationForm):
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'input'}))
 
-    class Meta:
+    class Meta(UserCreationForm.Meta):
         model = KottiUser
-        fields = ('first_name', 'last_name', 'username', 'email', 'phone', 'department', 'team', 'password1', 'password2')
+        fields = ('user.first_name', 'user.last_name', 'user.username', 'user.email', 'phone', 'department', 'team')
