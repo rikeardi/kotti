@@ -17,6 +17,9 @@ class KottiUser(models.Model):
                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')])
     team = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.user.first_name + ' ' + self.user.last_name
+
 
 class OpenTime(models.Model):
     """
