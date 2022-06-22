@@ -45,12 +45,12 @@ class KottiUserAdmin(UserAdmin):
     form = KottiUserChangeForm
     add_form = KottiUserCreationForm
 
-    list_display = ('email', 'first_name', 'last_name', 'phone', 'department', 'team')
-    fieldsets = ((None, {'fields': ('email', 'password')}),
+    list_display = ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team')
+    fieldsets = ((None, {'fields': ('username', 'email', 'password')}),
                  ('Personal info', {'fields': ('first_name', 'last_name', 'phone')}),
                  ('Team info', {'fields': ('department', 'team')}))
 
-    add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password1', 'password2')}),)
+    add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password1', 'password2')}),)
 
 
 admin.site.register(KottiUser, KottiUserAdmin)
