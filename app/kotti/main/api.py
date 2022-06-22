@@ -1,5 +1,5 @@
 from rest_framework import serializers, viewsets
-from models import *
+from .models import *
 
 
 class RoomSerializer(serializers.HyperlinkedModelSerializer):
