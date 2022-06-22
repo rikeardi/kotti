@@ -21,9 +21,16 @@ class RegisterForm(UserCreationForm):
         attrs={'class': 'input'}))
     email = forms.EmailField(widget=forms.EmailInput(
         attrs={'class': 'input'}))
-    phone = forms.CharField(widget=forms.TextInput())
-    department = forms.ModelChoiceField(widget=forms.Select(), queryset=Department.objects.all())
-    team = forms.ModelChoiceField(widget=forms.Select(), queryset=Team.objects.all())
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
+    phone = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input'}))
+    department = forms.ModelChoiceField(widget=forms.Select(), choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
+                                                           ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
+                                                           ('KA', 'Kasvatus'), ('RE', 'Resurssit')],
+        attrs={'class': 'input'})
+    team = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'input'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'input'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(
+        attrs={'class': 'input'}))
 
