@@ -11,16 +11,21 @@ class KottiUser(AbstractUser):
     """
     User model for the room management app.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    USERNAME_FIELD = 'user.username'
+    password = models.CharField(max_length=128, verbose_name="password")
+    username = models.CharField(max_length=30, unique=True)
+    email = models.EmailField(max_length=254, unique=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     department = models.CharField(max_length=100, choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
                                                            ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')])
     team = models.CharField(max_length=200)
 
+    USERNAME_FIELD = 'username'
+
     def __str__(self):
-        return self.user.first_name + ' ' + self.user.last_name
+        return self.first_name + ' ' + self.last_name
 
 
 class OpenTime(models.Model):
