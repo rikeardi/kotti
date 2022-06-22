@@ -68,7 +68,7 @@ class KottiUser(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.username
 
     def has_perm(self, perm, obj=None):
         return True
