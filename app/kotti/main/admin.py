@@ -50,6 +50,7 @@ class KottiUserAdmin(UserAdmin):
                  ('Personal info', {'fields': ('first_name', 'last_name', 'phone')}),
                  ('Team info', {'fields': ('department', 'team')}))
 
+    add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password1', 'password2')}),)
 
 
 admin.site.register(KottiUser, KottiUserAdmin)
