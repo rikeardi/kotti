@@ -20,6 +20,11 @@ from main import api
 
 router = routers.DefaultRouter()
 router.register(r'rooms', api.RoomViewSet)
+router.register(r'tables', api.TableViewSet)
+router.register(r'table_reservations', api.TableReservationViewSet)
+router.register(r'open_times', api.OpenTimeViewSet)
+router.register(r'users', api.KottiUserViewSet)
+
 
 urlpatterns = [
     path('', include('main.urls')),
