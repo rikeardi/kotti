@@ -8,7 +8,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class KottiUserManager(BaseUserManager):
-    def create_user(self, username, email, first_name=None, last_name=None, phone=None, department=None, team=None, password=None):
+    def create_user(self, username, email, password=None, first_name=None, last_name=None, phone=None, department=None, team=None):
         """
         Creates and saves a User with the given username, email and password.
         """
@@ -32,7 +32,7 @@ class KottiUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, first_name, last_name, phone, department, team, password):
+    def create_superuser(self, username, email, password, first_name=None, last_name=None, phone=None, department=None, team=None):
         user = self.create_user(
             username=username,
             email=self.normalize_email(email),
