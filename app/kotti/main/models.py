@@ -65,7 +65,6 @@ class KottiUser(AbstractBaseUser):
     objects = KottiUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'phone', 'department', 'team']
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
