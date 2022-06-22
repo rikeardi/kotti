@@ -9,11 +9,12 @@
       <div class="columns">
         <div class="column is-narrow"><img src="{% static 'img/logo.png' %}" style="height: 80px"/></div>
         <div class="column">
-          <h1 class="title">Kirjaudu sisään</h1>
+          <h1 class="title">Kokoustilan varaus</h1>
         </div>
       </div>
     </div>
     <div class="box" style="margin-top: 50px;">
+      <h3 class="title">Kirjaudu</h3>
       <form method="post" action="{% url 'main:login' %}">
         {% csrf_token %}
         <div class="field">
