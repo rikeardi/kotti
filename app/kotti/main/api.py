@@ -1,4 +1,5 @@
 from rest_framework import serializers, viewsets
+from django.contrib.auth.decorators import login_required
 from .models import *
 
 
@@ -8,6 +9,7 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name', 'description', 'accept_limit', 'open_times')
 
 
+@login_required
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
@@ -19,6 +21,7 @@ class TableSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'room', 'name', 'capacity')
 
 
+@login_required
 class TableViewSet(viewsets.ModelViewSet):
     queryset = Table.objects.all()
     serializer_class = TableSerializer
@@ -30,6 +33,7 @@ class TableReservationSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'table', 'user', 'start_time', 'end_time')
 
 
+@login_required
 class TableReservationViewSet(viewsets.ModelViewSet):
     queryset = TableReservation.objects.all()
     serializer_class = TableReservationSerializer
@@ -41,6 +45,7 @@ class OpenTimeSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'start_time', 'end_time')
 
 
+@login_required
 class OpenTimeViewSet(viewsets.ModelViewSet):
     queryset = OpenTime.objects.all()
     serializer_class = OpenTimeSerializer
@@ -52,6 +57,7 @@ class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'phone', 'department', 'team')
 
 
+@login_required
 class KottiUserViewSet(viewsets.ModelViewSet):
     queryset = KottiUser.objects.all()
     serializer_class = KottiUserSerializer
