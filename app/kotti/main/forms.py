@@ -25,8 +25,8 @@ class RegisterForm(UserCreationForm):
         attrs={'class': 'input'}))
     department = forms.CharField(widget=forms.Select(choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
                                                             ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
-                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')]),
-                                                            attrs={'class': 'input'})
+                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')],
+                                                            attrs={'class': 'input'}))
     team = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'input'}))
     password1 = forms.CharField(widget=forms.PasswordInput(
