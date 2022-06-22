@@ -66,16 +66,12 @@
           </div>
         </div>
 
-        <input class="button is-primary" type="submit" value="Kirjaudu" />
+        <input class="button is-primary" type="submit" value="Rekisteröidy" />
+        <button type="button" class="button is-secondary" onclick="window.location.href='{% url 'main:login' %}'">Kirjautumiseen</button>
         <input type="hidden" name="next" value="{{ next }}" />
       </form>
       {% if form.errors %}
-        <p class="formerror">Käyttäjätunnus ja salasana ei täsmää. Yritä uudelleen.</p>
-      {% endif %}
-      {% if next %}
-        {% if user.is_authenticated %}
-          <p class="formerror">Sinulla ei ole käyttöoikeutta tähän sivuun. Ole hyvä ja kirjaudu toisella tunnuksella.</p>
-        {% endif %}
+        <p class="formerror">Virhe. Yritä uudelleen.</p>
       {% endif %}
     </div>
   </div>
