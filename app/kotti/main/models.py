@@ -12,6 +12,7 @@ class KottiUser(models.Model):
     User model for the room management app.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     department = models.CharField(max_length=100, choices=[('LT', 'Leiritoimikunta'), ('EL', 'Elämys'),
                                                            ('OS', 'Osallistujat'), ('PA', 'Palvelut'),
                                                            ('KA', 'Kasvatus'), ('RE', 'Resurssit')])
