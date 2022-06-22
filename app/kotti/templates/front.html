@@ -3,18 +3,7 @@
 {% block content %}
 <script>
 var default_settings = {
-    menu: "visible",
-    tool: "chat",
-    map: {
-        center: {
-            lat: 61.205,
-            lng: 25.130
-        },
-        zoom: 15,
-        server: 0,
-        layers: [],
-        scale: 1,
-    }
+    page: "rooms",
 }
 
 function refresh_settings() {
@@ -76,6 +65,11 @@ if(localStorage.getItem('settings') == null) {
 </style>
 <div id="background"></div>
 <div class="columns" style="height: 100%; margin: 0px;">
+    <div class="column" style="width: 100px;">
+        <div class="is-boxed">
+            <img src="{% static 'img/logo.png' %}">
+        </div>
+    </div>
     <div class="column" style="width: auto;">
         {% include 'pages.html' %}
     </div>
