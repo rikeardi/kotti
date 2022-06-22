@@ -40,4 +40,17 @@ class RegisterForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = KottiUser
-        fields = ('user.first_name', 'user.last_name', 'user.username', 'user.email', 'phone', 'department', 'team')
+        fields = ('first_name', 'last_name', 'username', 'email', 'phone', 'department', 'team', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super(RegisterForm, self).save(commit=False)
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.username = self.cleaned_data['username']
+        user.email = self.cleaned_data['email']
+        user.phone = self.cleaned_data['phone']
+        user.department = self.cleaned_data['department']
+        user.team = self.cleaned_data['team']
+        if commit:
+            user.save()
+        return user
