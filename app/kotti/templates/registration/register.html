@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="box" style="margin-top: 50px;">
-      <h3 class="title">Kirjaudu</h3>
+      <h3 class="title">Rekisteröidy</h3>
       <form method="post" action="{% url 'main:login' %}">
         {% csrf_token %}
         <div class="field">
@@ -27,12 +27,46 @@
         <div class="field">
           <label class="label">Salasana</label>
           <div class="control">
-            {{ form.password }}
+            {{ form.password1 }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Salasana uudestaan</label>
+          <div class="control">
+            {{ form.password2 }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Osa-alue</label>
+          <div class="control">
+            {{ form.department }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Tiimi</label>
+          <div class="control">
+            {{ form.team }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Puhelin</label>
+          <div class="control">
+            {{ form.phone }}
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Sähköposti</label>
+          <div class="control">
+            {{ form.email }}
           </div>
         </div>
 
         <input class="button is-primary" type="submit" value="Kirjaudu" />
-        <button type="button" class="button is-secondary" onclick="window.location.href='{% url 'main:register' %}'">Rekisteröidy</button>
         <input type="hidden" name="next" value="{{ next }}" />
       </form>
       {% if form.errors %}
@@ -47,5 +81,4 @@
   </div>
   <div class="column is-quarter"></div>
 </div>
-
 {% endblock %}

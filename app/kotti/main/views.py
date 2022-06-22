@@ -11,3 +11,8 @@ def home(request):
     }
     return render(request, 'front.html', context)
 
+
+def register(request):
+    context = {
+    }
+    return render(request, 'registration/register.html', context)
