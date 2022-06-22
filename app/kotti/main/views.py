@@ -2,7 +2,8 @@ import json
 
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import *
 
 
 @login_required
@@ -12,7 +13,14 @@ def home(request):
     return render(request, 'front.html', context)
 
 
-#def register(request):
-#    context = {
-#    }
-#    return render(request, 'registration/register.html', context)
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('/accounts/login/')
+        else:
+            return render(request, 'registration/register.html', {'form': form})
+    else:
+        form = RegisterForm()
+        return render(request, 'registration/register.html', {'form': form})
