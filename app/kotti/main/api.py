@@ -5,7 +5,7 @@ from .models import *
 class RoomSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Room
-        fields = ('id', 'name', 'description', 'admins', 'accept_limit', 'open_times')
+        fields = ('id', 'name', 'description', 'accept_limit', 'open_times')
 
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -49,7 +49,7 @@ class OpenTimeViewSet(viewsets.ModelViewSet):
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = KottiUser
-        fields = ('id', 'username', 'is_active', 'is_admin')
+        fields = ('id', 'first_name', 'last_name', 'email', 'phone', 'department', 'team')
 
 
 class KottiUserViewSet(viewsets.ModelViewSet):
