@@ -117,6 +117,7 @@ class TableReservation(models.Model):
     user = models.ForeignKey('KottiUser', on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    approved = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.team} - {self.table.name}'
