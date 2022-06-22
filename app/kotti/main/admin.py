@@ -38,7 +38,7 @@ class KottiUserChangeForm(forms.ModelForm):
 
     class Meta:
         model = KottiUser
-        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password', 'is_active', 'is_admin')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password')
 
 
 class KottiUserAdmin(UserAdmin):
