@@ -32,7 +32,7 @@ class KottiUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email, password, first_name=None, last_name=None, phone=None, department=None, team=None):
+    def create_superuser(self, username, password, email=None, first_name=None, last_name=None, phone=None, department=None, team=None):
         user = self.create_user(
             username=username,
             email=self.normalize_email(email),
