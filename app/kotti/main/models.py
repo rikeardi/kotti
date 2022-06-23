@@ -3,6 +3,8 @@ Django models for room management.
 
 Rooms and tables are used to manage the seating capacity of a room.
 """
+import time
+
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
@@ -86,7 +88,7 @@ class OpenDay(models.Model):
     Model for the open days of the room management app.
     """
     name = models.CharField(max_length=100)
-    date = models.DateField()
+    date = models.DateField(localize=True)
 
     def __str__(self):
         return f'{self.name} - {self.date}'

@@ -5,7 +5,7 @@
             <div class="field">
                 <label class="label">Kokouspäivä</label>
                 <div class="control">
-                    <select class="select is-primary">
+                    <select class="input is-primary" id="rooms-search-day">
                         {% for day in open_days %}
                         <option value="{{ day.id }}">{{ day }}</option>
                         {% endfor %}
@@ -16,7 +16,7 @@
             <div class="field">
                 <label class="label">Henkilömäärä</label>
                 <div class="control">
-                    <input class="input" type="number" min="2" max="800">
+                    <input class="input" type="number" min="2" max="800" id="rooms-search-seats">
                 </div>
             </div>
 
@@ -26,4 +26,16 @@
         </div>
     </div>
 </div>
+<script>
+
+function rooms_search() {
+    var day = $("#rooms-search-day").val();
+    var seats = $("#rooms-search-seats").val();
+
+    $.get("/api/rooms/search?open_times=" + day, function(data) {
+        console.log(data);
+    });
+}
+
+</script>
 {% endblock %}
