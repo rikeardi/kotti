@@ -10,7 +10,7 @@ from .forms import *
 @login_required
 def home(request):
     context = {
-        'open_days': OpenDay.objects.all().filter(date__gte=datetime.date.today()),
+        'open_days': OpenDay.objects.all().filter(date__gte=datetime.date.today()).order_by('date'),
         'rooms': Room.objects.all(),
     }
     return render(request, 'front.html', context)
