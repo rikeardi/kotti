@@ -61,5 +61,13 @@ function rooms_search() {
     });
 }
 
+$("#rooms-search-day").change(function() {
+    rooms_search();
+});
+
+$("#rooms-search-seats").keyup(function() {
+    rooms_search();
+});
+
 </script>
 {% endblock %}
