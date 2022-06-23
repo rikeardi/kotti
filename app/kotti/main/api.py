@@ -5,7 +5,7 @@ from .models import *
 class RoomSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Room
-        fields = ('id', 'name', 'description', 'accept_limit', 'open_times')
+        fields = ('id', 'name', 'description', 'capacity', 'open_times')
 
 
 class RoomViewSet(viewsets.ModelViewSet):
