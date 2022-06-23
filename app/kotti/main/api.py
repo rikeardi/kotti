@@ -13,7 +13,7 @@ class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
 
 
-class RoomList(generics.ListAPIView):
+class RoomList(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
 
     def get_queryset(self):

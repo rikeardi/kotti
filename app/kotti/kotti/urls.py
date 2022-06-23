@@ -20,7 +20,7 @@ from main import api
 
 router = routers.DefaultRouter()
 router.register(r'room', api.RoomViewSet)
-router.register(r'rooms', api.RoomList, basename='Room')
+router.register(r'rooms', api.RoomList)
 router.register(r'room_times', api.RoomTimeViewSet)
 router.register(r'open_days', api.OpenDayViewSet)
 router.register(r'open_times', api.OpenTimeViewSet)
