@@ -57,6 +57,17 @@ class OpenDayViewSet(viewsets.ModelViewSet):
     serializer_class = OpenDaySerializer
 
 
+class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = RoomTime
+        fields = ('id', 'day', 'times')
+
+
+class RoomTimeViewSet(viewsets.ModelViewSet):
+    queryset = RoomTime.objects.all()
+    serializer_class = RoomTimeSerializer
+
+
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = KottiUser
