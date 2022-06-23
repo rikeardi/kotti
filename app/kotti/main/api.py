@@ -9,8 +9,14 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
     serializer_class = RoomSerializer
+
+    def get_queryset(self):
+        queryset = Room.objects.all()
+        day = self.request.query_params.get('day', None)
+        if day:
+            queryset = queryset.filter(open_times__day__id=day)
+        return queryset
 
 
 class TableSerializer(serializers.HyperlinkedModelSerializer):
