@@ -6,7 +6,7 @@
                 <label class="label">Kokouspäivä</label>
                 <div class="control">
                     <select class="input is-primary" id="rooms-search-day">
-                        <option>Valitse päivä</option>
+                        <option value="">Valitse päivä</option>
                         {% for day in open_days %}
                         <option value="{{ day.id }}">{{ day }}</option>
                         {% endfor %}
