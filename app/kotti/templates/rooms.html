@@ -51,6 +51,7 @@ function rooms_search() {
         for(var i = 0; i < data.length; i++) {
             var room = data[i];
             var room_html = $("#room-template").clone();
+            room_html.removeAttr("style");
             room_html.find(".title").text(room.name);
             room_html.find(".room-capacity").text(room.capacity);
             room_html.find(".room-description").text(room.description);
