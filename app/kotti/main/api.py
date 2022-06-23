@@ -1,4 +1,4 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, generics
 from .models import *
 
 
@@ -9,6 +9,11 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+
+class RoomList(generics.ListAPIView):
     serializer_class = RoomSerializer
 
     def get_queryset(self):
