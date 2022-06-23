@@ -88,7 +88,7 @@ class OpenDay(models.Model):
     Model for the open days of the room management app.
     """
     name = models.CharField(max_length=100)
-    date = models.DateField(localize=True)
+    date = models.DateField()
 
     def __str__(self):
         return f'{self.name} - {self.date}'
