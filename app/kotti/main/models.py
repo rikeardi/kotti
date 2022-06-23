@@ -107,7 +107,6 @@ class RoomTime(models.Model):
     """
     Model for the opening times of the room.
     """
-    room = models.ForeignKey('Room', on_delete=models.CASCADE)
     day = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
     times = models.ManyToManyField(OpenTime)
 
