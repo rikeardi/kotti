@@ -18,7 +18,7 @@ class RoomList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Room.objects.all()
-        day = self.request.query_params.get('day', None)
+        day = self.request.query_params.get('day')
         if day:
             queryset = queryset.filter(open_times__day__id=day)
         return queryset
