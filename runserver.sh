@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /code/app/kotti
+cd /code
 
 python manage.py makemigrations
 python manage.py migrate

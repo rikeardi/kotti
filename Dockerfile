@@ -10,7 +10,8 @@ COPY requirements.txt /code/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . /code/
+COPY ./runserver.sh /
+COPY ./app/kotti /code/
 
 RUN chmod +x runserver.sh
 CMD ["/code/runserver.sh"]
