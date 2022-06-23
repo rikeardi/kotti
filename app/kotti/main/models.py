@@ -120,11 +120,12 @@ class Room(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     admins = models.ManyToManyField('KottiUser', related_name='admin_of_rooms', blank=True)
+    capacity = models.IntegerField(default=0)
     accept_limit = models.IntegerField(default=100)
     open_times = models.ManyToManyField(RoomTime, blank=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} ({self.capacity})'
 
 
 class Table(models.Model):
