@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.core.serializers import serialize
@@ -9,7 +10,7 @@ from .forms import *
 @login_required
 def home(request):
     context = {
-        'open_days': OpenDay.objects.all(),
+        'open_days': OpenDay.objects.all().filter(date__gte=datetime.date.today()),
         'rooms': Room.objects.all(),
     }
     return render(request, 'front.html', context)
