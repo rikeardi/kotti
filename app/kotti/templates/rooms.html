@@ -24,9 +24,23 @@
             <button type="button" class="button is-primary" onclick="rooms_search();">Hae</button>
         </div>
         <div class="column">
+            <div class="" id="rooms-list">
+
+            </div>
         </div>
     </div>
 </div>
+
+<div id="room-template" style="display: none;">
+    <div class="is-primary">
+        <h3 class="title is-3"></h3>
+        <div class="room-info">
+            <p>Kapasiteetti <span class="room-capacity"></span><br/>
+            <span class="room-description"></span></p>
+        </div>
+    </div>
+</div>
+
 <script>
 
 function rooms_search() {
@@ -34,7 +48,13 @@ function rooms_search() {
     var seats = $("#rooms-search-seats").val();
 
     $.get("/api/rooms?day=" + day + "&seats=" + seats, function(data) {
-        console.log(data);
+        for(var i = 0; i < data.length; i++) {
+            var room = data[i];
+            var room_html = $("#room-template").clone();
+            room_html.find(".title").text(room.name);
+            room_html.find(".room-capacity").text(room.capacity);
+            room_html.find(".room-description").text(room.description);
+            $("#rooms-list").append(room_html);
     });
 }
 
