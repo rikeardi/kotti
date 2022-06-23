@@ -58,7 +58,9 @@ class KottiUserAdmin(UserAdmin):
 
 admin.site.register(KottiUser, KottiUserAdmin)
 admin.site.unregister(Group)
+admin.site.register(OpenDay)
 admin.site.register(OpenTime)
+admin.site.register(RoomTime)
 admin.site.register(Room)
 admin.site.register(Table)
 admin.site.register(TableReservation)
