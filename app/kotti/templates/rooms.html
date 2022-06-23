@@ -48,6 +48,7 @@ function rooms_search() {
     var seats = $("#rooms-search-seats").val();
 
     $.get("/api/rooms?day=" + day + "&seats=" + seats, function(data) {
+        $("#rooms-list").html("");
         for(var i = 0; i < data.length; i++) {
             var room = data[i];
             var room_html = $("#room-template").clone();
