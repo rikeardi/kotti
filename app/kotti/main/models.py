@@ -81,12 +81,23 @@ class KottiUser(AbstractBaseUser):
         return self.is_admin
 
 
+class OpenDay(models.Model):
+    """
+    Model for the open days of the room management app.
+    """
+    name = models.CharField(max_length=100)
+    date = models.DateField()
+
+    def __str__(self):
+        return f'{self.name} - {self.date}'
+
+
 class OpenTime(models.Model):
     """
     Model for the opening times of the room.
     """
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
     def __str__(self):
         return str(self.start_time) + " - " + str(self.end_time)
