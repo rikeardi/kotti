@@ -1,5 +1,25 @@
 {% block content %}
 <div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
+    <div class="columns">
+        <div class="column is-3">
+            <div class="box">
+                <div class="field">
+                    <label class="label">Kokouspäivä</label>
+                    <div class="control">
+                        <input class="input" type="date">
+                    </div>
+                </div>
 
+                <div class="field">
+                    <label class="label">Henkilömäärä</label>
+                    <div class="control">
+                        <input class="input" type="number" min="2" max="800">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+        </div>
+    </div>
 </div>
 {% endblock %}
