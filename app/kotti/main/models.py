@@ -64,6 +64,8 @@ class KottiUser(AbstractBaseUser):
     team = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_room_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     objects = KottiUserManager()
 
@@ -77,10 +79,6 @@ class KottiUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-    @property
-    def is_staff(self):
-        return self.is_admin
 
 
 class OpenDay(models.Model):
@@ -126,6 +124,14 @@ class Room(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.capacity})'
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        super().save(force_insert, force_update, using, update_fields)
+        for admin in self.admins.all():
+            admin.is_room_admin = True
+            admin.save()
 
 
 class Table(models.Model):

@@ -1,28 +1,32 @@
 {% block content %}
 <div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
     <div class="columns">
-        <div class="column is-3">
-            <div class="field">
-                <label class="label">Kokouspäivä</label>
-                <div class="control">
-                    <select class="input is-primary" id="rooms-search-day">
-                        <option value="">Valitse päivä</option>
-                        {% for day in open_days %}
-                        <option value="{{ day.id }}">{{ day }}</option>
-                        {% endfor %}
-                    </select>
+        <div class="column is-3 tile is-parent is-vertical">
+            <div class="tile is-child">
+                <div class="field">
+                    <label class="label">Kokouspäivä</label>
+                    <div class="control">
+                        <select class="input is-primary" id="rooms-search-day">
+                            <option value="">Valitse päivä</option>
+                            {% for day in open_days %}
+                            <option value="{{ day.id }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Henkilömäärä</label>
-                <div class="control">
-                    <input class="input" type="number" min="2" max="800" id="rooms-search-seats">
+                <div class="field">
+                    <label class="label">Henkilömäärä</label>
+                    <div class="control">
+                        <input class="input" type="number" min="2" max="800" id="rooms-search-seats">
+                    </div>
                 </div>
-            </div>
 
-            <button type="button" class="button is-primary" onclick="rooms_search();">Hae</button>
+                <button type="button" class="button is-primary" onclick="rooms_search();">Hae</button>
+            </div>
+            {% if user.is_staff %}{% include 'rooms_admin.html' %}{% endif %}
         </div>
+
         <div class="column">
             <div class="tile is-parent" id="rooms-list">
 
