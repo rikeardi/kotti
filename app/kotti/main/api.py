@@ -18,9 +18,15 @@ class RoomList(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = Room.objects.all()
+
         day = self.request.query_params.get('day')
         if day:
             queryset = queryset.filter(open_times__day__id=day)
+
+        seats = self.request.query_params.get('seats')
+        if seats:
+            queryset = queryset.filter(capacity__gte=seats)
+
         return queryset
 
 
