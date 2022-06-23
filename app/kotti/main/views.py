@@ -9,8 +9,8 @@ from .forms import *
 @login_required
 def home(request):
     context = {
-        'open_days': serialize('json', OpenDay.objects.all()),
-        'rooms': serialize('json', Room.objects.all()),
+        'open_days': OpenDay.objects.all(),
+        'rooms': Room.objects.all(),
     }
     return render(request, 'front.html', context)
 
