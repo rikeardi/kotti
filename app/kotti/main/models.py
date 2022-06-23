@@ -103,12 +103,24 @@ class OpenTime(models.Model):
         return str(self.start_time) + " - " + str(self.end_time)
 
 
+class RoomTime(models.Model):
+    """
+    Model for the opening times of the room.
+    """
+    room = models.ForeignKey('Room', on_delete=models.CASCADE)
+    day = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
+    times = models.ManyToManyField(OpenTime)
+
+    def __str__(self):
+        return self.day.name
+
+
 class Room(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     admins = models.ManyToManyField('KottiUser', related_name='admin_of_rooms', blank=True)
     accept_limit = models.IntegerField(default=100)
-    open_times = models.ManyToManyField(OpenTime, blank=True)
+    open_times = models.ManyToManyField(RoomTime, blank=True)
 
     def __str__(self):
         return self.name
