@@ -24,7 +24,11 @@
 
                 <button type="button" class="button is-primary" onclick="rooms_search();">Hae</button>
             </div>
-            {% if user.is_staff %}{% include 'rooms_admin.html' %}{% endif %}
+            {% if user.is_staff %}
+            <div class="tile is-child">
+                <button type="button" class="button is-primary" onclick="rooms_modal_open();">Lisää tila</button>
+            </div>
+            {% endif %}
         </div>
 
         <div class="column">
@@ -45,6 +49,38 @@
     </div>
 </div>
 
+<div id="rooms-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Tila</p>
+            <button class="delete" aria-label="close" onclick="rooms_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label class="label">Nimi</label>
+                <div class="control">
+                    <input class="input" type="text" id="rooms-modal-name">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Kapasiteetti</label>
+                <div class="control">
+                    <input class="input" type="number" min="2" max="800" id="rooms-modal-capacity">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Kuvaus</label>
+                <div class="control">
+                    <textarea class="textarea" id="rooms-modal-description"></textarea>
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-primary" onclick="rooms_modal_save();">Tallenna</button>
+            <button class="button" onclick="rooms_modal_close();">Peruuta</button>
+        </footer>
+    </div>
 <script>
 
 function rooms_search() {
@@ -72,6 +108,30 @@ $("#rooms-search-day").change(function() {
 $("#rooms-search-seats").keyup(function() {
     rooms_search();
 });
+
+function rooms_modal_open() {
+    $("#rooms-modal").addClass("is-active");
+}
+
+function rooms_modal_close() {
+    $("#rooms-modal").removeClass("is-active");
+    $("#rooms-modal input").val("");
+}
+
+function rooms_modal_save() {
+    var name = $("#rooms-modal-name").val();
+    var capacity = $("#rooms-modal-capacity").val();
+    var description = $("#rooms-modal-description").val();
+
+    $.post("/api/rooms", {
+        name: name,
+        capacity: capacity,
+        description: description
+    }, function(data) {
+        rooms_modal_close();
+        rooms_search();
+    });
+}
 
 </script>
 {% endblock %}
