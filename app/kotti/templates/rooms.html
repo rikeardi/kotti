@@ -148,7 +148,7 @@ $("#rooms-search-seats").keyup(function() {
 
 function room_modal_open() {
     var room_id = $(this).closest(".notification").attr("id").substring(5);
-    $.get("/api/rooms/" + room_id, function(data) {
+    $.get("/api/room/" + room_id, function(data) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
         $("#room-modal-description").text(data.description);
