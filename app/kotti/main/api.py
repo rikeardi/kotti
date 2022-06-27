@@ -2,7 +2,45 @@ from rest_framework import serializers, viewsets, generics
 from .models import *
 
 
-class RoomSerializer(serializers.HyperlinkedModelSerializer):
+class OpenDaySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenDay
+        fields = ('id', 'name', 'date')
+
+
+class OpenDayViewSet(viewsets.ModelViewSet):
+    queryset = OpenDay.objects.all()
+    serializer_class = OpenDaySerializer
+
+
+class OpenTimeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = OpenTime
+        fields = ('id', 'start_time', 'end_time')
+
+
+class OpenTimeViewSet(viewsets.ModelViewSet):
+    queryset = OpenTime.objects.all()
+    serializer_class = OpenTimeSerializer
+
+
+class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
+    day = OpenDaySerializer(read_only=True)
+    times = OpenTimeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = RoomTime
+        fields = ('id', 'day', 'times')
+
+
+class RoomTimeViewSet(viewsets.ModelViewSet):
+    queryset = RoomTime.objects.all()
+    serializer_class = RoomTimeSerializer
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    open_times = RoomTimeSerializer(many=True, read_only=True)
+
     class Meta:
         model = Room
         fields = ('id', 'name', 'description', 'capacity', 'open_times')
@@ -50,39 +88,6 @@ class TableReservationSerializer(serializers.HyperlinkedModelSerializer):
 class TableReservationViewSet(viewsets.ModelViewSet):
     queryset = TableReservation.objects.all()
     serializer_class = TableReservationSerializer
-
-
-class OpenTimeSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = OpenTime
-        fields = ('id', 'start_time', 'end_time')
-
-
-class OpenTimeViewSet(viewsets.ModelViewSet):
-    queryset = OpenTime.objects.all()
-    serializer_class = OpenTimeSerializer
-
-
-class OpenDaySerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = OpenDay
-        fields = ('id', 'name', 'date')
-
-
-class OpenDayViewSet(viewsets.ModelViewSet):
-    queryset = OpenDay.objects.all()
-    serializer_class = OpenDaySerializer
-
-
-class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = RoomTime
-        fields = ('id', 'day', 'times')
-
-
-class RoomTimeViewSet(viewsets.ModelViewSet):
-    queryset = RoomTime.objects.all()
-    serializer_class = RoomTimeSerializer
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):

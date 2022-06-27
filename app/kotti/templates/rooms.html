@@ -121,7 +121,7 @@ function rooms_search() {
     var day = $("#rooms-search-day").val();
     var seats = $("#rooms-search-seats").val();
 
-    $.get("/api/rooms?day=" + day + "&seats=" + seats, function(data) {
+    $.get("/api/rooms/?day=" + day + "&seats=" + seats, function(data) {
         $("#rooms-list").html("");
         for(var i = 0; i < data.length; i++) {
             var room = data[i];
@@ -152,8 +152,8 @@ function room_modal_open(elem) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
         $("#room-modal-description").text(data.description);
+        $("#room-modal").addClass("is-active");
     });
-    $("#room-modal").addClass("is-active");
 }
 
 function room_modal_close() {
