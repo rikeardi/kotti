@@ -123,7 +123,7 @@ function rooms_modal_save() {
     var capacity = $("#rooms-modal-capacity").val();
     var description = $("#rooms-modal-description").val();
 
-    $.post("/api/room", {
+    $.post("/api/room/", {
         name: name,
         capacity: capacity,
         description: description
