@@ -41,11 +41,41 @@
 
 <div id="room-template" class="tile is-child is-4 p-2" style="display: none;">
     <div class="notification is-primary">
-        <h3 class="title"></h3>
+        <a href="#" onclick="room_modal_open();"><h3 class="title"></h3></a>
         <div class="room-info">
             <p>Kapasiteetti <span class="room-capacity"></span><br/>
             <span class="room-description"></span></p>
         </div>
+    </div>
+</div>
+
+<div id="room-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Kokoustila</p>
+            <button class="delete" aria-label="close" onclick="room_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="columns">
+                <div class="column is-third">
+                    <div class="field">
+                        <label class="label">Kokoustila</label>
+                        <h3 class="title" id="room-modal-name"></h3>
+                    </div>
+                    <div class="field">
+                        <label class="label">Kapasiteetti</label>
+                        <h3 class="title" id="room-modal-capacity"></h3>
+                    </div>
+                    <div class="field">
+                        <label class="label">Kuvaus</label>
+                        <p id="room-modal-description"></p>
+                    </div>
+                </div>
+                <div class="column is-two-thirds">
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 
@@ -96,6 +126,7 @@ function rooms_search() {
         for(var i = 0; i < data.length; i++) {
             var room = data[i];
             var room_html = $("#room-template").clone();
+            room_html.find(".notification").attr("id", "room-" + room.id);
             room_html.removeAttr("style");
             room_html.find(".title").text(room.name);
             room_html.find(".room-capacity").text(room.capacity);
@@ -114,6 +145,20 @@ $("#rooms-search-day").change(function() {
 $("#rooms-search-seats").keyup(function() {
     rooms_search();
 });
+
+function room_modal_open() {
+    var room_id = $(this).closest(".notification").attr("id").substring(5);
+    $.get("/api/rooms/" + room_id, function(data) {
+        $("#room-modal-name").text(data.name);
+        $("#room-modal-capacity").text(data.capacity);
+        $("#room-modal-description").text(data.description);
+    });
+    $("#room-modal").addClass("is-active");
+}
+
+function room_modal_close() {
+    $("#room-modal").removeClass("is-active");
+}
 
 function rooms_modal_open() {
     $("#rooms-modal").addClass("is-active");
