@@ -57,7 +57,6 @@
             <button class="delete" aria-label="close" onclick="rooms_modal_close();"></button>
         </header>
         <section class="modal-card-body">
-            {% csrf_token %}
             <div class="field">
                 <label class="label">Nimi</label>
                 <div class="control">
@@ -82,7 +81,11 @@
             <button class="button" onclick="rooms_modal_close();">Peruuta</button>
         </footer>
     </div>
+
+    {% csrf_token %}
 <script>
+
+const csrf_token = document.querySelector('[name="csrfmiddlewaretoken"]').value;
 
 function rooms_search() {
     var day = $("#rooms-search-day").val();
@@ -101,6 +104,8 @@ function rooms_search() {
         }
     });
 }
+
+rooms_search();
 
 $("#rooms-search-day").change(function() {
     rooms_search();
@@ -124,13 +129,21 @@ function rooms_modal_save() {
     var capacity = $("#rooms-modal-capacity").val();
     var description = $("#rooms-modal-description").val();
 
-    $.post("/api/room/", {
-        name: name,
-        capacity: capacity,
-        description: description
-    }, function(data) {
-        rooms_modal_close();
-        rooms_search();
+    $.ajax({
+        url: "/api/room/",
+        type: "POST",
+        data: {
+            name: name,
+            capacity: capacity,
+            description: description
+        },
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            rooms_modal_close();
+            rooms_search();
+        }
     });
 }
 
