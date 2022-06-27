@@ -41,7 +41,7 @@
 
 <div id="room-template" class="tile is-child is-4 p-2" style="display: none;">
     <div class="notification is-primary">
-        <a href="#" onclick="room_modal_open();"><h3 class="title"></h3></a>
+        <a href="#" onclick="room_modal_open(this);"><h3 class="title"></h3></a>
         <div class="room-info">
             <p>Kapasiteetti <span class="room-capacity"></span><br/>
             <span class="room-description"></span></p>
@@ -146,8 +146,8 @@ $("#rooms-search-seats").keyup(function() {
     rooms_search();
 });
 
-function room_modal_open() {
-    var room_id = $(this).closest(".notification").attr("id").substring(5);
+function room_modal_open(elem) {
+    var room_id = $(elem).closest(".notification").attr("id").substring(5);
     $.get("/api/room/" + room_id, function(data) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
