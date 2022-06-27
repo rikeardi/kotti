@@ -51,13 +51,13 @@
 
 <div id="room-modal" class="modal">
     <div class="modal-background"></div>
-    <div class="modal-card">
+    <div class="modal-card" style="width: 80vw; height: calc(100vh - 40px);">
         <header class="modal-card-head">
             <p class="modal-card-title">Kokoustila</p>
             <button class="delete" aria-label="close" onclick="room_modal_close();"></button>
         </header>
         <section class="modal-card-body">
-            <div class="columns">
+            <div class="columns" style="height: 100%;">
                 <div class="column is-third">
                     <div class="field">
                         <label class="label">Kokoustila</label>
@@ -73,6 +73,8 @@
                     </div>
                 </div>
                 <div class="column is-two-thirds">
+                    <table class="table" id="room-times-table">
+                    </table>
                 </div>
             </div>
         </section>
@@ -152,6 +154,12 @@ function room_modal_open(elem) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
         $("#room-modal-description").text(data.description);
+        $("#room-times-table").html("");
+        for(var i = 0; i < data.open_times.length; i++) {
+            var time = data.open_times[i];
+            var time_html = "<tr><td>" + time.day + "</td><td>" + time.start + "</td><td>" + time.end + "</td></tr>";
+            $("#room-times-table").append(time_html);
+        }
         $("#room-modal").addClass("is-active");
     });
 }
