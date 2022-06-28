@@ -124,6 +124,13 @@ class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
 
+    def create(self, request, *args, **kwargs):
+        instance = Booking.objects.create(room=Room.objects.get(pk=request.data.get('room')), user=request.user,
+                                          date=OpenDay.objects.get(pk=request.data.get('date')),
+                                          start_time=request.data.get('start_time'),
+                                          end_time=request.data.get('end_time'), persons=request.data.get('persons'))
+        return Response(BookingSerializer(instance).data)
+
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

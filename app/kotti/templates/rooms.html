@@ -175,6 +175,7 @@
                 <label class="tag is-info">Päivä</label>
                 <div class="control">
                     <p class="title is-4" id="booking-modal-day"></p>
+                    <input type="hidden" id="booking-modal-day-id">
                 </div>
             </div>
             <div class="columns">
@@ -375,7 +376,6 @@ function room_edit_times() {
     } else {
         $(".room-timetable-tools").addClass("is-hidden");
     }
-
 }
 
 function room_add_open_time() {
@@ -444,6 +444,7 @@ function room_book(day_id, time_id) {
 
     $("#booking-modal-name").text(opened_room.name);
     $("#booking-modal-day").text(day.day.name);
+    $("#booking-modal-day-id").val(day.id);
 
     var start_time = time.start_time.split(":");
     var end_time = time.end_time.split(":");
@@ -483,16 +484,17 @@ function booking_modal_save() {
     var persons = $("#booking-modal-persons").val();
     var start_time = $("#booking-modal-start-time").val();
     var end_time = $("#booking-modal-end-time").val();
+    var day_id = $("#booking-modal-day-id").val();
 
     $.ajax({
         url: "/api/booking/",
         type: "POST",
         data: {
             room: opened_room.id,
-            name: name,
             persons: persons,
             start_time: start_time,
             end_time: end_time,
+            date: day_id,
         },
         headers: {
             "X-CSRFToken": csrf_token
