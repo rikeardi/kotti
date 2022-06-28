@@ -435,8 +435,8 @@ function room_book(day_id, time_id) {
         }
     }
 
-    $("#room-book-modal-name").text(opened_room.name);
-    $("#room-book-modal-day").text(day.day.name);
+    $("#booking-modal-name").text(opened_room.name);
+    $("#booking-modal-day").text(day.day.name);
 
     var start_time = new Date(time.start_time);
     var end_time = new Date(time.end_time);
@@ -447,13 +447,13 @@ function room_book(day_id, time_id) {
     console.log(max_start);
     console.log(default_end);
 
-    $("#room-book-modal-start-time").val(time.start_time);
-    $("#room-book-modal-start-time").attr("min", time.start_time);
-    $("#room-book-modal-start-time").attr("max", max_start);
+    $("#booking-modal-start-time").val(time.start_time);
+    $("#booking-modal-start-time").attr("min", time.start_time);
+    $("#booking-modal-start-time").attr("max", max_start);
 
-    $("#room-book-modal-end-time").val(default_end);
-    $("#room-book-modal-end-time").attr("min", time.start_time);
-    $("#room-book-modal-end-time").attr("max", time.end_time);
+    $("#booking-modal-end-time").val(default_end);
+    $("#booking-modal-end-time").attr("min", time.start_time);
+    $("#booking-modal-end-time").attr("max", time.end_time);
 
     $("#booking-modal").addClass("is-active");
 }
