@@ -1,4 +1,5 @@
 from rest_framework import serializers, viewsets, generics
+from rest_framework.response import Response
 from .models import *
 
 
@@ -95,8 +96,8 @@ class RoomViewSet(viewsets.ModelViewSet):
                 instance.open_times.add(new_day)
 
         instance.save()
-
-        return instance
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 
 class RoomList(viewsets.ModelViewSet):
