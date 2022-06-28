@@ -384,7 +384,7 @@ function room_add_open_time() {
     var end_time = $("#room-new-close-time").val();
 
     $.ajax({
-        url: "/api/room/" + room_id + "/",
+        url: "/api/room/" + opened_room.id + "/",
         type: "PATCH",
         data: {
             day: day_id,
@@ -476,6 +476,32 @@ function room_book(day_id, time_id) {
 
 function booking_modal_close() {
     $("#booking-modal").removeClass("is-active");
+}
+
+function booking_modal_save() {
+    var name = $("#booking-modal-name").val();
+    var persons = $("#booking-modal-persons").val();
+    var start_time = $("#booking-modal-start-time").val();
+    var end_time = $("#booking-modal-end-time").val();
+
+    $.ajax({
+        url: "/api/booking/",
+        type: "POST",
+        data: {
+            room: opened_room.id,
+            name: name,
+            persons: persons,
+            start_time: start_time,
+            end_time: end_time,
+        },
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            booking_modal_close();
+            room_modal_open(opened_room.id);
+        }
+    });
 }
 
 </script>
