@@ -263,7 +263,7 @@ function room_modal_open(room_id) {
 
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + time.id + ")'>" +
+                time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + open_time.id + ", " + time.id + ")'>" +
                                     "<span class='icon'><i class='fas fa-calendar'></i></span>" +
                                     "<span>Varaa</span></a></td>" +
                             "<td>" + time.start_time + "</td>" +
