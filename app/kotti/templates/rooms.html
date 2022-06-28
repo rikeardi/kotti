@@ -215,7 +215,7 @@ function room_modal_open(room_id) {
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
                 "<th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
                 "<td class='room-timetable-tools is-hidden'>" +
-                    "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
+                    "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ", " + room_id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
 
             for(var j = 0; j < open_time.times.length; j++) {
@@ -223,7 +223,7 @@ function room_modal_open(room_id) {
                 time_html += "<tr><td>" + time.start_time + "</td>" +
                             "<td>" + time.end_time + "</td>" +
                             "<td class='room-timetable-tools is-hidden'>" +
-                                "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
+                                "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ", " + room_id + ")'>" +
                                     "<i class='fas fa-ban'></i></a></td></tr>";
             }
             $("#room-times-table").append(time_html);
@@ -344,7 +344,7 @@ function room_add_open_time(room_id) {
     });
 }
 
-function room_remove_time(time_id) {
+function room_remove_time(time_id, room_id) {
     $.ajax({
         url: "/api/open_times/" + time_id + "/",
         type: "DELETE",
@@ -357,7 +357,7 @@ function room_remove_time(time_id) {
     });
 }
 
-function room_remove_day(day_id) {
+function room_remove_day(day_id, room_id) {
     $.ajax({
         url: "/api/open_time/" + day_id + "/",
         type: "DELETE",
