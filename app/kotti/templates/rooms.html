@@ -186,11 +186,19 @@ function room_modal_open(room_id) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
         $("#room-modal-description").text(data.description);
+        $("#room-modal-equipment").text(data.equipment);
+
+        $("#room-modal-admins").html("");
+        for(var i = 0; i < data.admins.length; i++) {
+            var admin = data.admins[i];
+            var admin_html = "<span class='tag is-primary'>" + admin.first_name + " " + admin.last_name + "</span><br/>";
+            $("#room-modal-admins").append(admin_html);
+        }
+
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
-            console.log(date);
             var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
