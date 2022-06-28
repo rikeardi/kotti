@@ -103,6 +103,12 @@
                     <textarea class="textarea" id="rooms-modal-description"></textarea>
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Varustelu</label>
+                <div class="control">
+                    <textarea class="textarea" id="rooms-modal-equipment"></textarea>
+                </div>
+            </div>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-primary" onclick="rooms_modal_save();">Tallenna</button>
@@ -175,6 +181,7 @@ function rooms_modal_save() {
     var name = $("#rooms-modal-name").val();
     var capacity = $("#rooms-modal-capacity").val();
     var description = $("#rooms-modal-description").val();
+    var equipment = $("#rooms-modal-equipment").val();
 
     $.ajax({
         url: "/api/room/",
@@ -182,7 +189,8 @@ function rooms_modal_save() {
         data: {
             name: name,
             capacity: capacity,
-            description: description
+            description: description,
+            equipment: equipment,
         },
         headers: {
             "X-CSRFToken": csrf_token
