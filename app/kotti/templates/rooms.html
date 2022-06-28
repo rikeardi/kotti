@@ -209,7 +209,7 @@ function room_modal_open(room_id) {
             }
             $("#room-times-table").append(time_html);
         }
-        var time_html = "<tr class='room-timetable-tools is-hidden'><td colspan="3">Lisää aukioloaika</td></tr>" +
+        var time_html = "<tr class='room-timetable-tools is-hidden'><td colspan='3'>Lisää aukioloaika</td></tr>" +
                         "<tr><td><select class='input is-primary' id='room-new-open-day'>" +
                         "<option value=0>Valitse päivä</option>" +
                         {% for day in open_days %}
