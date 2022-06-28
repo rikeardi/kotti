@@ -207,12 +207,7 @@ function room_modal_open(room_id) {
             }
             $("#room-times-table").append(time_html);
         }
-        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>
-                            <option value='''>Valitse päivä</option>
-                            {% for day in open_days %}
-                            <option value='{{ day.id }}'>{{ day }}</option>
-                            {% endfor %}
-                        </select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
+        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'><option value=''>Valitse päivä</option>{% for day in open_days %}<option value='{{ day.id }}'>{{ day }}</option>{% endfor %}</select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
         $("#room-modal").addClass("is-active");
     });
 }
