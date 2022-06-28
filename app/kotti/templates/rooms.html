@@ -181,13 +181,15 @@
                 <div class="column is-half">
                     <label class="tag is-info">Kokouksen alkuaika</label>
                     <div class="control">
-                        <input type="time" class="input" id="booking-modal-start-time">
+                        <select class="input" id="booking-modal-start-time">
+                        </select>
                     </div>
                 </div>
                 <div class="column is-half">
                     <label class="tag is-info">Kokouksen päättymisaika</label>
                     <div class="control">
-                        <input type="time" class="input" id="booking-modal-end-time">
+                        <select class="input" id="booking-modal-end-time">
+                        </select>
                     </div>
                 </div>
             </div>
@@ -446,16 +448,22 @@ function room_book(day_id, time_id) {
     var start_time = time.start_time.split(":");
     var end_time = time.end_time.split(":");
 
-    var max_start = [end_time[0] - 1, end_time[1]];
-    var default_end = [parseInt(start_time[0]) + 1, start_time[1]];
+    var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
+    var end_seconds_now = start_seconds + 1800;
+    var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
+    var max_start_seconds = end_seconds - 1800;
 
-    $("#booking-modal-start-time").val(start_time[0] + ":" + start_time[1]);
-    $("#booking-modal-start-time").attr("min", start_time[0] + ":" + start_time[1]);
-    $("#booking-modal-start-time").attr("max", max_start[0] + ":" + max_start[1]);
+    while(start_seconds < max_start_seconds) {
+        var time_string = Math.floor(start_seconds / 3600) + ":" + Math.floor((start_seconds % 3600) / 60);
+        $("#booking-modal-times").append("<option value='" + time_string + "'>" + time_string + "</option>");
+        start_seconds += 900;
+    }
 
-    $("#booking-modal-end-time").val(default_end[0] + ":" + default_end[1]);
-    $("#booking-modal-end-time").attr("min", start_time[0] + ":" + start_time[1]);
-    $("#booking-modal-end-time").attr("max", end_time[0] + ":" + end_time[1]);
+    while(end_seconds_now < end_seconds) {
+        var time_string = Math.floor(end_seconds_now / 3600) + ":" + Math.floor((end_seconds_now % 3600) / 60);
+        $("#booking-modal-times").append("<option value='" + time_string + "'>" + time_string + "</option>");
+        end_seconds_now += 900;
+    }
 
     $("#booking-modal-persons").attr("max", opened_room.capacity);
 
