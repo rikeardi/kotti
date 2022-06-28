@@ -78,7 +78,9 @@
                 </div>
                 <div class="column is-two-thirds">
                     <span class="tag is-info">Aukioloajat</span>
-                    <button class="tag is-success" style="position: absolute; right: 0.75rem; border: 0px;" onclick="">Muokkaa</button>
+                    {% if user.is_room_admin %}
+                    <button class="tag is-success" style="position: absolute; right: 0.75rem; border: 0px;" onclick="room_edit_times();">Muokkaa</button>
+                    {% endif %}
                     <table class="table" id="room-times-table">
                     </table>
                 </div>
@@ -207,7 +209,13 @@ function room_modal_open(room_id) {
             }
             $("#room-times-table").append(time_html);
         }
-        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'><option value=''>Valitse päivä</option>{% for day in open_days %}<option value='{{ day.id }}'>{{ day }}</option>{% endfor %}</select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
+        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>" +
+                        "<option value=''>Valitse päivä</option>" +
+                        {% for day in open_days %}
+                        "<option value='{{ day.id }}'>{{ day }}</option>" +
+                        {% endfor %}
+                        "</select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
+        $("#room-times-table").append(time_html);
         $("#room-modal").addClass("is-active");
     });
 }
@@ -278,6 +286,10 @@ function days_modal_save() {
             location.reload();
         }
     });
+}
+
+function room_edit_times() {
+    $(".room-timetable-tools").removeClass("is-hidden");
 }
 
 </script>
