@@ -299,11 +299,10 @@ function room_add_open_time(room_id) {
     var end_time = $("#room-new-close-time").val();
 
     $.ajax({
-        url: "/api/room_times/",
-        type: "POST",
+        url: "/api/room/" + room_id + "/",
+        type: "PATCH",
         data: {
             day: day_id,
-            room: room_id,
             time: {
                 start_time: start_time,
                 end_time: end_time,
