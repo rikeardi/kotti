@@ -71,8 +71,8 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times')
 
     def update(self, instance, validated_data):
-        new_time = validated_data.pop('time')
-        day_id = validated_data.pop('day')
+        new_time = validated_data['open_times']
+        day_id = validated_data['day']
 
         if day_id:
             day = OpenDay.objects.get(pk=day_id)
