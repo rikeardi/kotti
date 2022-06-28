@@ -11,7 +11,6 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY ./runserver.sh /code/
-COPY ./app/kotti /code/
 
 RUN chmod +x runserver.sh
 CMD ["/code/runserver.sh"]
