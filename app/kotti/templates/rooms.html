@@ -53,26 +53,27 @@
     <div class="modal-background"></div>
     <div class="modal-card" style="width: 80vw; height: calc(100vh - 40px);">
         <header class="modal-card-head">
-            <p class="modal-card-title">Kokoustila</p>
+            <p class="modal-card-title">Kokoustilan tiedot</p>
             <button class="delete" aria-label="close" onclick="room_modal_close();"></button>
         </header>
         <section class="modal-card-body">
             <div class="columns" style="height: 100%;">
                 <div class="column is-third">
                     <div class="field">
-                        <label class="label">Kokoustila</label>
-                        <h3 class="title" id="room-modal-name"></h3>
+                        <span class="tag is-info">Kokoustila</span>
+                        <p class="title is-4 m-2" id="room-modal-name"></p>
                     </div>
                     <div class="field">
-                        <label class="label">Kapasiteetti</label>
-                        <h3 class="title" id="room-modal-capacity"></h3>
+                        <span class="tag is-info">Kapasiteetti</span>
+                        <h3 class="title is-4 m-2" id="room-modal-capacity"></h3>
                     </div>
                     <div class="field">
-                        <label class="label">Kuvaus</label>
-                        <p id="room-modal-description"></p>
+                        <span class="tag is-info">Kuvaus</span>
+                        <p id="room-modal-description" class="m-2"></p>
                     </div>
                 </div>
                 <div class="column is-two-thirds">
+                    <h3 class="title">Aukioloajat</h3>
                     <table class="table" id="room-times-table">
                     </table>
                 </div>
