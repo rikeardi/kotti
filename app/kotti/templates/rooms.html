@@ -157,6 +157,46 @@
     </div>
 </div>
 
+<div id="booking-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Kokouspaikan varaus</p>
+            <button class="delete" aria-label="close" onclick="booking_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label class="label">Kokouspaikka</label>
+                <div class="control">
+                    <p class="title is-4" id="booking-modal-name"></p>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Päivä</label>
+                <div class="control">
+                    <p class="title is-4" id="booking-modal-day"></p>
+                </div>
+            </div>
+            <div class="field is-half">
+                <label class="label">Kokouksen alkuaika</label>
+                <div class="control">
+                    <input type="time" class="input" id="booking-modal-start_time">
+                </div>
+            </div>
+            <div class="field is-half">
+                <label class="label">Kokouksen päättymisaika</label>
+                <div class="control">
+                    <input type="time" class="input" id="booking-modal-end_time">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-primary" onclick="booking_modal_save();">Tallenna</button>
+            <button class="button" onclick="booking_modal_close();">Peruuta</button>
+        </footer>
+    </div>
+</div>
+
 {% csrf_token %}
 <script>
 
@@ -214,13 +254,16 @@ function room_modal_open(room_id) {
             var date = new Date(open_time.day.date);
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
                 "<th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
-                "<td class='room-timetable-tools is-hidden'>" +
+                "<td colspan='2' class='room-timetable-tools is-hidden'>" +
                     "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ", " + room_id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
 
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td>" + time.start_time + "</td>" +
+                time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + time.id + ", " + room_id + ")'>" +
+                                    "<span class='icon'><i class='fas fa-calendar'></i></span>" +
+                                    "<span>Varaa</span></a></td>" +
+                            "<td>" + time.start_time + "</td>" +
                             "<td>" + time.end_time + "</td>" +
                             "<td class='room-timetable-tools is-hidden'>" +
                                 "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ", " + room_id + ")'>" +
@@ -370,6 +413,10 @@ function room_remove_day(day_id, room_id) {
     });
 }
 {% endif %}
+
+function room_book(time_id, room_id) {
+
+}
 
 </script>
 {% endblock %}
