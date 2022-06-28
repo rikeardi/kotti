@@ -70,28 +70,31 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times')
 
-    def update(self, instance, validated_data):
-        print(validated_data)
-        new_time = validated_data['time']
-        day_id = validated_data['day']
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        new_time = request.data.get('time')
+        day_id = request.data.get('day')
 
         if day_id:
             day = OpenDay.objects.get(pk=day_id)
             time = OpenTime.objects.create(**new_time)
 
-            if self.open_times.filter(day=day).exists():
-                existing_day = self.open_times.get(day=day)
+            if instance.open_times.filter(day=day).exists():
+                existing_day = instance.open_times.get(day=day)
                 existing_day.times.add(*time)
                 existing_day.save()
             else:
-                RoomTime.objects.create(day=day, room=instance, times=[time])
+                new_day = RoomTime.objects.create(day=day, room=instance, times=[time])
+                instance.open_times.add(new_day)
+
+        instance.save()
 
         return instance
-
-
-class RoomViewSet(viewsets.ModelViewSet):
-    queryset = Room.objects.all()
-    serializer_class = RoomSerializer
 
 
 class RoomList(viewsets.ModelViewSet):
