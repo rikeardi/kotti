@@ -216,7 +216,7 @@ function room_modal_open(room_id) {
                 "<th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
                 "<td class='room-timetable-tools is-hidden'>" +
                     "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
-                        "<i class='fas fa-square-minus'></i></a></td></tr>";
+                        "<i class='fas fa-ban'></i></a></td></tr>";
 
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
@@ -224,7 +224,7 @@ function room_modal_open(room_id) {
                             "<td>" + time.end_time + "</td>" +
                             "<td class='room-timetable-tools is-hidden'>" +
                                 "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
-                                    "<i class='fas fa-square-minus'></i></a></td></tr>";
+                                    "<i class='fas fa-ban'></i></a></td></tr>";
             }
             $("#room-times-table").append(time_html);
         }
