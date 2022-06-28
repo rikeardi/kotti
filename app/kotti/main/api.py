@@ -63,6 +63,15 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
+    def create(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.open_times.set([])
+        instance.admins.add(request.user)
+
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         start_time = request.data.get('start_time')
