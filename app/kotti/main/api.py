@@ -64,13 +64,10 @@ class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = RoomSerializer
 
     def create(self, request, *args, **kwargs):
-        instance = self.get_object()
-        instance.open_times.set([])
-        instance.admins.add(request.user)
-
-        instance.save()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
+                                       capacity=request.data.get('capacity'), equipment=request.data.get('equipment'),
+                                       open_times=[], admins=[request.user])
+        return Response(RoomSerializer(instance).data)
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
