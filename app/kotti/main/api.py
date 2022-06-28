@@ -76,10 +76,11 @@ class RoomViewSet(viewsets.ModelViewSet):
 
             if instance.open_times.filter(day=day).exists():
                 existing_day = instance.open_times.get(day=day)
-                existing_day.times.add(*[time])
+                existing_day.times.add(time)
                 existing_day.save()
             else:
-                new_day = RoomTime.objects.create(day=day, room=instance, times=[time])
+                new_day = RoomTime.objects.create(day=day, room=instance)
+                new_day.times.add(time)
                 instance.open_times.add(new_day)
 
         instance.save()
