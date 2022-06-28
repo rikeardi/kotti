@@ -50,13 +50,34 @@ class RoomTimeViewSet(viewsets.ModelViewSet):
     serializer_class = RoomTimeSerializer
 
 
+class BookingSerializer(serializers.HyperlinkedModelSerializer):
+    user = KottiUserSerializer(read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = ('id', 'user', 'start_time', 'end_time')
+
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+
+    def create(self, request, *args, **kwargs):
+        instance = Booking.objects.create(room=Room.objects.get(pk=request.data.get('room')), user=request.user,
+                                          date=OpenDay.objects.get(pk=request.data.get('date')),
+                                          start_time=request.data.get('start_time'),
+                                          end_time=request.data.get('end_time'), persons=request.data.get('persons'))
+        return Response(BookingSerializer(instance).data)
+
+
 class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
+    bookings = BookingSerializer(many=True)
     admins = KottiUserSerializer(many=True)
 
     class Meta:
         model = Room
-        fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times')
+        fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times', 'bookings')
 
 
 class RoomViewSet(viewsets.ModelViewSet):
@@ -109,27 +130,6 @@ class RoomList(viewsets.ModelViewSet):
             queryset = queryset.filter(capacity__gte=seats)
 
         return queryset
-
-
-class BookingSerializer(serializers.HyperlinkedModelSerializer):
-    room = RoomSerializer(read_only=True)
-    user = KottiUserSerializer(read_only=True)
-
-    class Meta:
-        model = Booking
-        fields = ('id', 'room', 'user', 'start_time', 'end_time')
-
-
-class BookingViewSet(viewsets.ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-
-    def create(self, request, *args, **kwargs):
-        instance = Booking.objects.create(room=Room.objects.get(pk=request.data.get('room')), user=request.user,
-                                          date=OpenDay.objects.get(pk=request.data.get('date')),
-                                          start_time=request.data.get('start_time'),
-                                          end_time=request.data.get('end_time'), persons=request.data.get('persons'))
-        return Response(BookingSerializer(instance).data)
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):

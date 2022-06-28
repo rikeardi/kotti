@@ -115,6 +115,23 @@ class RoomTime(models.Model):
         return self.day.name
 
 
+class Booking(models.Model):
+    """
+    Model for the bookings of the room management app.
+    """
+    user = models.ForeignKey('KottiUser', on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    date = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
+    persons = models.IntegerField(default=2)
+    approved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.user.department} / {self.user.team}'
+
+
 class Room(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -123,6 +140,7 @@ class Room(models.Model):
     capacity = models.IntegerField(default=0)
     accept_limit = models.IntegerField(default=100)
     open_times = models.ManyToManyField(RoomTime, blank=True)
+    bookings = models.ManyToManyField(Booking, blank=True)
 
     def __str__(self):
         return f'{self.name} ({self.capacity})'
@@ -136,19 +154,3 @@ class Room(models.Model):
             admin.save()
 
 
-class Booking(models.Model):
-    """
-    Model for the bookings of the room management app.
-    """
-    room = models.ForeignKey('Room', on_delete=models.CASCADE)
-    user = models.ForeignKey('KottiUser', on_delete=models.CASCADE)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    date = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
-    persons = models.IntegerField(default=2)
-    approved = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.user.department} / {self.user.team} - {self.room.name}'
