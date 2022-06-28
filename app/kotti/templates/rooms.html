@@ -302,9 +302,12 @@ function room_add_open_time(room_id) {
         url: "/api/room_times/",
         type: "POST",
         data: {
-            day_id: day_id,
-            start_time: start_time,
-            end_time: end_time,
+            day: day_id,
+            room: room_id,
+            time: {
+                start_time: start_time,
+                end_time: end_time,
+            },
         },
         headers: {
             "X-CSRFToken": csrf_token
