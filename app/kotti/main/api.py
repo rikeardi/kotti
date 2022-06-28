@@ -44,19 +44,6 @@ class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
         model = RoomTime
         fields = ('id', 'day', 'times')
 
-    def create(self, validated_data):
-        day = get_object_or_404(OpenDay, pk=validated_data['day'])
-        time = OpenTime.objects.create(**validated_data['time'])
-
-        day_found = RoomTime.objects.filter(day=day, room=validated_data['room'])
-        if day_found:
-            day_found.times.add(time)
-            day_found.save()
-        else:
-            RoomTime.objects.create(day=day, room=validated_data['room'], times=[time])
-
-        return RoomTime.objects.get(day=day, room=validated_data['room'])
-
 
 class RoomTimeViewSet(viewsets.ModelViewSet):
     queryset = RoomTime.objects.all()
@@ -89,7 +76,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
             if instance.open_times.filter(day=day).exists():
                 existing_day = instance.open_times.get(day=day)
-                existing_day.times.add(time)
+                existing_day.times.set(time)
                 existing_day.save()
             else:
                 new_day = RoomTime.objects.create(day=day, room=instance, times=[time])
