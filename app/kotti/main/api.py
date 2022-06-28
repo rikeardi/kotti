@@ -2,6 +2,17 @@ from rest_framework import serializers, viewsets, generics
 from .models import *
 
 
+class KottiUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KottiUser
+        fields = '__all__'
+
+
+class KottiUserViewSet(viewsets.ModelViewSet):
+    queryset = KottiUser.objects.all()
+    serializer_class = KottiUserSerializer
+
+
 class OpenDaySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = OpenDay
@@ -39,11 +50,12 @@ class RoomTimeViewSet(viewsets.ModelViewSet):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    open_times = RoomTimeSerializer(many=True, read_only=True)
+    open_times = RoomTimeSerializer(many=True)
+    admins = KottiUserSerializer(many=True)
 
     class Meta:
         model = Room
-        fields = ('id', 'name', 'description', 'capacity', 'open_times')
+        fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times')
 
 
 class RoomViewSet(viewsets.ModelViewSet):
