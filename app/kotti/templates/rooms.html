@@ -191,6 +191,12 @@
                     </div>
                 </div>
             </div>
+            <div class="field">
+                <label class="tag is-info">Henkilömäärä</label>
+                <div class="control">
+                    <input type="number" class="input" min="2" id="booking-modal-persons">
+                </div>
+            </div>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-primary" onclick="booking_modal_save();">Tallenna</button>
@@ -450,6 +456,8 @@ function room_book(day_id, time_id) {
     $("#booking-modal-end-time").val(default_end[0] + ":" + default_end[1]);
     $("#booking-modal-end-time").attr("min", start_time[0] + ":" + start_time[1]);
     $("#booking-modal-end-time").attr("max", end_time[0] + ":" + end_time[1]);
+
+    $("#booking-modal-people").attr("max", opened_room.capacity);
 
     $("#booking-modal").addClass("is-active");
 }
