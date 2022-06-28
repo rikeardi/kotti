@@ -123,7 +123,6 @@ class Room(models.Model):
     capacity = models.IntegerField(default=0)
     accept_limit = models.IntegerField(default=100)
     open_times = models.ManyToManyField(RoomTime, blank=True)
-    bookings = models.ManyToManyField('Booking', blank=True)
 
     def __str__(self):
         return f'{self.name} ({self.capacity})'

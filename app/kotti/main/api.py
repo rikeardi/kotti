@@ -105,12 +105,11 @@ class RoomList(viewsets.ModelViewSet):
 
 
 class BookingSerializer(serializers.HyperlinkedModelSerializer):
-    room = RoomSerializer(read_only=True)
     user = KottiUserSerializer(read_only=True)
 
     class Meta:
         model = Booking
-        fields = ('id', 'room', 'user', 'start_time', 'end_time')
+        fields = ('id', 'user', 'start_time', 'end_time')
 
 
 class BookingViewSet(viewsets.ModelViewSet):
