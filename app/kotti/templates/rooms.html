@@ -455,14 +455,16 @@ function room_book(day_id, time_id) {
 
     $("#booking-modal-start-time").html("");
     while(start_seconds < max_start_seconds) {
-        var time_string = Math.floor(start_seconds / 3600) + ":" + Math.floor((start_seconds % 3600) / 60);
+        var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
+        var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
         $("#booking-modal-start-time").append("<option value='" + time_string + "'>" + time_string + "</option>");
         start_seconds += 900;
     }
 
     $("#booking-modal-end-time").html("");
     while(end_seconds_now < end_seconds) {
-        var time_string = Math.floor(end_seconds_now / 3600) + ":" + Math.floor((end_seconds_now % 3600) / 60);
+        var minute_string = ("0" + Math.floor((end_seconds_now % 3600) / 60)).slice(-2);
+        var time_string = Math.floor(end_seconds_now / 3600) + ":" + minute_string;
         $("#booking-modal-end-time").append("<option value='" + time_string + "'>" + time_string + "</option>");
         end_seconds_now += 900;
     }
