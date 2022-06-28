@@ -435,14 +435,17 @@ function room_book(day_id, time_id) {
         }
     }
 
-    $("#room-book-modal-name").val(opened_room.name);
-    $("#room-book-modal-day").text(day.name);
+    $("#room-book-modal-name").text(opened_room.name);
+    $("#room-book-modal-day").text(day.day.name);
 
     var start_time = new Date(time.start_time);
     var end_time = new Date(time.end_time);
 
     var max_start = end_time.getTime() - (1000*60*60);
     var default_end = start_time.getTime() + (1000*60*60);
+
+    console.log(max_start);
+    console.log(default_end);
 
     $("#room-book-modal-start-time").val(time.start_time);
     $("#room-book-modal-start-time").attr("min", time.start_time);
