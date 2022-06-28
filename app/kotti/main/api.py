@@ -36,8 +36,8 @@ class OpenTimeViewSet(viewsets.ModelViewSet):
 
 
 class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
-    day = OpenDaySerializer(read_only=True)
-    times = OpenTimeSerializer(many=True, read_only=True)
+    day = OpenDaySerializer()
+    times = OpenTimeSerializer(many=True)
 
     class Meta:
         model = RoomTime

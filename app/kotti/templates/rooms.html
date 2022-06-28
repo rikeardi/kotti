@@ -215,7 +215,7 @@ function room_modal_open(room_id) {
                         {% for day in open_days %}
                         "<option value='{{ day.id }}'>{{ day }}</option>" +
                         {% endfor %}
-                        "</select></td><td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td><td><button class='button is-success'>Tallenna</button></td></tr>";
+                        "</select></td><td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td><td><button class='button is-success' onclick='room_add_open_time(" + room_id + ")'>Tallenna</button></td></tr>";
         $("#room-times-table").append(time_html);
         $("#room-modal").addClass("is-active");
     });
@@ -291,6 +291,28 @@ function days_modal_save() {
 
 function room_edit_times() {
     $(".room-timetable-tools").removeClass("is-hidden");
+}
+
+function room_add_open_time(room_id) {
+    var day_id = $("#room-new-open-day").val();
+    var start_time = $("#room-new-open-time").val();
+    var end_time = $("#room-new-close-time").val();
+
+    $.ajax({
+        url: "/api/room_times/",
+        type: "POST",
+        data: {
+            day_id: day_id,
+            start_time: start_time,
+            end_time: end_time,
+        },
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            location.reload();
+        }
+    });
 }
 
 </script>
