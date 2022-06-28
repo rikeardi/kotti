@@ -202,19 +202,20 @@ function room_modal_open(room_id) {
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
-            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th><td class='rooms-timetable-tools is-hidden'></td></tr>";
+            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th><td class='room-timetable-tools is-hidden'></td></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
                 time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td><td class='room-timetable-tools is-hidden'></td></tr>";
             }
             $("#room-times-table").append(time_html);
         }
-        var time_html = "<tr class='room-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>" +
+        var time_html = "<tr class='room-timetable-tools is-hidden'><td colspan="3">Lisää aukioloaika</td></tr>" +
+                        "<tr><td><select class='input is-primary' id='room-new-open-day'>" +
                         "<option value=''>Valitse päivä</option>" +
                         {% for day in open_days %}
                         "<option value='{{ day.id }}'>{{ day }}</option>" +
                         {% endfor %}
-                        "</select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
+                        "</select></td><td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td><td><button class='button is-success'>Tallenna</button></td></tr>";
         $("#room-times-table").append(time_html);
         $("#room-modal").addClass("is-active");
     });
