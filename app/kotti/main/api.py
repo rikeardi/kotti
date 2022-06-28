@@ -52,7 +52,6 @@ class RoomTimeViewSet(viewsets.ModelViewSet):
 
 class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
-    bookings = BookingSerializer(many=True)
     admins = KottiUserSerializer(many=True)
 
     class Meta:
