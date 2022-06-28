@@ -253,8 +253,8 @@ function room_modal_open(room_id) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
-                "<th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
-                "<td colspan='2' class='room-timetable-tools is-hidden'>" +
+                "<th colspan='2'>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
+                "<td class='room-timetable-tools is-hidden'>" +
                     "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ", " + room_id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
 
