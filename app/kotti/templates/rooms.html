@@ -457,7 +457,7 @@ function room_book(day_id, time_id) {
     $("#booking-modal-end-time").attr("min", start_time[0] + ":" + start_time[1]);
     $("#booking-modal-end-time").attr("max", end_time[0] + ":" + end_time[1]);
 
-    $("#booking-modal-people").attr("max", opened_room.capacity);
+    $("#booking-modal-persons").attr("max", opened_room.capacity);
 
     $("#booking-modal").addClass("is-active");
 }
