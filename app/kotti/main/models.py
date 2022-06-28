@@ -109,7 +109,7 @@ class RoomTime(models.Model):
     Model for the opening times of the room.
     """
     day = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
-    times = models.ManyToManyField(OpenTime)
+    times = models.ManyToManyField(OpenTime, blank=True)
 
     def __str__(self):
         return self.day.name

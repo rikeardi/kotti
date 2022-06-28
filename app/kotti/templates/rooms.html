@@ -78,7 +78,7 @@
                 </div>
                 <div class="column is-two-thirds">
                     <span class="tag is-info">Aukioloajat</span>
-                    <button class="button is-success" style="position: absolute;" onclick="">Muokkaa</button>
+                    <button class="tag is-success" style="position: absolute; right: 0.75rem; border: 0px;" onclick="">Muokkaa</button>
                     <table class="table" id="room-times-table">
                     </table>
                 </div>
@@ -200,13 +200,19 @@ function room_modal_open(room_id) {
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
-            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th></tr>";
+            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th><td class='rooms-timetable-tools is-hidden'></td></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td></tr>";
+                time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td><td class='rooms-timetable-tools is-hidden'></td></tr>";
             }
             $("#room-times-table").append(time_html);
         }
+        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>
+                            <option value='''>Valitse päivä</option>
+                            {% for day in open_days %}
+                            <option value='{{ day.id }}'>{{ day }}</option>
+                            {% endfor %}
+                        </select></td><td><button class='button is-success'>Tallenna</button></td></tr>";
         $("#room-modal").addClass("is-active");
     });
 }
