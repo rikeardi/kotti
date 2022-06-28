@@ -447,7 +447,7 @@ function room_book(day_id, time_id) {
     var end_time = time.end_time.split(":");
 
     var max_start = [end_time[0] - 1, end_time[1]];
-    var default_end = [start_time[0] + 1, start_time[1]];
+    var default_end = [parseInt(start_time[0]) + 1, start_time[1]];
 
     $("#booking-modal-start-time").val(start_time[0] + ":" + start_time[1]);
     $("#booking-modal-start-time").attr("min", start_time[0] + ":" + start_time[1]);
