@@ -29,6 +29,11 @@
                 <button type="button" class="button is-primary" onclick="rooms_modal_open();">Lisää tila</button>
             </div>
             {% endif %}
+            {% if user.is_admin %}
+            <div class="tile is-child">
+                <button type="button" class="button is-primary" onclick="days_modal_open();">Lisää kokouspäivä</button>
+            </div>
+            {% endif %}
         </div>
 
         <div class="column">
@@ -81,7 +86,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Tila</p>
+            <p class="modal-card-title">Tilan lisääminen</p>
             <button class="delete" aria-label="close" onclick="rooms_modal_close();"></button>
         </header>
         <section class="modal-card-body">
@@ -115,8 +120,37 @@
             <button class="button" onclick="rooms_modal_close();">Peruuta</button>
         </footer>
     </div>
+</div>
 
-    {% csrf_token %}
+<div id="days-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Kokouspäivän lisääminen</p>
+            <button class="delete" aria-label="close" onclick="days_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label class="label">Nimi</label>
+                <div class="control">
+                    <input class="input" type="text" id="days-modal-name">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Päivämäärä</label>
+                <div class="control">
+                    <input class="input" type="date" id="days-modal-date">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-primary" onclick="days_modal_save();">Tallenna</button>
+            <button class="button" onclick="days_modal_close();">Peruuta</button>
+        </footer>
+    </div>
+</div>
+
+{% csrf_token %}
 <script>
 
 const csrf_token = document.querySelector('[name="csrfmiddlewaretoken"]').value;
@@ -198,6 +232,36 @@ function rooms_modal_save() {
         success: function(data) {
             rooms_modal_close();
             rooms_search();
+        }
+    });
+}
+
+function days_modal_open() {
+    $("#days-modal").addClass("is-active");
+}
+
+function days_modal_close() {
+    $("#days-modal").removeClass("is-active");
+    $("#days-modal input").val("");
+}
+
+function days_modal_save() {
+    var name = $("#days-modal-name").val();
+    var date = $("#days-modal-date").val();
+
+    $.ajax({
+        url: "/api/open_days/",
+        type: "POST",
+        data: {
+            name: name,
+            date: date,
+        },
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            days_modal_close();
+            location.reload();
         }
     });
 }
