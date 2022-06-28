@@ -24,8 +24,7 @@ router.register(r'rooms', api.RoomList, basename='Room')
 router.register(r'room_times', api.RoomTimeViewSet)
 router.register(r'open_days', api.OpenDayViewSet)
 router.register(r'open_times', api.OpenTimeViewSet)
-router.register(r'tables', api.TableViewSet)
-router.register(r'table_reservations', api.TableReservationViewSet)
+router.register(r'bookings', api.BookingViewSet)
 router.register(r'users', api.KottiUserViewSet)
 
 

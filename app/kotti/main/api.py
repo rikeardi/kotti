@@ -104,26 +104,18 @@ class RoomList(viewsets.ModelViewSet):
         return queryset
 
 
-class TableSerializer(serializers.HyperlinkedModelSerializer):
+class BookingSerializer(serializers.HyperlinkedModelSerializer):
+    room = RoomSerializer(read_only=True)
+    user = KottiUserSerializer(read_only=True)
+
     class Meta:
-        model = Table
-        fields = ('id', 'room', 'name', 'capacity')
+        model = Booking
+        fields = ('id', 'room', 'user', 'start_time', 'end_time')
 
 
-class TableViewSet(viewsets.ModelViewSet):
-    queryset = Table.objects.all()
-    serializer_class = TableSerializer
-
-
-class TableReservationSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = TableReservation
-        fields = ('id', 'table', 'user', 'start_time', 'end_time')
-
-
-class TableReservationViewSet(viewsets.ModelViewSet):
-    queryset = TableReservation.objects.all()
-    serializer_class = TableReservationSerializer
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
