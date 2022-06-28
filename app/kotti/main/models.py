@@ -90,7 +90,7 @@ class OpenDay(models.Model):
     date = models.DateField()
 
     def __str__(self):
-        return f'{self.name} - {self.date}'
+        return f'{self.name} - {self.date.to_python(self.date).strftime("%d.%m")}'
 
 
 class OpenTime(models.Model):
