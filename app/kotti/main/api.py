@@ -42,7 +42,7 @@ class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = RoomTime
-        fields = ('id', 'room', 'day', 'times')
+        fields = ('id', 'day', 'times')
 
     def create(self, validated_data):
         day = get_object_or_404(OpenDay, pk=validated_data['day'])
