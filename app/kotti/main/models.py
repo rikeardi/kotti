@@ -58,9 +58,9 @@ class KottiUser(AbstractBaseUser):
     first_name = models.CharField(max_length=30, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
-    department = models.CharField(max_length=100, choices=['Leiritoimikunta', 'Elämys',
-                                                           'Osallistujat', 'Palvelut',
-                                                           'Kasvatus', 'Resurssit'],
+    department = models.CharField(max_length=100, choices=[('Leiritoimikunta', 'Leiritoimikunta'), ('Elämys', 'Elämys'),
+                                                           ('Osallistujat', 'Osallistujat'), ('Palvelut', 'Palvelut'),
+                                                           ('Kasvatus', 'Kasvatus'), ('Resurssit', 'Resurssit')],
                                   blank=True, null=True)
     team = models.CharField(max_length=200, blank=True, null=True)
     is_active = models.BooleanField(default=True)
