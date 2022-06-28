@@ -71,6 +71,7 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times')
 
     def update(self, instance, validated_data):
+        print(validated_data)
         new_time = validated_data['time']
         day_id = validated_data['day']
 
