@@ -225,9 +225,12 @@ $("#rooms-search-seats").keyup(function() {
     rooms_search();
 });
 
+var opened_room = false;
+
 function room_modal_open(room_id) {
     var is_admin = false;
     $.get("/api/room/" + room_id, function(data) {
+        opened_room = data;
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
         $("#room-modal-description").text(data.description);
@@ -255,18 +258,18 @@ function room_modal_open(room_id) {
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
                 "<th colspan='2'>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
                 "<td class='room-timetable-tools is-hidden'>" +
-                    "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ", " + room_id + ")'>" +
+                    "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
 
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + time.id + ", " + room_id + ")'>" +
+                time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + time.id + ")'>" +
                                     "<span class='icon'><i class='fas fa-calendar'></i></span>" +
                                     "<span>Varaa</span></a></td>" +
                             "<td>" + time.start_time + "</td>" +
                             "<td>" + time.end_time + "</td>" +
                             "<td class='room-timetable-tools is-hidden'>" +
-                                "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ", " + room_id + ")'>" +
+                                "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
                                     "<i class='fas fa-ban'></i></a></td></tr>";
             }
             $("#room-times-table").append(time_html);
@@ -279,7 +282,7 @@ function room_modal_open(room_id) {
                         {% endfor %}
                         "</select></td>" +
                         "<td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td>" +
-                        "<td><button class='button is-success' onclick='room_add_open_time(" + room_id + ")'>Tallenna</button></td></tr>";
+                        "<td><button class='button is-success' onclick='room_add_open_time()'>Tallenna</button></td></tr>";
         $("#room-times-table").append(time_html);
         $("#room-modal").addClass("is-active");
     });
@@ -365,7 +368,7 @@ function room_edit_times() {
 
 }
 
-function room_add_open_time(room_id) {
+function room_add_open_time() {
     var day_id = $("#room-new-open-day").val();
     var start_time = $("#room-new-open-time").val();
     var end_time = $("#room-new-close-time").val();
@@ -382,12 +385,12 @@ function room_add_open_time(room_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
-            room_modal_open(room_id);
+            room_modal_open(opened_room.id);
         }
     });
 }
 
-function room_remove_time(time_id, room_id) {
+function room_remove_time(time_id) {
     $.ajax({
         url: "/api/open_times/" + time_id + "/",
         type: "DELETE",
@@ -395,12 +398,12 @@ function room_remove_time(time_id, room_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
-            room_modal_open(room_id);
+            room_modal_open(opened_room.id);
         }
     });
 }
 
-function room_remove_day(day_id, room_id) {
+function room_remove_day(day_id) {
     $.ajax({
         url: "/api/room_times/" + day_id + "/",
         type: "DELETE",
@@ -408,14 +411,49 @@ function room_remove_day(day_id, room_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
-            room_modal_open(room_id);
+            room_modal_open(opened_room.id);
         }
     });
 }
 {% endif %}
 
-function room_book(time_id, room_id) {
+function room_book(day_id, time_id) {
+    for(var i = 0; i < opened_room.open_times.length; i++) {
+        if(opened_room.open_times[i].id == day_id) {
+            var day = opened_room.open_times[i];
+            break;
+        }
+    }
+
+    for(var i = 0; i < day.times.length; i++) {
+        if(day.times[i].id == time_id) {
+            var time = day.times[i];
+            break;
+        }
+    }
+
+    $("#room-book-modal-name").val(opened_room.name);
+    $("#room-book-modal-day").text(day.name);
+
+    var start_time = new Date(time.start_time);
+    var end_time = new Date(time.end_time);
+
+    var max_start = end_time.getTime() - (1000*60*60);
+    var default_end = start_time.getTime() + (1000*60*60);
+
+    $("#room-book-modal-start-time").val(time.start_time);
+    $("#room-book-modal-start-time").attr("min", time.start_time);
+    $("#room-book-modal-start-time").attr("max", max_start);
+
+    $("#room-book-modal-end-time").val(default_end);
+    $("#room-book-modal-end-time").attr("min", time.start_time);
+    $("#room-book-modal-end-time").attr("max", time.end_time);
+
     $("#booking-modal").addClass("is-active");
+}
+
+function booking_modal_close() {
+    $("#booking-modal").removeClass("is-active");
 }
 
 </script>
