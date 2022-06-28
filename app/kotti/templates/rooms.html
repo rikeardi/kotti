@@ -158,7 +158,7 @@ function room_modal_open(elem) {
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
-            var date = new Date(open_time.date);
+            var date = new Date(open_time.day.date);
             console.log(date);
             var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + "</th></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
