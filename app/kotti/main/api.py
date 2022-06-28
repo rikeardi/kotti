@@ -55,7 +55,7 @@ class BookingSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ('id', 'user', 'start_time', 'end_time')
+        fields = ('id', 'user', 'start_time', 'end_time', 'persons')
 
 
 class BookingViewSet(viewsets.ModelViewSet):
