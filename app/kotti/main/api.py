@@ -68,7 +68,6 @@ class RoomViewSet(viewsets.ModelViewSet):
         start_time = request.data.get('start_time')
         end_time = request.data.get('end_time')
         day_id = request.data.get('day')
-        print(request.data)
 
         if day_id:
             day = OpenDay.objects.get(pk=day_id)
