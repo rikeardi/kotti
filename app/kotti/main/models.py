@@ -118,6 +118,7 @@ class RoomTime(models.Model):
 class Room(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    equipment = models.TextField(blank=True)
     admins = models.ManyToManyField('KottiUser', related_name='admin_of_rooms', blank=True)
     capacity = models.IntegerField(default=0)
     accept_limit = models.IntegerField(default=100)

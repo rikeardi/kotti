@@ -33,18 +33,9 @@
 
         <div class="column">
             <div class="tile is-parent" id="rooms-list">
-
+                <table class="table" id="rooms-table">
+                </table>
             </div>
-        </div>
-    </div>
-</div>
-
-<div id="room-template" class="tile is-child is-4 p-2" style="display: none;">
-    <div class="notification is-primary">
-        <a href="#" onclick="room_modal_open(this);"><h3 class="title"></h3></a>
-        <div class="room-info">
-            <p>Kapasiteetti <span class="room-capacity"></span><br/>
-            <span class="room-description"></span></p>
         </div>
     </div>
 </div>
@@ -61,19 +52,23 @@
                 <div class="column is-third">
                     <div class="field">
                         <span class="tag is-info">Kokoustila</span>
-                        <p class="title is-4 m-2" id="room-modal-name"></p>
+                        <p class="title is-5 m-2" id="room-modal-name"></p>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kapasiteetti</span>
-                        <h3 class="title is-4 m-2" id="room-modal-capacity"></h3>
+                        <h3 class="title is-5 m-2" id="room-modal-capacity"></h3>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kuvaus</span>
                         <p id="room-modal-description" class="m-2"></p>
                     </div>
+                    <div class="field">
+                        <span class="tag is-info">Varustelu</span>
+                        <p id="room-modal-equipment" class="m-2"></p>
+                    </div>
                 </div>
                 <div class="column is-two-thirds">
-                    <h3 class="title">Aukioloajat</h3>
+                    <span class="tag is-info">Aukioloajat</span>
                     <table class="table" id="room-times-table">
                     </table>
                 </div>
@@ -125,16 +120,9 @@ function rooms_search() {
     var seats = $("#rooms-search-seats").val();
 
     $.get("/api/rooms/?day=" + day + "&seats=" + seats, function(data) {
-        $("#rooms-list").html("");
-        for(var i = 0; i < data.length; i++) {
-            var room = data[i];
-            var room_html = $("#room-template").clone();
-            room_html.find(".notification").attr("id", "room-" + room.id);
-            room_html.removeAttr("style");
-            room_html.find(".title").text(room.name);
-            room_html.find(".room-capacity").text(room.capacity);
-            room_html.find(".room-description").text(room.description);
-            $("#rooms-list").append(room_html);
+        $("#rooms-table").html("<tr><th>Nimi</th><th>Kapasiteetti</th><th>Kuvaus</th></tr>");
+        for (var i = 0; i < data.length; i++) {
+            $("#rooms-table").append("<tr><td>" + data[i].name + "</td><td>" + data[i].capacity + "</td><td>" + data[i].description + "</td></tr>");
         }
     });
 }
@@ -160,7 +148,7 @@ function room_modal_open(elem) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
             console.log(date);
-            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + "</th></tr>";
+            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
                 time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td></tr>";
