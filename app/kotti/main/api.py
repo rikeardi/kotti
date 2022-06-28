@@ -63,10 +63,13 @@ class BookingViewSet(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
 
     def create(self, request, *args, **kwargs):
-        instance = Booking.objects.create(room=Room.objects.get(pk=request.data.get('room')), user=request.user,
+        instance = Booking.objects.create(user=request.user,
                                           date=OpenDay.objects.get(pk=request.data.get('date')),
                                           start_time=request.data.get('start_time'),
                                           end_time=request.data.get('end_time'), persons=request.data.get('persons'))
+        room = Room.objects.get(pk=request.data.get('room'))
+        room.bookings.add(instance)
+        room.save()
         return Response(BookingSerializer(instance).data)
 
 
