@@ -79,7 +79,7 @@
                 <div class="column is-two-thirds">
                     <span class="tag is-info">Aukioloajat</span>
                     {% if user.is_room_admin %}
-                    <button class="tag is-success" style="position: absolute; right: 0.75rem; border: 0px;" onclick="room_edit_times();">Muokkaa</button>
+                    <button class="tag is-success is-hidden" id="room-modal-edit-btn" style="position: absolute; right: 0.75rem; border: 0px;" onclick="room_edit_times();">Muokkaa</button>
                     {% endif %}
                     <table class="table" id="room-times-table">
                     </table>
@@ -161,6 +161,7 @@
 <script>
 
 const csrf_token = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+const user_id = {{ user.id }};
 
 function rooms_search() {
     var day = $("#rooms-search-day").val();
@@ -185,6 +186,7 @@ $("#rooms-search-seats").keyup(function() {
 });
 
 function room_modal_open(room_id) {
+    var is_admin = false;
     $.get("/api/room/" + room_id, function(data) {
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
@@ -196,16 +198,33 @@ function room_modal_open(room_id) {
             var admin = data.admins[i];
             var admin_html = "<span class='tag is-primary'>" + admin.first_name + " " + admin.last_name + "</span><br/>";
             $("#room-modal-admins").append(admin_html);
+
+            if(admin.id == user_id) {
+                is_admin = true;
+            }
+        }
+
+        if(is_admin) {
+            $("#room-modal-edit-btn").removeClass("is-hidden");
         }
 
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
             var date = new Date(open_time.day.date);
-            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th><td class='room-timetable-tools is-hidden'></td></tr>";
+            var time_html = "<tr><th>" + open_time.day.name + "</th>" +
+                "<th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
+                "<td class='room-timetable-tools is-hidden'>" +
+                    "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
+                        "<i class='fas fa-square-minus'></i></a></td></tr>";
+
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td><td class='room-timetable-tools is-hidden'></td></tr>";
+                time_html += "<tr><td>" + time.start_time + "</td>" +
+                            "<td>" + time.end_time + "</td>" +
+                            "<td class='room-timetable-tools is-hidden'>" +
+                                "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
+                                    "<i class='fas fa-square-minus'></i></a></td></tr>";
             }
             $("#room-times-table").append(time_html);
         }
@@ -215,7 +234,9 @@ function room_modal_open(room_id) {
                         {% for day in open_days %}
                         "<option value='{{ day.id }}'>{{ day }}</option>" +
                         {% endfor %}
-                        "</select></td><td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td><td><button class='button is-success' onclick='room_add_open_time(" + room_id + ")'>Tallenna</button></td></tr>";
+                        "</select></td>" +
+                        "<td>Klo <input type='time' class='input' id='room-new-open-time'> - <input type='time' class='input' id='room-new-close-time'></td>" +
+                        "<td><button class='button is-success' onclick='room_add_open_time(" + room_id + ")'>Tallenna</button></td></tr>";
         $("#room-times-table").append(time_html);
         $("#room-modal").addClass("is-active");
     });
@@ -225,6 +246,7 @@ function room_modal_close() {
     $("#room-modal").removeClass("is-active");
 }
 
+{% if user.is_staff %}
 function rooms_modal_open() {
     $("#rooms-modal").addClass("is-active");
 }
@@ -288,7 +310,9 @@ function days_modal_save() {
         }
     });
 }
+{% endif %}
 
+{% if user.is_room_admin %}
 function room_edit_times() {
     $(".room-timetable-tools").removeClass("is-hidden");
 }
@@ -314,6 +338,33 @@ function room_add_open_time(room_id) {
         }
     });
 }
+
+function room_remove_time(time_id) {
+    $.ajax({
+        url: "/api/open_times/" + time_id + "/",
+        type: "DELETE",
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            room_modal_open(room_id);
+        }
+    });
+}
+
+function room_remove_day(day_id) {
+    $.ajax({
+        url: "/api/open_time/" + day_id + "/",
+        type: "DELETE",
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            room_modal_open(room_id);
+        }
+    });
+}
+{% endif %}
 
 </script>
 {% endblock %}
