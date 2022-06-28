@@ -313,7 +313,7 @@ function room_add_open_time(room_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
-            location.reload();
+            room_modal_open(room_id);
         }
     });
 }
