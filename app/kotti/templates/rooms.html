@@ -205,11 +205,11 @@ function room_modal_open(room_id) {
             var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th><td class='rooms-timetable-tools is-hidden'></td></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td><td class='rooms-timetable-tools is-hidden'></td></tr>";
+                time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td><td class='room-timetable-tools is-hidden'></td></tr>";
             }
             $("#room-times-table").append(time_html);
         }
-        var time_html = "<tr class='rooms-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>" +
+        var time_html = "<tr class='room-timetable-tools is-hidden'><td>Lisää päivä</td><td><select class='input is-primary'>" +
                         "<option value=''>Valitse päivä</option>" +
                         {% for day in open_days %}
                         "<option value='{{ day.id }}'>{{ day }}</option>" +
