@@ -303,10 +303,8 @@ function room_add_open_time(room_id) {
         type: "PATCH",
         data: {
             day: day_id,
-            time: {
-                start_time: start_time,
-                end_time: end_time,
-            },
+            start_time: start_time,
+            end_time: end_time,
         },
         headers: {
             "X-CSRFToken": csrf_token

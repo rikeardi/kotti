@@ -77,13 +77,14 @@ class RoomViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
-        new_time = request.data.get('time')
+        start_time = request.data.get('start_time')
+        end_time = request.data.get('end_time')
         day_id = request.data.get('day')
         print(request.data)
 
         if day_id:
             day = OpenDay.objects.get(pk=day_id)
-            time = OpenTime.objects.create(start_time=new_time['start_time'], end_time=new_time['end_time'])
+            time = OpenTime.objects.create(start_time=start_time, end_time=end_time)
 
             if instance.open_times.filter(day=day).exists():
                 existing_day = instance.open_times.get(day=day)
