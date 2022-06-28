@@ -36,12 +36,25 @@ class OpenTimeViewSet(viewsets.ModelViewSet):
 
 
 class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
-    day = OpenDaySerializer()
-    times = OpenTimeSerializer(many=True)
+    day = OpenDaySerializer(read_only=True)
+    times = OpenTimeSerializer(many=True, read_only=True)
 
     class Meta:
         model = RoomTime
-        fields = ('id', 'day', 'times')
+        fields = ('id', 'room', 'day', 'times')
+
+    def create(self, validated_data):
+        day = get_object_or_404(OpenDay, pk=validated_data['day'])
+        time = OpenTime.objects.create(**validated_data['time'])
+
+        day_found = RoomTime.objects.filter(day=day, room=validated_data['room'])
+        if day_found:
+            day_found.times.add(time)
+            day_found.save()
+        else:
+            RoomTime.objects.create(day=day, room=validated_data['room'], times=[time])
+
+        return RoomTime.objects.get(day=day, room=validated_data['room'])
 
 
 class RoomTimeViewSet(viewsets.ModelViewSet):
