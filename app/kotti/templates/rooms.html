@@ -128,7 +128,7 @@ function rooms_search() {
     $.get("/api/rooms/?day=" + day + "&seats=" + seats, function(data) {
         $("#rooms-table").html("<tr><th>Nimi</th><th>Kapasiteetti</th><th>Kuvaus</th></tr>");
         for (var i = 0; i < data.length; i++) {
-            $("#rooms-table").append("<tr><td><a href='#' onclick='room_modal_open(data[i].id)'>" + data[i].name + "</a></td><td>" + data[i].capacity + "</td><td>" + data[i].description + "</td></tr>");
+            $("#rooms-table").append("<tr><td><a href='#' onclick='room_modal_open(" + data[i].id + ")'>" + data[i].name + "</a></td><td>" + data[i].capacity + "</td><td>" + data[i].description + "</td></tr>");
         }
     });
 }
