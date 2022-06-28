@@ -38,7 +38,8 @@ class KottiUserChangeForm(forms.ModelForm):
 
     class Meta:
         model = KottiUser
-        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password', 'is_active', 'is_admin')
+        fields = ('email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password', 'is_active',
+                  'is_admin', 'is_staff')
 
 
 class KottiUserAdmin(UserAdmin):
@@ -51,7 +52,7 @@ class KottiUserAdmin(UserAdmin):
     fieldsets = ((None, {'fields': ('username', 'email', 'password')}),
                  ('Personal info', {'fields': ('first_name', 'last_name', 'phone')}),
                  ('Team info', {'fields': ('department', 'team')}),
-                 ('Permissions', {'fields': ('is_active', 'is_admin')}))
+                 ('Permissions', {'fields': ('is_active', 'is_admin', 'is_staff')}))
 
     add_fieldsets = ((None, {'classes': ('wide',), 'fields': ('username', 'email', 'first_name', 'last_name', 'phone', 'department', 'team', 'password1', 'password2')}),)
 

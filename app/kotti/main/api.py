@@ -5,7 +5,7 @@ from .models import *
 class KottiUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = KottiUser
-        fields = '__all__'
+        fields = ('id', 'first_name', 'last_name', 'department', 'team', 'phone', 'email')
 
 
 class KottiUserViewSet(viewsets.ModelViewSet):
