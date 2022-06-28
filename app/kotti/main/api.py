@@ -38,6 +38,7 @@ class OpenTimeViewSet(viewsets.ModelViewSet):
 class RoomTimeSerializer(serializers.HyperlinkedModelSerializer):
     day = OpenDaySerializer(read_only=True)
     times = OpenTimeSerializer(many=True, read_only=True)
+    room = serializers.PrimaryKeyRelatedField(queryset=Room.objects.all())
 
     class Meta:
         model = RoomTime
