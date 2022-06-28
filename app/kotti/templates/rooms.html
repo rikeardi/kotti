@@ -314,7 +314,8 @@ function days_modal_save() {
 
 {% if user.is_room_admin %}
 function room_edit_times() {
-    if($(".room-timetable-tools")[0].hasClass("is-hidden")) {
+    console.log($(".room-timetable-tools"));
+    if($(".room-timetable-tools").hasClass("is-hidden")) {
          $(".room-timetable-tools").removeClass("is-hidden");
     } else {
         $(".room-timetable-tools").addClass("is-hidden");
