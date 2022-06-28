@@ -82,7 +82,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
         if day_id:
             day = OpenDay.objects.get(pk=day_id)
-            time = OpenTimeSerializer.create(OpenTimeSerializer(), validated_data=new_time)
+            time = OpenTime.objects.create(start_time=new_time['start_time'], end_time=new_time['end_time'])
 
             if instance.open_times.filter(day=day).exists():
                 existing_day = instance.open_times.get(day=day)
