@@ -158,10 +158,10 @@ function room_modal_open(elem) {
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
-            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + open_time.day.date + "</th></tr>";
+            var date = new Date(open_time.date);
+            var time_html = "<tr><th>" + open_time.day.name + "</th><th>" + date.getDate() + "." + (date.getMonth() + 1) + "</th></tr>";
             for(var j = 0; j < open_time.times.length; j++) {
                 var time = open_time.times[j];
-                console.log(time);
                 time_html += "<tr><td>" + time.start_time + "</td><td>" + time.end_time + "</td></tr>";
             }
             $("#room-times-table").append(time_html);
