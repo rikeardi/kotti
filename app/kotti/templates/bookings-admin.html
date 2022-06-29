@@ -9,7 +9,7 @@
 function bookings_admin_refresh() {
     $.get('/api/rooms/?admin=' + user_id, function(data) {
         console.log(data);
-        $('#bookings-own-table').html('');
+        $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th>Huone</th><td colspan=5>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
