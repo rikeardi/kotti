@@ -162,7 +162,7 @@ class RoomList(viewsets.ModelViewSet):
             if future:
                 queryset = queryset.filter(bookings__date__date__gte=datetime.now().date())
 
-        return queryset
+        return queryset.distinct()
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
