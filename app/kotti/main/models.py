@@ -11,6 +11,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class KottiUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, first_name=None, last_name=None, phone=None, department=None, team=None):
+
         """
         Creates and saves a User with the given username, email and password.
         """
@@ -26,6 +27,7 @@ class KottiUserManager(BaseUserManager):
             department=department,
             team=team,
         )
+        print(user)
 
         user.set_password(password)
         user.save(using=self._db)
