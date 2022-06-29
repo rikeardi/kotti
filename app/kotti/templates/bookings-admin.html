@@ -60,7 +60,7 @@ function bookings_admin_refresh() {
                     room_html += '<td>' + booking.date.name + '</td>';
                     room_html += '<td>' + booking.start_time + '</td>';
                     room_html += '<td>' + booking.end_time + '</td>';
-                    room_html += '<td>' + approval[booking.approved] + '</td>';
+                    room_html += '<td>' + approval[parseInt(booking.approved)] + '</td>';
                     room_html += '<td>' + booking.persons + '</td>';
                     room_html += '</tr>';
                 }
