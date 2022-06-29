@@ -31,14 +31,15 @@ function bookings_admin_refresh() {
             var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=5>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
-                room_html += '<tr>';
-                room_html += '<td>' + booking.date.name + '</td>';
-                room_html += '<td>' + booking.start_time + '</td>';
-                room_html += '<td>' + booking.end_time + '</td>';
-                room_html += '<td>' + booking.approved + '</td>';
-                room_html += '<td>' + booking.persons + '</td>';
-                room_html += '<td>' + booking.user.first_name + ' ' + booking.user.last_name + '</td>';
-                room_html += '</tr>';
+                if((old != '' && booking.date.date < new Date())||(current != '' && booking.date.date == new Date())||(future != '' && booking.date.date > new Date())) {
+                    room_html += '<tr>';
+                    room_html += '<td>' + booking.date.name + '</td>';
+                    room_html += '<td>' + booking.start_time + '</td>';
+                    room_html += '<td>' + booking.end_time + '</td>';
+                    room_html += '<td>' + booking.approved + '</td>';
+                    room_html += '<td>' + booking.persons + '</td>';
+                    room_html += '</tr>';
+                }
             }
             $('#bookings-admin-table').append(room_html);
         });
