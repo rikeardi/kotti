@@ -52,6 +52,7 @@ class RoomTimeViewSet(viewsets.ModelViewSet):
 
 class BookingSerializer(serializers.HyperlinkedModelSerializer):
     user = KottiUserSerializer(read_only=True)
+    date = OpenDaySerializer(read_only=True)
 
     class Meta:
         model = Booking
