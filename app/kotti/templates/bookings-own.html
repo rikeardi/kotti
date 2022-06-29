@@ -6,7 +6,7 @@
 </div>
 <script>
 function bookings_own_refresh() {
-    $.get('/api/booking/?user=' + user_id, function(data) {
+    $.get('/api/rooms/?booking_user=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {

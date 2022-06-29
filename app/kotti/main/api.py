@@ -141,6 +141,10 @@ class RoomList(viewsets.ModelViewSet):
         if seats:
             queryset = queryset.filter(capacity__gte=seats)
 
+        booking_user = self.request.query_params.get('booking_user')
+        if booking_user:
+            queryset = queryset.filter(bookings__user__id=booking_user)
+
         return queryset
 
 
