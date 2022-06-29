@@ -145,6 +145,10 @@ class RoomList(viewsets.ModelViewSet):
         if booking_user:
             queryset = queryset.filter(bookings__user__id=booking_user)
 
+        admin = self.request.query_params.get('admin')
+        if admin:
+            queryset = queryset.filter(admins__id=admin)
+
         return queryset
 
 

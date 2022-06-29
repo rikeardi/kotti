@@ -7,7 +7,7 @@
 <script>
 
 function bookings_admin_refresh() {
-    $.get('/api/booking/?admin=' + user_id, function(data) {
+    $.get('/api/rooms/?admin=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
