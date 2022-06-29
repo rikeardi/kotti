@@ -47,6 +47,8 @@ function bookings_admin_refresh() {
         var future = '';
     }
 
+    var approval = ["Odottaa hyväksyntää", "Hyväksytty"];
+
     $.get('/api/rooms/?admin=' + user_id + old + current + future, function(data) {
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
@@ -58,7 +60,7 @@ function bookings_admin_refresh() {
                     room_html += '<td>' + booking.date.name + '</td>';
                     room_html += '<td>' + booking.start_time + '</td>';
                     room_html += '<td>' + booking.end_time + '</td>';
-                    room_html += '<td>' + booking.approved + '</td>';
+                    room_html += '<td>' + approval[booking.approved] + '</td>';
                     room_html += '<td>' + booking.persons + '</td>';
                     room_html += '</tr>';
                 }
