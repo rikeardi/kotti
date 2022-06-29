@@ -1,0 +1,26 @@
+{% block content %}
+<div class="tile is-parent" id="bookings-own-list">
+    <table class="table" id="bookings-own-table">
+    </table>
+</div>
+<script>
+function bookings_own_refresh() {
+    $.get('/api/bookings/?user=' + user_id, function(data) {
+        console.log(data);
+        $('#bookings-own-table').html('');
+        $.each(data, function(i, item) {
+            $('#bookings-own-table').append(
+                '<tr>' +
+                '<td>' + item.room.name + '</td>' +
+                '<td>' + item.start + '</td>' +
+                '<td>' + item.end + '</td>' +
+                '<td>' + item.status + '</td>' +
+                '<td>' + item.created + '</td>' +
+                '<td>' + item.modified + '</td>' +
+                '</tr>'
+            );
+        });
+    });
+}
+</script>
+{% endblock %}
