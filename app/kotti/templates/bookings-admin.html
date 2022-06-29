@@ -7,10 +7,7 @@
 <script>
 
 function check_date(date) {
-    var date = new Date(date);
-    console.log(date);
     var today = new Date();
-    console.log(today);
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
@@ -21,6 +18,7 @@ function check_date(date) {
         mm = '0' + mm;
     }
     today = yyyy + '-' + mm + '-' + dd;
+    console.log(date, today);
     if (date < today) {
         return 1;
     }
