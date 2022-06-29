@@ -5,7 +5,7 @@
 </div>
 <script>
 
-function bookings_own_refresh() {
+function bookings_admin_refresh() {
     $.get('/api/booking/?admin=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
