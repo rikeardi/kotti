@@ -71,6 +71,15 @@ class BookingViewSet(viewsets.ModelViewSet):
         room.save()
         return Response(BookingSerializer(instance).data)
 
+    def get_queryset(self):
+        queryset = Booking.objects.all()
+
+        user = self.request.query_params.get('user')
+        if user:
+            queryset = queryset.filter(user__id=user)
+
+        return queryset
+
 
 class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
