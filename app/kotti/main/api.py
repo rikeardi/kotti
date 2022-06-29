@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers, viewsets, generics
 from rest_framework.response import Response
 from .models import *
@@ -148,6 +150,18 @@ class RoomList(viewsets.ModelViewSet):
         admin = self.request.query_params.get('admin')
         if admin:
             queryset = queryset.filter(admins__id=admin)
+
+        old = self.request.query_params.get('old')
+        current = self.request.query_params.get('current')
+        future = self.request.query_params.get('future')
+        if old or current or future:
+            queryset = queryset.filter(bookings__date__date__lte=datetime.now())
+            if old:
+                queryset = queryset.filter(bookings__date__date__lte=datetime.now())
+            if current:
+                queryset = queryset.filter(bookings__date__date__eq=datetime.now())
+            if future:
+                queryset = queryset.filter(bookings__date__date__gte=datetime.now())
 
         return queryset
 
