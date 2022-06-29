@@ -143,7 +143,7 @@ class RoomList(viewsets.ModelViewSet):
 
         booking_user = self.request.query_params.get('booking_user')
         if booking_user:
-            queryset = queryset.filter(bookings__user__id=booking_user)
+            queryset = queryset.filter(bookings__user__id=booking_user).distinct()
 
         admin = self.request.query_params.get('admin')
         if admin:

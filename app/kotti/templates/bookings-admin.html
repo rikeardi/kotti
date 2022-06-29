@@ -22,6 +22,7 @@ function bookings_admin_refresh() {
                 room_html += '<td>' + booking.user.first_name + ' ' + booking.user.last_name + '</td>';
                 room_html += '</tr>';
             }
+            $('#bookings-admin-table').append(room_html);
         });
     });
 }
