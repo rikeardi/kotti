@@ -11,16 +11,17 @@ function bookings_admin_refresh() {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
-            $('#bookings-own-table').append(
-                '<tr>' +
-                '<td>' + item.room.name + '</td>' +
-                '<td>' + item.start + '</td>' +
-                '<td>' + item.end + '</td>' +
-                '<td>' + item.status + '</td>' +
-                '<td>' + item.created + '</td>' +
-                '<td>' + item.modified + '</td>' +
-                '</tr>'
-            );
+            var room_html = '<tr><th>Huone</th><td>' + item.room.name + '</td></tr>';
+            for(var i=0; i < item.bookings.length; i++) {
+                var booking = item.bookings[i];
+                room_html += '<tr>';
+                room_html += '<td>' + booking.start_time + '</td>';
+                room_html += '<td>' + booking.end_time + '</td>';
+                room_html += '<td>' + booking.approved + '</td>';
+                room_html += '<td>' + booking.persons + '</td>';
+                room_html += '<td>' + booking.user.first_name + ' ' + booking.user.last_name + '</td>';
+                room_html += '</tr>';
+            }
         });
     });
 }
