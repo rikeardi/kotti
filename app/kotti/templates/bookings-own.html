@@ -11,7 +11,7 @@ function bookings_own_refresh() {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
-            var room_html = '<tr><th>Huone</th><td colspan=4>' + item.name + '</td></tr>';
+            var room_html = '<tr><th>Huone</th><td colspan=3>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
                 if(booking.user.id == user_id) {

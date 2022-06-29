@@ -11,7 +11,7 @@ function bookings_admin_refresh() {
         console.log(data);
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
-            var room_html = '<tr><th>Huone</th><td colspan=5>' + item.name + '</td></tr>';
+            var room_html = '<tr><th>Huone</th><td colspan=4>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
                 room_html += '<tr>';
