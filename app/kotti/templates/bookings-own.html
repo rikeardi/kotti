@@ -60,29 +60,6 @@ $("#bookings-future").change(function() {
     bookings_own_refresh();
 });
 
-function bookings_own_refresh() {
-    $.get('/api/rooms/?booking_user=' + user_id, function(data) {
-        console.log(data);
-        $('#bookings-own-table').html('');
-        $.each(data, function(i, item) {
-            var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=4>' + item.name + '</td></tr>';
-            for(var i=0; i < item.bookings.length; i++) {
-                var booking = item.bookings[i];
-                if(booking.user.id == user_id) {
-                    room_html += '<tr>';
-                    room_html += '<td>' + booking.date.name + '</td>';
-                    room_html += '<td>' + booking.start_time + '</td>';
-                    room_html += '<td>' + booking.end_time + '</td>';
-                    room_html += '<td>' + booking.approved + '</td>';
-                    room_html += '<td>' + booking.persons + '</td>';
-                    room_html += '</tr>';
-                }
-            }
-            $('#bookings-own-table').append(room_html);
-        });
-    });
-}
-
 bookings_own_refresh();
 </script>
 {% endblock %}
