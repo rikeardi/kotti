@@ -1,25 +1,29 @@
 {% block content %}
+<h4 class="title">Omat varaukset</h4>
 <div class="tile is-parent" id="bookings-own-list">
-    <h4 class="title">Omat varaukset</h4>
     <table class="table" id="bookings-own-table">
     </table>
 </div>
 <script>
+
 function bookings_own_refresh() {
     $.get('/api/rooms/?booking_user=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
-            $('#bookings-own-table').append(
-                '<tr>' +
-                '<td>' + item.room.name + '</td>' +
-                '<td>' + item.start + '</td>' +
-                '<td>' + item.end + '</td>' +
-                '<td>' + item.status + '</td>' +
-                '<td>' + item.created + '</td>' +
-                '<td>' + item.modified + '</td>' +
-                '</tr>'
-            );
+            var room_html = '<tr><th>Huone</th><td colspan=4>' + item.name + '</td></tr>';
+            for(var i=0; i < item.bookings.length; i++) {
+                var booking = item.bookings[i];
+                if(booking.user.id == user_id) {
+                    room_html += '<tr>';
+                    room_html += '<td>' + booking.start_time + '</td>';
+                    room_html += '<td>' + booking.end_time + '</td>';
+                    room_html += '<td>' + booking.approved + '</td>';
+                    room_html += '<td>' + booking.persons + '</td>';
+                    room_html += '</tr>';
+                }
+            }
+            $('#bookings-admin-table').append(room_html);
         });
     });
 }
