@@ -4,18 +4,24 @@
         <div class="column is-3 tile is-parent is-vertical">
             <div class="tile is-child">
                 <span class="tag is-info">Suodattimet</span>
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Vanhat varaukset
-                </label>
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Käynnissä olevat varaukset
-                </label>
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Tulevat varaukset
-                </label>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-old">
+                        Vanhat varaukset
+                    </label>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-current">
+                        Käynnissä olevat varaukset
+                    </label>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-future">
+                        Tulevat varaukset
+                    </label>
+                </div>
             </div>
         </div>
 

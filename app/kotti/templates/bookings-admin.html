@@ -1,11 +1,12 @@
 {% block content %}
-<div class="tile is-parent" id="bookings-own-list">
-    <table class="table" id="bookings-own-table">
+<div class="tile is-parent" id="bookings-admin-list">
+    <table class="table" id="bookings-admin-table">
     </table>
 </div>
 <script>
+
 function bookings_own_refresh() {
-    $.get('/api/booking/?user=' + user_id, function(data) {
+    $.get('/api/booking/?admin=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
@@ -22,5 +23,7 @@ function bookings_own_refresh() {
         });
     });
 }
+
+bookings_admin_refresh();
 </script>
 {% endblock %}
