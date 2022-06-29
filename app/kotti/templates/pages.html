@@ -58,6 +58,16 @@ function pages_select(page) {
     }
 }
 
+function parse_time(time) {
+    var parts = time.split(":");
+    return parseInt(parts[0]) + parseInt(parts[1]);
+}
+
+function parse_date(date) {
+    var parts = date.split("-");
+    return parts[0] + "." + parts[1] + ".";
+}
+
 pages_select(settings.page);
 </script>
 {% endblock %}

@@ -265,9 +265,8 @@ function room_modal_open(room_id) {
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
-            var date = new Date(open_time.day.date);
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
-                "<th colspan='2'>" + date.getDate() + "." + (date.getMonth() + 1) + ".</th>" +
+                "<th colspan='2'>" + parse_date(open_time.day.date) + "</th>" +
                 "<td class='room-timetable-tools is-hidden'>" +
                     "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
@@ -277,8 +276,8 @@ function room_modal_open(room_id) {
                 time_html += "<tr><td><a href='#' class='icon-text has-text-success' title='Varaa' onclick='room_book(" + open_time.id + ", " + time.id + ")'>" +
                                     "<span class='icon'><i class='fas fa-calendar'></i></span>" +
                                     "<span>Varaa</span></a></td>" +
-                            "<td>" + time.start_time + "</td>" +
-                            "<td>" + time.end_time + "</td>" +
+                            "<td>" + parse_time(time.start_time) + "</td>" +
+                            "<td>" + parse_time(time.end_time) + "</td>" +
                             "<td class='room-timetable-tools is-hidden'>" +
                                 "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
                                     "<i class='fas fa-ban'></i></a></td></tr>";

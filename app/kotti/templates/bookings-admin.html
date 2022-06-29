@@ -62,9 +62,9 @@ function bookings_admin_refresh() {
                 var booking = item.bookings[i];
                 if((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == '')) {
                     room_html += '<tr>';
-                    room_html += '<td>' + booking.date.name + '</td>';
-                    room_html += '<td>' + booking.start_time + '</td>';
-                    room_html += '<td>' + booking.end_time + '</td>';
+                    room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
+                    room_html += '<td>' + parse_time(booking.start_time) + '</td>';
+                    room_html += '<td>' + parse_time(booking.end_time) + '</td>';
                     room_html += '<td>' + approval(booking.approved) + '</td>';
                     room_html += '<td>' + booking.persons + '</td>';
                     room_html += '</tr>';
