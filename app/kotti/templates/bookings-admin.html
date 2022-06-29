@@ -6,6 +6,28 @@
 </div>
 <script>
 
+function check_date(date) {
+    var date = new Date(date);
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    if (date < today) {
+        return 1;
+    }
+    if (date == today) {
+        return 2;
+    }
+    return 3;
+}
+
 function bookings_admin_refresh() {
     if($('#bookings-old').is(':checked')) {
         var old = '&old=1';
@@ -31,7 +53,7 @@ function bookings_admin_refresh() {
             var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=5>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
-                if((old != '' && booking.date.date < new Date().getDate())||(current != '' && booking.date.date == new Date())||(future != '' && booking.date.date > new Date())) {
+                if((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)) {
                     room_html += '<tr>';
                     room_html += '<td>' + booking.date.name + '</td>';
                     room_html += '<td>' + booking.start_time + '</td>';
