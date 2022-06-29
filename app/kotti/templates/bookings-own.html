@@ -31,7 +31,7 @@ function bookings_own_refresh() {
             var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=5>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
-                if((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == '')) {
+                if(booking.user.id == user_id &&((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == ''))) {
                     room_html += '<tr>';
                     room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';
