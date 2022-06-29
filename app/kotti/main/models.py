@@ -27,7 +27,6 @@ class KottiUserManager(BaseUserManager):
             department=department,
             team=team,
         )
-        print(user)
 
         user.set_password(password)
         user.save(using=self._db)
