@@ -43,5 +43,34 @@ function bookings_refresh() {
         bookings_own_refresh();
     }
 }
+
+function check_date(date) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    if (date < today) {
+        return 1;
+    }
+    if (date == today) {
+        return 2;
+    }
+    return 3;
+}
+
+function approval(approved) {
+    if(approved) {
+        return 'Hyväksytty';
+    } else {
+        return 'Odottaa hyväksyntää';
+    }
+}
 </script>
 {% endblock %}
