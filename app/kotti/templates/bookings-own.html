@@ -1,11 +1,12 @@
 {% block content %}
 <div class="tile is-parent" id="bookings-own-list">
+    <h4 class="title">Omat varaukset</h4>
     <table class="table" id="bookings-own-table">
     </table>
 </div>
 <script>
 function bookings_own_refresh() {
-    $.get('/api/bookings/?user=' + user_id, function(data) {
+    $.get('/api/booking/?user=' + user_id, function(data) {
         console.log(data);
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
