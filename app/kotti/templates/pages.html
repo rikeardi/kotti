@@ -14,8 +14,8 @@
                 <span>Tilat</span>
             </a>
         </li>
-        <li id="pages-menu-reservations" class="pages-menu is-active">
-            <a href="#" onclick="pages_select('reservations')">
+        <li id="pages-menu-bookings" class="pages-menu is-active">
+            <a href="#" onclick="pages_select('bookings')">
                 <span class="icon"><i class="fas fa-calendar"></i></span>
                 <span>Varaukset</span>
             </a>
@@ -40,7 +40,7 @@
     <div id="pages-rooms" class="pages-box" style="height: 100%; display: none;">
         {% include 'rooms.html' %}
     </div>
-    <div id="pages-reservations" class="pages-box" style="height: 100%;">
+    <div id="pages-bookings" class="pages-box" style="height: 100%;">
         {% include 'bookings.html' %}
     </div>
 </div>
@@ -53,6 +53,9 @@ function pages_select(page) {
     $("#pages-" + page).show();
     settings.page = page;
     refresh_settings();
+    if(page == "bookings") {
+        bookings_refresh();
+    }
 }
 
 pages_select(settings.page);

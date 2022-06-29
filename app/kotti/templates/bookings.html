@@ -33,4 +33,15 @@
         </div>
     </div>
 </div>
+
+<script>
+function bookings_refresh() {
+    if (typeof bookings_admin_refresh !== "undefined") {
+        bookings_admin_refresh();
+    }
+    if (typeof bookings_own_refresh !== "undefined") {
+        bookings_own_refresh();
+    }
+}
+</script>
 {% endblock %}
