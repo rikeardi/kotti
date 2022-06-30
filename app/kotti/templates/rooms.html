@@ -449,6 +449,7 @@ function room_remove_day(day_id) {
 {% endif %}
 
 function room_book(open_time_id, time_id) {
+    console.log(opened_room);
     for(var i = 0; i < opened_room.open_times.length; i++) {
         if(opened_room.open_times[i].id == open_time_id) {
             var day = opened_room.open_times[i];
