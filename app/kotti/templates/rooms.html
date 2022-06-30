@@ -463,6 +463,14 @@ function room_book(open_time_id, time_id) {
         }
     }
 
+    for(var i = 0; i < opened_room.availability.length; i++) {
+        if(opened_room.availability[i].day == day.id) {
+            var availability = opened_room.availability[i];
+            break;
+        }
+    }
+    console.log(availability);
+
     $("#booking-modal-name").text(opened_room.name);
     $("#booking-modal-day").text(day.day.name);
     $("#booking-modal-day-id").val(day.day.id);
@@ -482,6 +490,8 @@ function room_book(open_time_id, time_id) {
         $("#booking-modal-start-time").append("<option value='" + time_string + "'>" + time_string + "</option>");
         start_seconds += 900;
     }
+
+
 
     $("#booking-modal-end-time").html("");
     while(end_seconds_now < end_seconds) {
