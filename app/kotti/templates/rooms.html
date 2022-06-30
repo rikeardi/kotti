@@ -469,7 +469,6 @@ function room_book(open_time_id, time_id) {
             break;
         }
     }
-    console.log(availability);
 
     $("#booking-modal-name").text(opened_room.name);
     $("#booking-modal-day").text(day.day.name);
@@ -488,10 +487,10 @@ function room_book(open_time_id, time_id) {
         var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
         var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
 
-        for(var i = 0; i < availability.length; i++) {
-            console.log(availability[i], time_string);
-            if(availability[i].time == time_string) {
-                var time_avail = availability[i].available;
+        for(var i = 0; i < availability.times.length; i++) {
+            console.log(availability.times[i], time_string);
+            if(availability.times[i].time == time_string) {
+                var time_avail = availability.times[i].available;
                 break;
             }
         }
