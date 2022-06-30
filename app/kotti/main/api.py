@@ -104,7 +104,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Room
-        fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times', 'bookings')
+        fields = ('id', 'name', 'description', 'capacity', 'equipment', 'admins', 'open_times', 'bookings', 'availability')
 
 
 class RoomViewSet(viewsets.ModelViewSet):
