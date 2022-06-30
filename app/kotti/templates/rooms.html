@@ -78,9 +78,7 @@
                 </div>
                 <div class="column is-two-thirds">
                     <span class="tag is-info">Aukioloajat</span>
-                    {% if user.is_room_admin %}
                     <button class="tag is-success is-hidden" id="room-modal-edit-btn" style="position: absolute; right: 0.75rem; border: 0px;" onclick="room_edit_times();">Muokkaa</button>
-                    {% endif %}
                     <table class="table" id="room-times-table">
                     </table>
                 </div>
