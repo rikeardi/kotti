@@ -87,7 +87,6 @@ class BookingViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         approved = request.data.get('approved')
-        print(approved)
         if approved:
             instance.approved = approved
 
