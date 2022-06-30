@@ -157,13 +157,12 @@ class Room(models.Model):
 
         for open_time in self.open_times.all():
             day_availability = {}
-            print(open_time.day.date)
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
-                print(avail_time)
                 while avail_time < opening_time.end_time:
                     day_availability[avail_time] = self.capacity
                     avail_time = avail_time + time.fromisoformat('00:15:00')
+                    print(avail_time)
 
             availability[open_time.day.id] = day_availability
 
