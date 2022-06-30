@@ -73,6 +73,9 @@ function booking_approve(id) {
     $.ajax({
         url: '/api/booking/' + id + '/',
         type: 'PATCH',
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
         data: {
             approved: 1
         },
@@ -86,6 +89,9 @@ function booking_reject(id) {
     $.ajax({
         url: '/api/booking/' + id + '/',
         type: 'PATCH',
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
         data: {
             approved: 2
         },
