@@ -496,15 +496,17 @@ function room_book(open_time_id, time_id) {
         }
 
         var available_pros = time_avail/opened_room.capacity*100;
-        var pros_class = "is-success";
+        var pros_style = "color: green !important;";
+        var disabled = "";
         switch(true) {
-            case (available_pros <= 10): pros_class = "is-danger";
+            case (available_pros <= 10): pros_style = "color: red !important;";
+                disabled = "disabled";
             break;
-            case (available_pros <= 40): pros_class = "is-warning";
+            case (available_pros <= 40): pros_style = "color: yellow !important;";
             break;
         }
 
-        var time_html = "<option class='" + pros_class + "' value='" + time_string + "'>" + time_string + " (" + time_avail + ")</option>";
+        var time_html = "<option style='" + pros_style + "' value='" + time_string + "' " + disabled + ">" + time_string + " (" + time_avail + ")</option>";
         $("#booking-modal-start-time").append(time_html);
         start_seconds += 900;
     }
