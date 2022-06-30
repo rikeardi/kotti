@@ -47,7 +47,7 @@ function bookings_admin_refresh() {
                         '<div class="dropdown-content">' +
                         '<a class="dropdown-item" href="#" onclick="booking_approve(' + booking.id + ')">Hyväksy</a>' +
                         '<a class="dropdown-item" href="#" onclick="booking_reject(' + booking.id + ')">Hylkää</a>' +
-                        '</div></div></td>';
+                        '</div></div></div></td>';
                     } else {
                         room_html += '<td>' + approval(booking.approved) + '</td>';
                     }
