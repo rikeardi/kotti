@@ -28,7 +28,7 @@ function bookings_own_refresh() {
     $.get('/api/rooms/?booking_user=' + user_id + old + current + future, function(data) {
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
-            var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=5>' + item.name + '</td></tr>';
+            var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=5>' + item.name + '</th></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
                 if(booking.user.id == user_id &&((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == ''))) {
