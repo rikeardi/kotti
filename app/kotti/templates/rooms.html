@@ -330,6 +330,7 @@ function rooms_modal_save() {
     var description = $("#rooms-modal-description").val();
     var equipment = $("#rooms-modal-equipment").val();
     var admins = $("#rooms-modal-admins").val();
+    console.log(admins);
 
     $.ajax({
         url: "/api/room/",
