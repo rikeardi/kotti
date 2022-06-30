@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from rest_framework import serializers, viewsets, generics
@@ -113,7 +114,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
                                        capacity=request.data.get('capacity'), equipment=request.data.get('equipment'))
 
-        admins = request.data.admins
+        admins = json.load(request.data.get('admins'))
         print(admins)
         if admins:
             for admin in admins:
