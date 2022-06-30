@@ -28,7 +28,7 @@ function bookings_admin_refresh() {
     $.get('/api/rooms/?admin=' + user_id + old + current + future, function(data) {
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
-            var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=6>' + item.name + '</td></tr>';
+            var room_html = '<tr><th class="is-primary">Huone</th><td class="is-primary" colspan=7>' + item.name + '</td></tr>';
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
                 if((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == '')) {
@@ -37,19 +37,14 @@ function bookings_admin_refresh() {
                     room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
+                    room_html += '<td>' + approval(booking.approved) + '</td>';
                     if(booking.approved == 0) {
-                        room_html += '<td><div class="dropdown"><div class="dropdown-trigger">' +
-                        '<button class="button" aria-haspopup="true" aria-controls="bookings-approval-' + booking.id + '">' +
-                        '<span>' + approval(booking.approved) + '</span>' +
-                        '<span class="icon is-small"><i class="fas fa-angle-down" aria-hidden="true"></i></span>' +
-                        '</button></div>' +
-                        '<div class="dropdown-menu" id="bookings-approval-' + booking.id + '" role="menu">' +
-                        '<div class="dropdown-content">' +
-                        '<a class="dropdown-item" href="#" onclick="booking_approve(' + booking.id + ')">Hyväksy</a>' +
-                        '<a class="dropdown-item" href="#" onclick="booking_reject(' + booking.id + ')">Hylkää</a>' +
-                        '</div></div></div></td>';
+                        room_html += '<td><a href="#" onclick="booking_approve(' + booking.id + ')">' +
+                        '<span class="icon is-success" title="Hyväksy"><i class="fas fa-check"></i></span></a>' +
+                        '<a href="#" onclick="booking_reject(' + booking.id + ')">' +
+                        '<span class="icon is-danger" title="Hylkää"><i class="fas fa-ban"></i></span>/a></td>';
                     } else {
-                        room_html += '<td>' + approval(booking.approved) + '</td>';
+                        room_html += '<td></td>'
                     }
                     room_html += '<td>' + booking.persons + ' hlöä</td>';
                     room_html += '</tr>';
