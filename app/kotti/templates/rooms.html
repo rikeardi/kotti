@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Ylläpitäjät</label>
+                <label class="label">Vastuuhenkilöt</label>
                 <div class="control">
                     <div class="select is-multiple">
                         <select id="rooms-modal-admins" multiple>
@@ -263,15 +263,17 @@ function room_modal_open(room_id) {
         $("#room-modal-equipment").text(data.equipment);
 
         $("#room-modal-admins").html("");
+        var admin_html = "<ul>";
         for(var i = 0; i < data.admins.length; i++) {
             var admin = data.admins[i];
-            var admin_html = "<span class='tag is-primary'>" + admin.first_name + " " + admin.last_name + "</span><br/>";
-            $("#room-modal-admins").append(admin_html);
+            admin_html += "<li>" + admin.first_name + " " + admin.last_name + "</li>";
 
             if(admin.id == user_id) {
                 is_admin = true;
             }
         }
+        admin_html += "</ul>";
+        $("#room-modal-admins").append(admin_html);
 
         if(is_admin) {
             $("#room-modal-edit-btn").removeClass("is-hidden");
