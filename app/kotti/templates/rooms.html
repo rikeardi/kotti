@@ -485,6 +485,7 @@ function room_book(open_time_id, time_id) {
     }
 
     $("#booking-modal-persons").attr("max", opened_room.capacity);
+    $("#booking-modal-persons").val($("#rooms-search-seats").val());
 
     $("#booking-modal").addClass("is-active");
 }
