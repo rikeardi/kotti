@@ -125,7 +125,7 @@ class Booking(models.Model):
     end_time = models.TimeField()
     date = models.ForeignKey('OpenDay', on_delete=models.CASCADE)
     persons = models.IntegerField(default=2)
-    approved = models.BooleanField(blank=True, default=None)
+    approved = models.IntegerField(default=1, choices=[(1, 'Odottaa hyväksyntää'), (2, 'Hyväksytty'), (3, 'Hylätty')])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
