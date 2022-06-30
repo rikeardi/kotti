@@ -1,12 +1,33 @@
 {% block messages %}
-{% if messages %}
-{% for message in messages %}
-<div{% if message.tags %} class="w3-panel w3-red w3-border w3-small w3-round w3-card {{ message.tags }}"{% endif %}><h4>
-    {{ message.tags|title }}</h4><p>{{ message }}</p></div>
-{% endfor %}
-{% endif %}
+
+<div class="message" id="message-template is-hidden" style="position: fixed; top: 10px;">
+    <div class="message-header">
+        <p class="message-title"></p>
+    </div>
+    <div class="message-body">
+        <p class="message-text"></p>
+    </div>
+</div>
+
 <script>
-  $("#messages div").delay(2000).fadeOut('slow')
+message_id = 0;
+
+function message_show(message) {
+    var message_clone = $('#message-template').clone();
+    message_clone.removeClass('is-hidden');
+    message_clone.attr('id', 'message-' + message_id);
+    message_clone.find('.message-title').text(message.title);
+    message_clone.find('.message-text').text(message.text);
+    $('#messages').append(message_clone);
+    message_id++;
+    message_clone.fadeIn(100);
+    setTimeout(function() {
+        message_clone.fadeOut(100);
+        setTimeout(function() {
+            message_clone.remove();
+        }, 100);
+    }, 2000);
+}
 </script>
 {% endblock %}
 
