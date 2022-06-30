@@ -153,6 +153,7 @@ class Room(models.Model):
         Returns the availability of the room.
         """
         availability = []
+        print(self.open_times.all())
         for open_time in self.open_times.all():
             avail_time = open_time.start_time
             print(avail_time)
