@@ -441,9 +441,9 @@ function room_remove_day(day_id) {
 }
 {% endif %}
 
-function room_book(day_id, time_id) {
+function room_book(open_time_id, time_id) {
     for(var i = 0; i < opened_room.open_times.length; i++) {
-        if(opened_room.open_times[i].id == day_id) {
+        if(opened_room.open_times[i].id == open_time_id) {
             var day = opened_room.open_times[i];
             break;
         }
@@ -458,7 +458,7 @@ function room_book(day_id, time_id) {
 
     $("#booking-modal-name").text(opened_room.name);
     $("#booking-modal-day").text(day.day.name);
-    $("#booking-modal-day-id").val(day.id);
+    $("#booking-modal-day-id").val(day.day.id);
 
     var start_time = time.start_time.split(":");
     var end_time = time.end_time.split(":");
