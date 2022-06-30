@@ -1,0 +1,76 @@
+{% block content %}
+<div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
+    <div class="columns">
+        <div class="column is-3 tile is-parent is-vertical">
+            <div class="tile is-child">
+                <span class="tag is-info">Suodattimet</span>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-old">
+                        Vanhat varaukset
+                    </label>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-current" value="1" checked>
+                        Varaukset tänään
+                    </label>
+                </div>
+                <div class="field">
+                    <label class="checkbox">
+                        <input type="checkbox" id="bookings-future">
+                        Tulevat varaukset
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            {% include 'bookings-own.html' %}
+            {% if user.is_room_admin %}
+            {% include 'bookings-admin.html' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function bookings_refresh() {
+    if (typeof bookings_admin_refresh !== "undefined") {
+        bookings_admin_refresh();
+    }
+    if (typeof bookings_own_refresh !== "undefined") {
+        bookings_own_refresh();
+    }
+}
+
+function check_date(date) {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    if (date < today) {
+        return 1;
+    }
+    if (date == today) {
+        return 2;
+    }
+    return 3;
+}
+
+function approval(approved) {
+    if(approved) {
+        return 'Hyväksytty';
+    } else {
+        return 'Odottaa hyväksyntää';
+    }
+}
+</script>
+{% endblock %}

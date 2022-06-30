@@ -14,8 +14,8 @@
                 <span>Tilat</span>
             </a>
         </li>
-        <li id="pages-menu-reservations" class="pages-menu is-active">
-            <a href="#" onclick="pages_select('reservations')">
+        <li id="pages-menu-bookings" class="pages-menu is-active">
+            <a href="#" onclick="pages_select('bookings')">
                 <span class="icon"><i class="fas fa-calendar"></i></span>
                 <span>Varaukset</span>
             </a>
@@ -24,7 +24,6 @@
         <li id="pages-menu-admin" class="pages-menu is-active" style="position: absolute; right: 6rem;">
             <a href="{% url 'admin:index' %}" target="_blank">
                 <span class="icon"><i class="fas fa-cog"></i></span>
-                <span>Hallinta</span>
             </a>
         </li>
         {% endif %}
@@ -40,8 +39,8 @@
     <div id="pages-rooms" class="pages-box" style="height: 100%; display: none;">
         {% include 'rooms.html' %}
     </div>
-    <div id="pages-reservations" class="pages-box" style="height: 100%;">
-        {% include 'reservations.html' %}
+    <div id="pages-bookings" class="pages-box" style="height: 100%;">
+        {% include 'bookings.html' %}
     </div>
 </div>
 
@@ -53,6 +52,19 @@ function pages_select(page) {
     $("#pages-" + page).show();
     settings.page = page;
     refresh_settings();
+    if(page == "bookings") {
+        bookings_refresh();
+    }
+}
+
+function parse_time(time) {
+    var parts = time.split(":");
+    return parts[0] + ":" + parts[1];
+}
+
+function parse_date(date) {
+    var parts = date.split("-");
+    return parseInt(parts[2]) + "." + parseInt(parts[1]) + ".";
 }
 
 pages_select(settings.page);

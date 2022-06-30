@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import serializers, viewsets, generics
 from rest_framework.response import Response
 from .models import *
@@ -52,10 +54,11 @@ class RoomTimeViewSet(viewsets.ModelViewSet):
 
 class BookingSerializer(serializers.HyperlinkedModelSerializer):
     user = KottiUserSerializer(read_only=True)
+    date = OpenDaySerializer(read_only=True)
 
     class Meta:
         model = Booking
-        fields = ('id', 'user', 'start_time', 'end_time', 'persons')
+        fields = ('id', 'user', 'date', 'start_time', 'end_time', 'persons', 'approved')
 
 
 class BookingViewSet(viewsets.ModelViewSet):
@@ -70,6 +73,15 @@ class BookingViewSet(viewsets.ModelViewSet):
         room.bookings.add(instance)
         room.save()
         return Response(BookingSerializer(instance).data)
+
+    def get_queryset(self):
+        queryset = Booking.objects.all()
+
+        user = self.request.query_params.get('user')
+        if user:
+            queryset = queryset.filter(user__id=user)
+
+        return queryset
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -131,7 +143,26 @@ class RoomList(viewsets.ModelViewSet):
         if seats:
             queryset = queryset.filter(capacity__gte=seats)
 
-        return queryset
+        booking_user = self.request.query_params.get('booking_user')
+        if booking_user:
+            queryset = queryset.filter(bookings__user__id=booking_user).distinct()
+
+        admin = self.request.query_params.get('admin')
+        if admin:
+            queryset = queryset.filter(admins__id=admin)
+
+        old = self.request.query_params.get('old')
+        current = self.request.query_params.get('current')
+        future = self.request.query_params.get('future')
+        if old or current or future:
+            if old:
+                queryset = queryset.filter(bookings__date__date__lte=datetime.now().date())
+            if current:
+                queryset = queryset.filter(bookings__date__date=datetime.now().date())
+            if future:
+                queryset = queryset.filter(bookings__date__date__gte=datetime.now().date())
+
+        return queryset.distinct()
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
