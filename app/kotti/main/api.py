@@ -114,6 +114,7 @@ class RoomViewSet(viewsets.ModelViewSet):
                                        capacity=request.data.get('capacity'), equipment=request.data.get('equipment'))
 
         admins = request.data.get('admins')
+        print(admins)
         if admins:
             for admin in admins:
                 instance.admins.add(KottiUser.objects.get(pk=admin))
