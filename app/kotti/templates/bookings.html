@@ -12,7 +12,7 @@
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-current" value="1" checked>
+                        <input type="checkbox" id="bookings-current">
                         Varaukset tänään
                     </label>
                 </div>
@@ -44,6 +44,24 @@ function bookings_refresh() {
     }
 }
 
+$("#bookings-old").change(function() {
+    bookings_refresh();
+    settings.bookings_old = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-current").change(function() {
+    bookings_refresh();
+    settings.bookings_current = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-future").change(function() {
+    bookings_refresh();
+    settings.bookings_future = $(this).is(":checked");
+    refresh_settings();
+});
+
 function check_date(date) {
     var today = new Date();
     var dd = today.getDate();
@@ -68,6 +86,16 @@ function check_date(date) {
 function approval(approved) {
     var approval = ["Odottaa hyväksyntää", "Hyväksytty", "Hylätty"];
     return approval[approved];
+}
+
+if(settings.bookings.old) {
+    $("#bookings-old").prop("checked", true);
+}
+if(settings.bookings.current) {
+    $("#bookings-current").prop("checked", true);
+}
+if(settings.bookings.future) {
+    $("#bookings-future").prop("checked", true);
 }
 
 </script>
