@@ -109,6 +109,7 @@ class RoomSerializer(serializers.ModelSerializer):
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
+    availability = []
 
     def create(self, request, *args, **kwargs):
         instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
