@@ -534,6 +534,12 @@ function booking_modal_close() {
 function booking_modal_save() {
     var name = $("#booking-modal-name").val();
     var persons = $("#booking-modal-persons").val();
+
+    if(persons > opened_room.capacity) {
+        message_show({ type: "error", title: "Virhe", text: "Tilaan ei mahdu " + persons + " ihmistä." });
+        return;
+    }
+
     var start_time = $("#booking-modal-start-time").val().split(":");
     var end_time = $("#booking-modal-end-time").val().split(":");
     var day_id = $("#booking-modal-day-id").val();
