@@ -497,10 +497,10 @@ function room_book(open_time_id, time_id) {
 
         var available_pros = time_avail/opened_room.capacity*100;
         var pros_class = "is-success";
-        switch(available_pros) {
-            case < 10: pros_class = "is-danger";
+        switch(true) {
+            case (available_pros <= 10): pros_class = "is-danger";
             break;
-            case < 40: pros_class = "is-warning";
+            case (available_pros <= 40): pros_class = "is-warning";
             break;
         }
         $("#booking-modal-start-time").append("<option class="' + pros_class + '" value='" + time_string + "'>" + time_string + " (" + time_avail + ")</option>");
