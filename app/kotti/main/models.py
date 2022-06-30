@@ -162,11 +162,16 @@ class Room(models.Model):
                     time_availability = {'time': avail_time.strftime("%H:%M"), 'available': self.capacity}
                     day_availability['times'].append(time_availability)
                     avail_time = (datetime.datetime.combine(datetime.date.today(), avail_time) + datetime.timedelta(minutes=15)).time()
-                    print(avail_time)
 
             availability.append(day_availability)
 
-        print(availability)
+        for booking in self.bookings.all():
+            for day in availability:
+                if day['day'] == booking.date.id:
+                    for time in day['times']:
+                        if booking.start_time.strftime("%H:%M") <= time['time'] <= booking.end_time.strftime("%H:%M"):
+                            time['available'] -= booking.persons
+
         return availability
 
     def save(
