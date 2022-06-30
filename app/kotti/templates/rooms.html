@@ -503,7 +503,9 @@ function room_book(open_time_id, time_id) {
             case (available_pros <= 40): pros_class = "is-warning";
             break;
         }
-        $("#booking-modal-start-time").append("<option class="' + pros_class + '" value='" + time_string + "'>" + time_string + " (" + time_avail + ")</option>");
+
+        var time_html = "<option class='" + pros_class + "' value='" + time_string + "'>" + time_string + " (" + time_avail + ")</option>";
+        $("#booking-modal-start-time").append(time_html);
         start_seconds += 900;
     }
 
