@@ -111,15 +111,6 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
-    @property
-    def get_availability(self):
-        room = self.get_object()
-        day = OpenDay.objects.get(pk=request.query_params.get('day'))
-        times = room.open_times.get(day=day).times.all()
-        for time in times:
-            self.availability.append({'start_time': time.start_time, 'end_time': time.end_time})
-        return Response(self.availability)
-
     def create(self, request, *args, **kwargs):
         instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
                                        capacity=request.data.get('capacity'), equipment=request.data.get('equipment'))

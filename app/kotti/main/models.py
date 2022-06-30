@@ -4,6 +4,7 @@ Django models for room management.
 Rooms and tables are used to manage the seating capacity of a room.
 """
 import time
+from datetime import timedelta
 
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
@@ -145,6 +146,28 @@ class Room(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.capacity})'
+
+    @property
+    def get_availability(self):
+        """
+        Returns the availability of the room.
+        """
+        availability = []
+        for open_time in self.open_times.all():
+            avail_time = open_time.start_time
+            while avail_time < open_time.end_time:
+                availability.append({avail_time: self.capacity})
+                avail_time += timedelta(minutes=15)
+
+        for booking in self.bookings.all():
+            if booking.approved != 2:
+                book_time = booking.start_time
+                while book_time < booking.end_time:
+                    for avail_time in availability:
+                        if avail_time.keys()[0] == book_time:
+                            avail_time[avail_time.keys()[0]] -= booking.persons
+                    book_time += timedelta(minutes=15)
+        return availability
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
