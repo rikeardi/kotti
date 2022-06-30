@@ -66,11 +66,8 @@ function check_date(date) {
 }
 
 function approval(approved) {
-    if(approved) {
-        return 'Hyväksytty';
-    } else {
-        return 'Odottaa hyväksyntää';
-    }
+    var approval = ["Odottaa hyväksyntää", "Hyväksytty", "Hylätty"];
 }
+
 </script>
 {% endblock %}
