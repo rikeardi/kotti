@@ -123,6 +123,7 @@ function booking_approve(id) {
             approved: 1
         },
         success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Varaus hyväksytty" });
             bookings_admin_refresh();
         }
     });
@@ -139,6 +140,7 @@ function booking_reject(id) {
             approved: 2
         },
         success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Varaus hylätty" });
             bookings_admin_refresh();
         }
     });

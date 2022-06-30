@@ -352,6 +352,7 @@ function rooms_modal_save() {
         },
         success: function(data) {
             rooms_modal_close();
+            message_show({ type: "success", title: "Onnistui", text: "Kokoustila lisätty." });
             rooms_search();
         }
     });
@@ -382,6 +383,7 @@ function days_modal_save() {
         },
         success: function(data) {
             days_modal_close();
+            message_show({ type: "success", title: "Onnistui", text: "Kokouspäivä lisätty." });
             location.reload();
         }
     });
@@ -414,6 +416,7 @@ function room_add_open_time() {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Aukioloaika lisätty." });
             room_modal_open(opened_room.id);
         }
     });
@@ -427,6 +430,7 @@ function room_remove_time(time_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Aukioloaika poistettu" });
             room_modal_open(opened_room.id);
         }
     });
@@ -440,6 +444,7 @@ function room_remove_day(day_id) {
             "X-CSRFToken": csrf_token
         },
         success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Aukiolopäivä poistettu" });
             room_modal_open(opened_room.id);
         }
     });
@@ -556,7 +561,7 @@ function booking_modal_save() {
         }
 
         if(time_avail < persons) {
-            alert("Ei tarpeeksi vapaata tilaa varausta varten.");
+            message_show({ type: "error", title: "Tila täynnä", text: "Haluamastasi tilasta ei löydy tarpeeksi paikkoja varauksellesi. Yritä toista ajankohtaa tai tilaa." });
             return;
         }
 
@@ -580,6 +585,7 @@ function booking_modal_save() {
             booking_modal_close();
             room_modal_close();
             room_modal_open(opened_room.id);
+            message_show({type: "success", title: "Onnistui", text: "Varauksesi on tallennettu onnistuneesti."});
         }
     });
 }

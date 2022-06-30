@@ -14,6 +14,19 @@ message_id = 0;
 
 function message_show(message) {
     var message_clone = $('#message-template').clone();
+    var message_icon = "";
+
+    switch(message.type) {
+        case "error":
+            message_clone.addClass('is-danger');
+            message_icon = "fas fa-exclamation-triangle";
+            break;
+        case "success":
+            message_clone.addClass('is-success');
+            message_icon = "fas fa-check";
+            break;
+    }
+
     message_clone.removeClass('is-hidden');
     message_clone.attr('id', 'message-' + message_id);
     message_clone.find('.message-title').text(message.title);
