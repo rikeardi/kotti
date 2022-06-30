@@ -36,9 +36,8 @@
                 <label class="label">Sähköposti</label>
                 <p id="person-email"></p>
             </div>
-        </section>
-        <section class="modal-card-body">
             <div>
+                <hr>
                 <h4 class="subtitle">Varaus</h4>
             </div>
             <div class="field">
@@ -51,7 +50,7 @@
             </div>
             <div class="field">
                 <label class="label">Henkilömäärä</label>
-                <p id="person-time"></p>
+                <p id="person-persons"></p>
             </div>
         </section>
         <footer class="modal-card-foot">
@@ -89,7 +88,7 @@ function bookings_admin_refresh() {
                 var booking = item.bookings[i];
                 if((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == '')) {
                     room_html += '<tr>';
-                    room_html += '<td><a href="#" onclick="person_modal_open(' + booking.user.id + ')">' + booking.user.first_name + ' ' + booking.user.last_name + '</a></td>';
+                    room_html += '<td><a href="#" onclick="person_modal_open(' + booking.user.id + ', ' + booking.id + ')">' + booking.user.first_name + ' ' + booking.user.last_name + '</a></td>';
                     room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
@@ -157,13 +156,16 @@ function booking_reject(id) {
     });
 }
 
-function person_modal_open(id) {
-    $.get('/api/users/' + id + '/', function(data) {
-        $('#person-name').html(data.first_name + ' ' + data.last_name);
-        $('#person-department').html(data.department);
-        $('#person-team').html(data.team);
-        $('#person-phone').html(data.phone);
-        $('#person-email').html(data.email);
+function person_modal_open(booking_id) {
+    $.get('/api/booking/' + booking_id + '/', function(data) {
+        $('#person-name').html(data.user.first_name + ' ' + data.user.last_name);
+        $('#person-department').html(data.user.department);
+        $('#person-team').html(data.user.team);
+        $('#person-phone').html(data.user.phone);
+        $('#person-email').html(data.user.email);
+        $('#person-date').html(data.date.name + " " + parse_date(data.date.date));
+        $('#person-time').html(parse_time(data.start_time) + " - " + parse_time(data.end_time));
+        $('#person-persons').html(data.persons + " hlöä");
         $('#person-modal').addClass('is-active');
     });
 }
