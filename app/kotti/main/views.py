@@ -1,4 +1,4 @@
-import datetime
+from datetime import date
 import json
 
 from django.core.serializers import serialize
@@ -10,7 +10,7 @@ from .forms import *
 @login_required
 def home(request):
     context = {
-        'open_days': OpenDay.objects.all().filter(date__gte=datetime.date.today()).order_by('date'),
+        'open_days': OpenDay.objects.all().filter(date__gte=date.today()).order_by('date'),
         'rooms': Room.objects.all(),
         'users': KottiUser.objects.all(),
     }
