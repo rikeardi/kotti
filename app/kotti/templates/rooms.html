@@ -340,7 +340,7 @@ function rooms_modal_save() {
             capacity: capacity,
             description: description,
             equipment: equipment,
-            admins: admins,
+            admins: JSON.stringify(admins),
         },
         headers: {
             "X-CSRFToken": csrf_token
