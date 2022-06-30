@@ -4,6 +4,62 @@
     <table class="table" id="bookings-admin-table">
     </table>
 </div>
+
+<div id="person-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Varaajan tiedot</p>
+            <button class="delete" aria-label="close" onclick="person_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div>
+                <h4 class="subtitle">Varaaja</h4>
+            </div>
+            <div class="field">
+                <label class="label">Nimi</label>
+                <p id="person-name"></p>
+            </div>
+            <div class="field">
+                <label class="label">Osa-alue</label>
+                <p id="person-department"></p>
+            </div>
+            <div class="field">
+                <label class="label">Tiimi</label>
+                <p id="person-team"></p>
+            </div>
+            <div class="field">
+                <label class="label">Puhelinnumero</label>
+                <p id="person-phone"></p>
+            </div>
+            <div class="field">
+                <label class="label">Sähköposti</label>
+                <p id="person-email"></p>
+            </div>
+        </section>
+        <section class="modal-card-body">
+            <div>
+                <h4 class="subtitle">Varaus</h4>
+            </div>
+            <div class="field">
+                <label class="label">Päivämäärä</label>
+                <p id="person-date"></p>
+            </div>
+            <div class="field">
+                <label class="label">Kello</label>
+                <p id="person-time"></p>
+            </div>
+            <div class="field">
+                <label class="label">Henkilömäärä</label>
+                <p id="person-time"></p>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button" onclick="person_modal_close();">Sulje</button>
+        </footer>
+    </div>
+</div>
+
 <script>
 
 function bookings_admin_refresh() {
