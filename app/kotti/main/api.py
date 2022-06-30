@@ -113,7 +113,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
                                        capacity=request.data.get('capacity'), equipment=request.data.get('equipment'))
 
-        admins = request.data.get('admins')
+        admins = request.data.admins
         print(admins)
         if admins:
             for admin in admins:
