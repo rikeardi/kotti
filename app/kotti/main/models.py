@@ -167,6 +167,8 @@ class Room(models.Model):
                         if avail_time.keys()[0] == book_time:
                             avail_time[avail_time.keys()[0]] -= booking.persons
                     book_time += timedelta(minutes=15)
+
+        print(availability)
         return availability
 
     def save(
