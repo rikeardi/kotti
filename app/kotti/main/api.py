@@ -100,7 +100,7 @@ class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
     bookings = BookingSerializer(many=True)
     admins = KottiUserSerializer(many=True)
-    availability = serializers.Field(source='get_availability')
+    availability = serializers.ReadOnlyField(source='get_availability')
 
     class Meta:
         model = Room
