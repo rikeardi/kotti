@@ -153,7 +153,7 @@ class Room(models.Model):
         """
         Returns the availability of the room.
         """
-        availability = {}
+        availability = []
 
         for open_time in self.open_times.all():
             day_availability = {}
@@ -163,7 +163,7 @@ class Room(models.Model):
                     day_availability[avail_time] = self.capacity
                     avail_time = avail_time + time.fromisoformat('00:15:00')
 
-            availability[open_time.day] = day_availability
+            availability[open_time.day.id] = day_availability
 
         print(availability)
         return availability
