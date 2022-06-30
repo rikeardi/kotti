@@ -46,19 +46,19 @@ function bookings_refresh() {
 
 $("#bookings-old").change(function() {
     bookings_refresh();
-    settings.bookings_old = $(this).is(":checked");
+    settings.bookings.old = $(this).is(":checked");
     refresh_settings();
 });
 
 $("#bookings-current").change(function() {
     bookings_refresh();
-    settings.bookings_current = $(this).is(":checked");
+    settings.bookings.current = $(this).is(":checked");
     refresh_settings();
 });
 
 $("#bookings-future").change(function() {
     bookings_refresh();
-    settings.bookings_future = $(this).is(":checked");
+    settings.bookings.future = $(this).is(":checked");
     refresh_settings();
 });
 
