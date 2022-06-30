@@ -166,10 +166,12 @@ class Room(models.Model):
             availability.append(day_availability)
 
         for booking in self.bookings.all():
+            if booking.approved == 2:
+                break
             for day in availability:
                 if day['day'] == booking.date.id:
                     for time in day['times']:
-                        if booking.start_time.strftime("%H:%M") <= time['time'] <= booking.end_time.strftime("%H:%M"):
+                        if booking.start_time.strftime("%H:%M") <= time['time'] < booking.end_time.strftime("%H:%M"):
                             time['available'] -= booking.persons
 
         return availability
