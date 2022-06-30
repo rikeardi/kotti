@@ -462,10 +462,9 @@ function room_book(open_time_id, time_id) {
             break;
         }
     }
-    console.log(day);
 
     for(var i = 0; i < opened_room.availability.length; i++) {
-        if(opened_room.availability[i].day == day.id) {
+        if(opened_room.availability[i].day == day.day.id) {
             var availability = opened_room.availability[i];
             break;
         }
