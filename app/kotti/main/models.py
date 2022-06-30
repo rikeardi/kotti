@@ -155,6 +155,7 @@ class Room(models.Model):
         availability = []
         print(self.open_times.all())
         for open_time in self.open_times.all():
+            print(open_time)
             avail_time = open_time.start_time
             print(avail_time)
             while avail_time < open_time.end_time:
