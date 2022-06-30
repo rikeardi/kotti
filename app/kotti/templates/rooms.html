@@ -478,10 +478,10 @@ function room_book(open_time_id, time_id) {
     $("#booking-modal-day-id").val(day.day.id);
 
     var start_time = time.start_time.split(":");
-    console.log(start_time);
     var end_time = time.end_time.split(":");
 
     var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
+    console.log(start_seconds);
     var end_seconds_now = start_seconds + 1800;
     var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
     var max_start_seconds = end_seconds - 1800;
