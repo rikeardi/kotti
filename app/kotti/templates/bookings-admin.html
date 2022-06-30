@@ -37,7 +37,20 @@ function bookings_admin_refresh() {
                     room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
-                    room_html += '<td>' + approval(booking.approved) + '</td>';
+                    if(booking.approved == 0) {
+                        room_html += '<td><div class="dropdown"><div class="dropdown-trigger">' +
+                        '<button class="button" aria-haspopup="true" aria-controls="bookings-approval-' + booking.id + '">' +
+                        '<span>' + approval(booking.approved) + '</span>' +
+                        '<span class="icon is-small"><i class="fas fa-angle-down" aria-hidden="true"></i></span>' +
+                        '</button></div>' +
+                        '<div class="dropdown-menu" id="bookings-approval-' + booking.id + '" role="menu">' +
+                        '<div class="dropdown-content">' +
+                        '<a class="dropdown-item" href="#" onclick="booking_approve(' + booking.id + ')">Hyväksy</a>' +
+                        '<a class="dropdown-item" href="#" onclick="booking_reject(' + booking.id + ')">Hylkää</a>' +
+                        '</div></div></td>';
+                    } else {
+                        room_html += '<td>' + approval(booking.approved) + '</td>';
+                    }
                     room_html += '<td>' + booking.persons + ' hlöä</td>';
                     room_html += '</tr>';
                 }
@@ -60,6 +73,32 @@ $("#bookings-current").change(function() {
 $("#bookings-future").change(function() {
     bookings_admin_refresh();
 });
+
+function booking_approve(id) {
+    $.ajax({
+        url: '/api/bookings/' + id + '/',
+        type: 'PATCH',
+        data: {
+            approved: 1
+        },
+        success: function(data) {
+            bookings_admin_refresh();
+        }
+    });
+}
+
+function booking_reject(id) {
+    $.ajax({
+        url: '/api/bookings/' + id + '/',
+        type: 'PATCH',
+        data: {
+            approved: 2
+        },
+        success: function(data) {
+            bookings_admin_refresh();
+        }
+    });
+}
 
 </script>
 {% endblock %}
