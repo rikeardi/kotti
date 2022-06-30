@@ -155,12 +155,17 @@ class RoomList(viewsets.ModelViewSet):
         current = self.request.query_params.get('current')
         future = self.request.query_params.get('future')
         if old or current or future:
+            old_qs = queryset
+            current_qs = queryset
+            future_qs = queryset
             if old:
-                queryset = queryset.filter(bookings__date__date__lte=datetime.now().date())
+                old_qs = queryset.filter(bookings__date__date__lte=datetime.now().date())
             if current:
-                queryset = queryset.filter(bookings__date__date=datetime.now().date())
+                current_qs = queryset.filter(bookings__date__date=datetime.now().date())
             if future:
-                queryset = queryset.filter(bookings__date__date__gte=datetime.now().date())
+                future_qs = queryset.filter(bookings__date__date__gte=datetime.now().date())
+
+            queryset = old_qs.union(current_qs).union(future_qs)
 
         return queryset.distinct()
 
