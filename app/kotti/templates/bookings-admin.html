@@ -39,10 +39,10 @@ function bookings_admin_refresh() {
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
                     room_html += '<td>' + approval(booking.approved) + '</td>';
                     if(booking.approved == 0) {
-                        room_html += '<td><a href="#" onclick="booking_approve(' + booking.id + ')">' +
-                        '<span class="icon is-success" title="Hyväksy"><i class="fas fa-check"></i></span></a>' +
-                        '<a href="#" onclick="booking_reject(' + booking.id + ')">' +
-                        '<span class="icon is-danger" title="Hylkää"><i class="fas fa-ban"></i></span></a></td>';
+                        room_html += '<td><a href="#" class="is-success" onclick="booking_approve(' + booking.id + ')">' +
+                        '<span class="icon" title="Hyväksy"><i class="fas fa-check"></i></span></a>' +
+                        '<a href="#" class="is-danger" onclick="booking_reject(' + booking.id + ')">' +
+                        '<span class="icon" title="Hylkää"><i class="fas fa-ban"></i></span></a></td>';
                     } else {
                         room_html += '<td></td>'
                     }
