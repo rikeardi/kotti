@@ -329,7 +329,10 @@ function rooms_modal_save() {
     var capacity = $("#rooms-modal-capacity").val();
     var description = $("#rooms-modal-description").val();
     var equipment = $("#rooms-modal-equipment").val();
-    var admins = $("#rooms-modal-admins").val();
+    var admins = [];
+    $("#rooms-modal-admins").each(function() {
+        admins.push($(this).val());
+    });
     console.log(admins);
 
     $.ajax({
@@ -340,7 +343,7 @@ function rooms_modal_save() {
             capacity: capacity,
             description: description,
             equipment: equipment,
-            admins: JSON.stringify(admins),
+            admins: admins,
         },
         headers: {
             "X-CSRFToken": csrf_token
