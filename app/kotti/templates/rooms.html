@@ -547,6 +547,11 @@ function booking_modal_save() {
     var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
     var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
 
+    if(start_seconds >= end_seconds) {
+        message_show({ type: "error", title: "Virhe", text: "Alkuaika on suurempi tai yhtä suuri kuin loppuaika. Tarkista ajat." });
+        return;
+    }
+
     for(var i = 0; i < opened_room.availability.length; i++) {
         if(opened_room.availability[i].day == day_id) {
             var availability = opened_room.availability[i];
