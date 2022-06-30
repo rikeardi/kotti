@@ -246,7 +246,10 @@ $("#rooms-search-day").change(function() {
 
 $("#rooms-search-seats").keyup(function() {
     rooms_search();
+    settings.rooms.seats = $("#rooms-search-seats").val();
+    refresh_settings();
 });
+$("#rooms-search-seats").val(settings.rooms.seats);
 
 var opened_room = false;
 
