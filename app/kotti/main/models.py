@@ -3,6 +3,7 @@ Django models for room management.
 
 Rooms and tables are used to manage the seating capacity of a room.
 """
+import datetime
 from datetime import time
 
 from django.db import models
@@ -156,11 +157,12 @@ class Room(models.Model):
         for open_time in self.open_times.all():
             day_availability = {'day': open_time.day.id, 'times': []}
             for opening_time in open_time.times.all():
-                avail_time = opening_time.start_time
-                while avail_time < opening_time.end_time:
+                avail_time = datetime.datetime.strptime(opening_time.start_time, '%H:%M:%S')
+                end_time = datetime.datetime.strptime(opening_time.end_time, '%H:%M:%S')
+                while avail_time < end_time:
                     time_availability = {'time': avail_time.strftime("%H:%M"), 'available': self.capacity}
                     day_availability['times'].append(time_availability)
-                    avail_time = avail_time + time(0, 15)
+                    avail_time = avail_time + datetime.timedelta(minutes=15)
                     print(avail_time)
 
             availability.append(day_availability)
