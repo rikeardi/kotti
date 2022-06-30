@@ -548,7 +548,7 @@ function booking_modal_save() {
     var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
 
     if(start_seconds >= end_seconds) {
-        message_show({ type: "error", title: "Virhe", text: "Alkuaika on suurempi tai yhtä suuri kuin loppuaika. Tarkista ajat." });
+        message_show({ type: "error", title: "Virhe", text: "Kokous ei voi päättyä ennen tai samaan aikaan alkamisajan kanssa. Tarkista ajat." });
         return;
     }
 
