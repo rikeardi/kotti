@@ -100,6 +100,7 @@ class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
     bookings = BookingSerializer(many=True)
     admins = KottiUserSerializer(many=True)
+    availability = serializers.Field(source='get_availability')
 
     class Meta:
         model = Room
@@ -109,9 +110,9 @@ class RoomSerializer(serializers.ModelSerializer):
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    availability = []
 
-    def get_availability(self, request, *args, **kwargs):
+    @property
+    def get_availability(self):
         room = self.get_object()
         day = OpenDay.objects.get(pk=request.query_params.get('day'))
         times = room.open_times.get(day=day).times.all()
