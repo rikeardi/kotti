@@ -277,6 +277,8 @@ function room_modal_open(room_id) {
 
         if(is_admin) {
             $("#room-modal-edit-btn").removeClass("is-hidden");
+        } else {
+            $("#room-modal-edit-btn").addClass("is-hidden");
         }
 
         $("#room-times-table").html("");
