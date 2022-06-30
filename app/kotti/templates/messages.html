@@ -1,6 +1,6 @@
 {% block messages %}
 
-<div class="message is-hidden" id="message-template" style="position: fixed; top: 10px;">
+<div class="message is-hidden" id="message-template" style="position: fixed; top: 10px; left: calc(50% - 150px); right: calc(50% - 150px); width: 300px; z-index: 1000">
     <div class="message-header">
         <p class="message-title"></p>
     </div>
@@ -33,13 +33,13 @@ function message_show(message) {
     message_clone.find('.message-text').text(message.text);
     $('#messages').append(message_clone);
     message_id++;
-    message_clone.fadeIn(100);
+    message_clone.fadeIn(300);
     setTimeout(function() {
-        message_clone.fadeOut(100);
+        message_clone.fadeOut(300);
         setTimeout(function() {
             //message_clone.remove();
         }, 100);
-    }, 20000);
+    }, 3000);
 }
 </script>
 {% endblock %}
