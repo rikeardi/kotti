@@ -121,6 +121,18 @@
                     <textarea class="textarea" id="rooms-modal-equipment"></textarea>
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Ylläpitäjät</label>
+                <div class="control">
+                    <div class="select is-multiple">
+                        <select id="rooms-modal-admins" multiple>
+                            {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
         </section>
         <footer class="modal-card-foot">
             <button class="button is-primary" onclick="rooms_modal_save();">Tallenna</button>

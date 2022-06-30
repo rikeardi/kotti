@@ -12,6 +12,7 @@ def home(request):
     context = {
         'open_days': OpenDay.objects.all().filter(date__gte=datetime.date.today()).order_by('date'),
         'rooms': Room.objects.all(),
+        'users': KottiUser.objects.all(),
     }
     return render(request, 'front.html', context)
 
