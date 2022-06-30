@@ -580,6 +580,7 @@ function booking_modal_save() {
         },
         success: function(data) {
             booking_modal_close();
+            room_modal_close();
             room_modal_open(opened_room.id);
         }
     });
