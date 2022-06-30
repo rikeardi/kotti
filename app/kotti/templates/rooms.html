@@ -571,8 +571,8 @@ function booking_modal_save() {
         data: {
             room: opened_room.id,
             persons: persons,
-            start_time: start_time,
-            end_time: end_time,
+            start_time: start_time[0] + ":" + start_time[1],
+            end_time: end_time[0] + ":" + end_time[1],
             date: day_id,
         },
         headers: {
