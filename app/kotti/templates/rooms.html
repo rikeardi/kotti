@@ -488,7 +488,7 @@ function room_book(open_time_id, time_id) {
     $("#booking-modal-start-time").html("");
     while(start_seconds < max_start_seconds) {
         var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
-        var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
+        var time_string = ("0" + Math.floor(start_seconds / 3600)).slice(-2) + ":" + minute_string;
 
         for(var i = 0; i < availability.times.length; i++) {
             console.log(availability.times[i].time, time_string);
