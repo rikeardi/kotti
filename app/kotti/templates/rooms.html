@@ -481,7 +481,6 @@ function room_book(open_time_id, time_id) {
     var end_time = time.end_time.split(":");
 
     var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
-    console.log(start_seconds);
     var end_seconds_now = start_seconds + 1800;
     var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
     var max_start_seconds = end_seconds - 1800;
@@ -492,6 +491,7 @@ function room_book(open_time_id, time_id) {
         var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
 
         for(var i = 0; i < availability.times.length; i++) {
+            console.log(availability.times[i].time, time_string);
             if(availability.times[i].time == time_string) {
                 var time_avail = availability.times[i].available;
                 console.log(time_string, time_avail);
