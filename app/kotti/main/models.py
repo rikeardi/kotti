@@ -155,11 +155,10 @@ class Room(models.Model):
         availability = []
         for open_time in self.open_times.all():
             avail_time = open_time.start_time
+            print(avail_time)
             while avail_time < open_time.end_time:
                 availability.append({avail_time: self.capacity})
                 avail_time += timedelta(minutes=15)
-
-        print(availability)
 
         for booking in self.bookings.all():
             if booking.approved != 2:
