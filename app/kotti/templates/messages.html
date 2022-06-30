@@ -3,6 +3,7 @@
 <div class="message is-hidden" id="message-template" style="position: fixed; top: 10px; left: calc(50% - 150px); right: calc(50% - 150px); width: 300px; z-index: 1000">
     <div class="message-header">
         <p class="message-title"></p>
+        <button class="delete message-close" aria-label="close" onclick=""></button>
     </div>
     <div class="message-body">
         <p class="message-text"></p>
@@ -30,6 +31,7 @@ function message_show(message) {
     message_clone.removeClass('is-hidden');
     message_clone.attr('id', 'message-' + message_id);
     message_clone.find('.message-title').text(message.title);
+    message_clone.find('.message-close').attr('onclick', 'message_close("' + message_id + '")');
     message_clone.find('.message-text').text(message.text);
     $('#messages').append(message_clone);
     message_id++;
@@ -37,9 +39,16 @@ function message_show(message) {
     setTimeout(function() {
         message_clone.fadeOut(300);
         setTimeout(function() {
-            //message_clone.remove();
+            message_clone.remove();
         }, 100);
     }, 3000);
+}
+
+function message_close(id) {
+    $('#message-' + id).fadeOut(300);
+    setTimeout(function() {
+        $('#message-' + id).remove();
+    }, 100);
 }
 </script>
 {% endblock %}
