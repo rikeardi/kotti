@@ -152,24 +152,16 @@ class Room(models.Model):
         """
         Returns the availability of the room.
         """
-        availability = []
-        print(self.open_times.all())
-        for open_time in self.open_times.all():
-            print(open_time)
-            avail_time = open_time.start_time
-            print(avail_time)
-            while avail_time < open_time.end_time:
-                availability.append({avail_time: self.capacity})
-                avail_time += timedelta(minutes=15)
+        availability = {}
 
-        for booking in self.bookings.all():
-            if booking.approved != 2:
-                book_time = booking.start_time
-                while book_time < booking.end_time:
-                    for avail_time in availability:
-                        if avail_time.keys()[0] == book_time:
-                            avail_time[avail_time.keys()[0]] -= booking.persons
-                    book_time += timedelta(minutes=15)
+        for open_time in self.open_times.all():
+            day_availability = {}
+            for opening_time in open_time.times.all():
+                avail_time = opening_time.start_time
+                while avail_time < opening_time.end_time:
+                    day_availability[avail_time] = self.capacity
+                    avail_time += timedelta(minutes=15)
+            availability[open_time.day] = day_availability
 
         print(availability)
         return availability
