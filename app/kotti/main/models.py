@@ -156,15 +156,16 @@ class Room(models.Model):
         availability = []
 
         for open_time in self.open_times.all():
-            day_availability = []
+            day_availability = {'day': open_time.day.id, 'times': []}
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
                 while avail_time < opening_time.end_time:
-                    day_availability[avail_time] = self.capacity
+                    time_availability = {'time': avail_time.strftime("%H:%M"), 'available': self.capacity}
+                    day_availability['times'].append(time_availability)
                     avail_time = avail_time + time.fromisoformat('00:15:00')
                     print(avail_time)
 
-            availability[open_time.day.id] = day_availability
+            availability.append(day_availability)
 
         print(availability)
         return availability
