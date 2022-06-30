@@ -78,7 +78,6 @@ TEMPLATES = [
     },
 ]
 
-#ASGI_APPLICATION = 'kotti.asgi.application'
 WSGI_APPLICATION = 'kotti.wsgi.application'
 
 
@@ -95,15 +94,6 @@ DATABASES = {
         'PORT': 5432
     }
 }
-
-#CHANNEL_LAYERS = {
-#   "default": {
-#      "BACKEND": "channels_redis.core.RedisChannelLayer",
-#      "CONFIG": {
-#         "hosts": [("redis", 6379)],
-#      },
-#   }
-#}
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
