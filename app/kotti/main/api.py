@@ -83,6 +83,16 @@ class BookingViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        approved = request.data.get('approved')
+        if approved:
+            instance.approved = approved
+
+        instance.save()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
 
 class RoomSerializer(serializers.ModelSerializer):
     open_times = RoomTimeSerializer(many=True)
