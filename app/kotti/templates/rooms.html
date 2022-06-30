@@ -511,8 +511,6 @@ function room_book(open_time_id, time_id) {
         start_seconds += 900;
     }
 
-
-
     $("#booking-modal-end-time").html("");
     while(end_seconds_now < end_seconds) {
         var minute_string = ("0" + Math.floor((end_seconds_now % 3600) / 60)).slice(-2);
@@ -534,9 +532,38 @@ function booking_modal_close() {
 function booking_modal_save() {
     var name = $("#booking-modal-name").val();
     var persons = $("#booking-modal-persons").val();
-    var start_time = $("#booking-modal-start-time").val();
-    var end_time = $("#booking-modal-end-time").val();
+    var start_time = $("#booking-modal-start-time").val().split(":");
+    var end_time = $("#booking-modal-end-time").val().split(":");
     var day_id = $("#booking-modal-day-id").val();
+
+    var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
+    var end_seconds = parseInt(end_time[0]) * 3600 + parseInt(end_time[1]) * 60;
+
+    for(var i = 0; i < opened_room.availability.length; i++) {
+        if(opened_room.availability[i].day == day_id) {
+            var availability = opened_room.availability[i];
+            break;
+        }
+    }
+
+    while(start_seconds < end_seconds) {
+        var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
+        var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
+
+        for(var i = 0; i < availability.times.length; i++) {
+            if(availability.times[i].time == time_string) {
+                var time_avail = availability.times[i].available;
+                break;
+            }
+        }
+
+        if(time_avail < persons) {
+            alert("Ei tarpeeksi vapaata tilaa varausta varten.");
+            return;
+        }
+
+        start_seconds += 900;
+    }
 
     $.ajax({
         url: "/api/booking/",
