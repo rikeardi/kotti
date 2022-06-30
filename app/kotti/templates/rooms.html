@@ -487,7 +487,23 @@ function room_book(open_time_id, time_id) {
     while(start_seconds < max_start_seconds) {
         var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
         var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
-        $("#booking-modal-start-time").append("<option value='" + time_string + "'>" + time_string + "</option>");
+
+        for(var i = 0; i < availability.length; i++) {
+            if(availability[i].time == time_string) {
+                var time_avail = availability[i].available;
+                break;
+            }
+        }
+
+        var available_pros = time_avail/opened_room.capacity*100;
+        var pros_class = "is-success";
+        switch(available_pros) {
+            case < 10: pros_class = "is-danger";
+            break;
+            case < 40: pros_class = "is-warning";
+            break;
+        }
+        $("#booking-modal-start-time").append("<option class="' + pros_class + '" value='" + time_string + "'>" + time_string + " (" + time_avail + ")</option>");
         start_seconds += 900;
     }
 
