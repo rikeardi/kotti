@@ -478,6 +478,7 @@ function room_book(open_time_id, time_id) {
     $("#booking-modal-day-id").val(day.day.id);
 
     var start_time = time.start_time.split(":");
+    console.log(start_time);
     var end_time = time.end_time.split(":");
 
     var start_seconds = parseInt(start_time[0]) * 3600 + parseInt(start_time[1]) * 60;
