@@ -76,7 +76,7 @@ $("#bookings-future").change(function() {
 
 function booking_approve(id) {
     $.ajax({
-        url: '/api/bookings/' + id + '/',
+        url: '/api/booking/' + id + '/',
         type: 'PATCH',
         data: {
             approved: 1
@@ -89,7 +89,7 @@ function booking_approve(id) {
 
 function booking_reject(id) {
     $.ajax({
-        url: '/api/bookings/' + id + '/',
+        url: '/api/booking/' + id + '/',
         type: 'PATCH',
         data: {
             approved: 2
