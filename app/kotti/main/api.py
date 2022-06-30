@@ -167,7 +167,7 @@ class RoomList(viewsets.ModelViewSet):
 
             queryset = old_qs.union(current_qs).union(future_qs)
 
-        return queryset.distinct()
+        return queryset
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
