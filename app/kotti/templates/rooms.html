@@ -486,7 +486,7 @@ function room_book(open_time_id, time_id) {
     var max_start_seconds = end_seconds - 1800;
 
     $("#booking-modal-start-time").html("");
-    while(start_seconds < max_start_seconds) {
+    while(start_seconds <= max_start_seconds) {
         var minute_string = ("0" + Math.floor((start_seconds % 3600) / 60)).slice(-2);
         var time_string = ("0" + Math.floor(start_seconds / 3600)).slice(-2) + ":" + minute_string;
 
@@ -514,7 +514,7 @@ function room_book(open_time_id, time_id) {
     }
 
     $("#booking-modal-end-time").html("");
-    while(end_seconds_now < end_seconds) {
+    while(end_seconds_now <= end_seconds) {
         var minute_string = ("0" + Math.floor((end_seconds_now % 3600) / 60)).slice(-2);
         var time_string = Math.floor(end_seconds_now / 3600) + ":" + minute_string;
         $("#booking-modal-end-time").append("<option value='" + time_string + "'>" + time_string + "</option>");
