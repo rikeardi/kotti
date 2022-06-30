@@ -112,7 +112,14 @@ class RoomViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         instance = Room.objects.create(name=request.data.get('name'), description=request.data.get('description'),
                                        capacity=request.data.get('capacity'), equipment=request.data.get('equipment'))
-        instance.admins.add(request.user)
+
+        admins = request.data.get('admins')
+        if admins:
+            for admin in admins:
+                instance.admins.add(KottiUser.objects.get(pk=admin))
+        else:
+            instance.admins.add(request.user)
+
         instance.save()
         return Response(RoomSerializer(instance).data)
 
