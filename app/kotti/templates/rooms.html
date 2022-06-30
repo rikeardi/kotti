@@ -489,6 +489,7 @@ function room_book(open_time_id, time_id) {
         var time_string = Math.floor(start_seconds / 3600) + ":" + minute_string;
 
         for(var i = 0; i < availability.length; i++) {
+            console.log(availability[i], time_string);
             if(availability[i].time == time_string) {
                 var time_avail = availability[i].available;
                 break;
