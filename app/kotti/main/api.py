@@ -144,6 +144,7 @@ class RoomViewSet(viewsets.ModelViewSet):
                 instance.open_times.add(new_day)
 
         admins = request.data.get('admins')
+        print(admins)
         if admins:
             for admin in json.loads(admins):
                 instance.admins.add(KottiUser.objects.get(pk=admin))
