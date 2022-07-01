@@ -282,6 +282,9 @@ function room_modal_open(room_id) {
         $("#room-modal-edit-description").val(data.description);
         $("#room-modal-edit-equipment").val(data.equipment);
 
+        $(".room-info").removeClass("is-hidden");
+        $(".room-info-edit").addClass("is-hidden");
+
         $("#room-modal-admins").html("");
         var admin_html = "<ul>";
         for(var i = 0; i < data.admins.length; i++) {
