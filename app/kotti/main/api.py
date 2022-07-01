@@ -125,6 +125,7 @@ class RoomViewSet(viewsets.ModelViewSet):
         return Response(RoomSerializer(instance).data)
 
     def update(self, request, *args, **kwargs):
+        print(request.data)
         instance = self.get_object()
         start_time = request.data.get('start_time')
         end_time = request.data.get('end_time')
