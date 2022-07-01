@@ -155,7 +155,7 @@ class Room(models.Model):
         availability = []
 
         for open_time in self.open_times.all():
-            day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0}
+            day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0, 'booking_percentage': 0 }
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
                 while avail_time < opening_time.end_time:
@@ -174,6 +174,7 @@ class Room(models.Model):
                             if booking.start_time.strftime("%H:%M") <= time['time'] < booking.end_time.strftime("%H:%M"):
                                 time['available'] -= booking.persons
                                 day['total_bookings'] += booking.persons
+                    day['booking_percentage'] = round(day['total_bookings'] / day['total_capacity'] * 100)
 
         return availability
 
