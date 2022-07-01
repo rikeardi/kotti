@@ -433,12 +433,13 @@ function days_modal_save() {
 
 {% if user.is_room_admin %}
 function room_edit_info() {
-    $(".room-info").addClass("is-hidden");
-    $(".room-info-edit").removeClass("is-hidden");
-}
-function room_edit_close() {
-    $(".room-info").removeClass("is-hidden");
-    $(".room-info-edit").addClass("is-hidden");
+    if($(".room-info-edit").hasClass("is-hidden")) {
+        $(".room-info-edit").removeClass("is-hidden");
+        $(".room-info").addClass("is-hidden");
+    } else {
+        $(".room-info-edit").addClass("is-hidden");
+        $(".room-info").removeClass("is-hidden");
+    }
 }
 
 function room_modal_info_save() {
