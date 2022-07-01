@@ -155,11 +155,12 @@ class Room(models.Model):
         availability = []
 
         for open_time in self.open_times.all():
-            day_availability = {'day': open_time.day.id, 'times': []}
+            day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0}
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
                 while avail_time < opening_time.end_time:
                     time_availability = {'time': avail_time.strftime("%H:%M"), 'available': self.capacity}
+                    day_availability['total_capacity'] += self.capacity
                     day_availability['times'].append(time_availability)
                     avail_time = (datetime.combine(date.today(), avail_time) + timedelta(minutes=15)).time()
 
@@ -172,6 +173,7 @@ class Room(models.Model):
                         for time in day['times']:
                             if booking.start_time.strftime("%H:%M") <= time['time'] < booking.end_time.strftime("%H:%M"):
                                 time['available'] -= booking.persons
+                                day['total_bookings'] += booking.persons
 
         return availability
 
