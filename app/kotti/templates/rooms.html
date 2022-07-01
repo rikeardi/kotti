@@ -270,7 +270,7 @@ var opened_room = false;
 
 function room_modal_open(room_id) {
     var is_admin = false;
-    $.get("/api/room/" + room_id, function(data) {
+    $.get("/api/room/" + room_id + "/", function(data) {
         opened_room = data;
         $("#room-modal-name").text(data.name);
         $("#room-modal-capacity").text(data.capacity);
