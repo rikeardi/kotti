@@ -167,7 +167,6 @@ class RoomViewSet(viewsets.ModelViewSet):
 
         instance.save()
         serializer = self.get_serializer(instance)
-        print(serializer.data)
         return Response(serializer.data)
 
 
