@@ -57,24 +57,37 @@
                 <div class="column is-third">
                     <div class="field">
                         <span class="tag is-info">Kokoustila</span>
-                        <button class="tag is-success is-hidden" id="room-modal-edit-room-btn" style="position: absolute; right: 0.75rem; border: 0px;" onclick="room_edit_info();">Muokkaa</button>
+                        <button class="tag is-success is-hidden" id="room-modal-edit-room-btn" style="position: relative; margin-left: 5rem; border: 0px;" onclick="room_edit_info();">Muokkaa</button>
                         <p class="title is-5 m-2" id="room-modal-name"></p>
+                        <input type="text" class="input is-hidden" id="room-modal-edit-name">
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kapasiteetti</span>
                         <h3 class="title is-5 m-2" id="room-modal-capacity"></h3>
+                        <input type="number" class="input is-hidden" id="room-modal-edit-capacity" min="2" max="800">
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kuvaus</span>
                         <p id="room-modal-description" class="m-2"></p>
+                        <textarea class="textarea is-hidden" id="room-modal-edit-description"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Varustelu</span>
                         <p id="room-modal-equipment" class="m-2"></p>
+                        <textarea class="textarea is-hidden" id="room-modal-edit-equipment"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Vastuuhenkilöt</span>
                         <div id="room-modal-admins" class="m-2"></div>
+                        <div class="control is-hidden">
+                            <div class="select is-multiple">
+                                <select id="rooms-modal-edit-admins" multiple>
+                                    {% for user in users %}
+                                    <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="column is-two-thirds">
@@ -261,11 +274,22 @@ function room_modal_open(room_id) {
         $("#room-modal-description").text(data.description);
         $("#room-modal-equipment").text(data.equipment);
 
+        $("#room-modal-edit-name").val(data.name);
+        $("#room-modal-edit-capacity").val(data.capacity);
+        $("#room-modal-edit-description").val(data.description);
+        $("#room-modal-edit-equipment").val(data.equipment);
+
         $("#room-modal-admins").html("");
         var admin_html = "<ul>";
         for(var i = 0; i < data.admins.length; i++) {
             var admin = data.admins[i];
             admin_html += "<li>" + admin.first_name + " " + admin.last_name + "</li>";
+
+            $("#room-modal-edit-admins option").each(function() {
+                if(admin.id == $(this).val()) {
+                    $(this).prop("selected", true);
+                }
+            });
 
             if(admin.id == user_id) {
                 is_admin = true;
