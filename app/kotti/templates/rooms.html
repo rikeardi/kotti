@@ -81,7 +81,7 @@
                         <div class="m-2 room-info" id="room-modal-admins"></div>
                         <div class="control is-hidden room-info-edit">
                             <div class="select is-multiple">
-                                <select id="rooms-modal-edit-admins" multiple>
+                                <select id="room-modal-edit-admins" multiple>
                                     {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
                                     {% endfor %}
