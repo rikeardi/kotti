@@ -125,7 +125,6 @@ class RoomViewSet(viewsets.ModelViewSet):
         return Response(RoomSerializer(instance).data)
 
     def update(self, request, *args, **kwargs):
-        print(request.data)
         instance = self.get_object()
         start_time = request.data.get('start_time')
         end_time = request.data.get('end_time')
@@ -145,10 +144,22 @@ class RoomViewSet(viewsets.ModelViewSet):
                 instance.open_times.add(new_day)
 
         admins = request.data.get('admins')
-        print(admins)
         if admins:
+            instance.admins.clear()
             for admin in json.loads(admins):
                 instance.admins.add(KottiUser.objects.get(pk=admin))
+
+        name = request.data.get('name')
+        if name:
+            instance.name = name
+
+        description = request.data.get('description')
+        if description:
+            instance.description = description
+
+        capacity = request.data.get('capacity')
+        if capacity:
+            instance.capacity = capacity
 
         instance.save()
         serializer = self.get_serializer(instance)
