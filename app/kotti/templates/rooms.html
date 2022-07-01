@@ -451,7 +451,7 @@ function room_modal_info_save() {
     var admins = $("#room-modal-edit-admins").val();
 
     $.ajax({
-        url: "/api/room/" + room_id + "/",
+        url: "/api/room/" + opened_room.id + "/",
         type: "PATCH",
         data: {
             name: name,
