@@ -159,7 +159,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
         capacity = request.data.get('capacity')
         if capacity:
-            instance.capacity = capacity
+            instance.capacity = int(capacity)
 
         instance.save()
         serializer = self.get_serializer(instance)
