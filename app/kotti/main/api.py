@@ -157,6 +157,10 @@ class RoomViewSet(viewsets.ModelViewSet):
         if description:
             instance.description = description
 
+        equipment = request.data.get('equipment')
+        if equipment:
+            instance.equipment = equipment
+
         capacity = request.data.get('capacity')
         if capacity:
             instance.capacity = int(capacity)
