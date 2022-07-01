@@ -282,8 +282,15 @@ function room_modal_open(room_id) {
         $("#room-times-table").html("");
         for(var i = 0; i < data.open_times.length; i++) {
             var open_time = data.open_times[i];
+            for(var j = 0; j < data.availability.length; j++) {
+                if(data.availability[j].day == open_time.day.id) {
+                    var availability = data.availability[j];
+                    break;
+                }
+            }
             var time_html = "<tr><th>" + open_time.day.name + "</th>" +
-                "<th colspan='2'>" + parse_date(open_time.day.date) + "</th>" +
+                "<th>" + parse_date(open_time.day.date) + "</th>" +
+                "<th>" + availability.booking_percentage + "% varattu</th>" +
                 "<td class='room-timetable-tools is-hidden'>" +
                     "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_day(" + open_time.id + ")'>" +
                         "<i class='fas fa-ban'></i></a></td></tr>";
