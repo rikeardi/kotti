@@ -131,7 +131,7 @@ class Booking(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.user.team} - {self.date.name} - {self.start_time} - {self.end_time}'
+        return f'{self.room__set.name} {self.user.team} - {self.date.name} - {self.start_time} - {self.end_time}'
 
 
 class Room(models.Model):
