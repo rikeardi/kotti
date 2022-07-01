@@ -292,7 +292,6 @@ function room_modal_open(room_id) {
             admin_html += "<li>" + admin.first_name + " " + admin.last_name + "</li>";
 
             $("#room-modal-edit-admins option").each(function() {
-                console.log($(this).attr("selected"), $(this).val(), admin.id);
                 if(admin.id == $(this).val()) {
                     $(this).attr("selected", "selected");
                 }
