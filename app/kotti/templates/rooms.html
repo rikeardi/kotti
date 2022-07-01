@@ -68,17 +68,17 @@
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kuvaus</span>
-                        <p id="room-modal-description room-info" class="m-2"></p>
+                        <p class="m-2 room-info" id="room-modal-description"></p>
                         <textarea class="textarea is-hidden room-info-edit" id="room-modal-edit-description"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Varustelu</span>
-                        <p id="room-modal-equipment room-info" class="m-2"></p>
+                        <p class="m-2 room-info" id="room-modal-equipment"></p>
                         <textarea class="textarea is-hidden room-info-edit" id="room-modal-edit-equipment"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Vastuuhenkilöt</span>
-                        <div id="room-modal-admins room-info" class="m-2"></div>
+                        <div class="m-2 room-info" id="room-modal-admins"></div>
                         <div class="control is-hidden room-info-edit">
                             <div class="select is-multiple">
                                 <select id="rooms-modal-edit-admins" multiple>
@@ -293,7 +293,7 @@ function room_modal_open(room_id) {
 
             $("#room-modal-edit-admins option").each(function() {
                 if(admin.id == $(this).val()) {
-                    $(this).prop("selected", true);
+                    $(this).prop("checked", true);
                 }
             });
 
