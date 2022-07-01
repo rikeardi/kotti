@@ -58,28 +58,28 @@
                     <div class="field">
                         <span class="tag is-info">Kokoustila</span>
                         <button class="tag is-success is-hidden" id="room-modal-edit-room-btn" style="position: relative; margin-left: 5rem; border: 0px;" onclick="room_edit_info();">Muokkaa</button>
-                        <p class="title is-5 m-2" id="room-modal-name"></p>
-                        <input type="text" class="input is-hidden" id="room-modal-edit-name">
+                        <p class="title is-5 m-2 room-info" id="room-modal-name"></p>
+                        <input type="text" class="input is-hidden room-info-edit" id="room-modal-edit-name">
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kapasiteetti</span>
-                        <h3 class="title is-5 m-2" id="room-modal-capacity"></h3>
-                        <input type="number" class="input is-hidden" id="room-modal-edit-capacity" min="2" max="800">
+                        <h3 class="title is-5 m-2 room-info" id="room-modal-capacity"></h3>
+                        <input type="number" class="input is-hidden room-info-edit" id="room-modal-edit-capacity" min="2" max="800">
                     </div>
                     <div class="field">
                         <span class="tag is-info">Kuvaus</span>
-                        <p id="room-modal-description" class="m-2"></p>
-                        <textarea class="textarea is-hidden" id="room-modal-edit-description"></textarea>
+                        <p id="room-modal-description room-info" class="m-2"></p>
+                        <textarea class="textarea is-hidden room-info-edit" id="room-modal-edit-description"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Varustelu</span>
-                        <p id="room-modal-equipment" class="m-2"></p>
-                        <textarea class="textarea is-hidden" id="room-modal-edit-equipment"></textarea>
+                        <p id="room-modal-equipment room-info" class="m-2"></p>
+                        <textarea class="textarea is-hidden room-info-edit" id="room-modal-edit-equipment"></textarea>
                     </div>
                     <div class="field">
                         <span class="tag is-info">Vastuuhenkilöt</span>
-                        <div id="room-modal-admins" class="m-2"></div>
-                        <div class="control is-hidden">
+                        <div id="room-modal-admins room-info" class="m-2"></div>
+                        <div class="control is-hidden room-info-edit">
                             <div class="select is-multiple">
                                 <select id="rooms-modal-edit-admins" multiple>
                                     {% for user in users %}
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="field">
-                        <button class="button is-primary is-hidden" id="room-modal-edit-save" onclick="room_modal_info_save();">Tallenna</button>
+                        <button class="button is-primary is-hidden room-info-edit" id="room-modal-edit-save" onclick="room_modal_info_save();">Tallenna</button>
                     </div>
                 </div>
                 <div class="column is-two-thirds">
@@ -429,21 +429,40 @@ function days_modal_save() {
 
 {% if user.is_room_admin %}
 function room_edit_info() {
-    $("#room-modal-name").addClass("is-hidden");
-    $("#room-modal-capacity").addClass("is-hidden");
-    $("#room-modal-description").addClass("is-hidden");
-    $("#room-modal-equipment").addClass("is-hidden");
-    $("#room-modal-admins").addClass("is-hidden");
-    $("#room-modal-save").addClass("is-hidden");
+    $(".room-info").addClass("is-hidden");
+    $(".room-info-edit").removeClass("is-hidden");
+}
+function room_edit_close() {
+    $(".room-info").removeClass("is-hidden");
+    $(".room-info-edit").addClass("is-hidden");
+}
 
-    $("#room-modal-edit-name").removeClass("is-hidden");
-    $("#room-modal-edit-capacity").removeClass("is-hidden");
-    $("#room-modal-edit-description").removeClass("is-hidden");
-    $("#room-modal-edit-equipment").removeClass("is-hidden");
-    $("#room-modal-edit-admins").removeClass("is-hidden");
-    $("#room-modal-edit-save").removeClass("is-hidden");
+function room_info_save() {
+    var name = $("#room-modal-edit-name").val();
+    var capacity = $("#room-modal-edit-capacity").val();
+    var description = $("#room-modal-edit-description").val();
+    var equipment = $("#room-modal-edit-equipment").val();
+    var admins = $("#room-modal-edit-admins").val();
 
-
+    $.ajax({
+        url: "/api/room/" + room_id + "/",
+        type: "PATCH",
+        data: {
+            name: name,
+            capacity: capacity,
+            description: description,
+            equipment: equipment,
+            admins: JSON.stringify(admins),
+        },
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        success: function(data) {
+            room_modal_close();
+            message_show({ type: "success", title: "Onnistui", text: "Kokoustila päivitetty." });
+            room_modal_open(opened_room.id);
+        }
+    });
 }
 
 function room_edit_times() {
