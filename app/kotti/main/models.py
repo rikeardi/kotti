@@ -167,7 +167,7 @@ class Room(models.Model):
             availability.append(day_availability)
 
         for booking in self.bookings.all():
-            if booking.approved != 2:
+            if booking.approved <= 1:
                 for day in availability:
                     if day['day'] == booking.date.id:
                         for time in day['times']:
