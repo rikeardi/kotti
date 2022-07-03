@@ -110,6 +110,8 @@ function check_booking(booking, filters) {
     if(filters.denied && booking.approval == 2) approval_count++;
     if(filters.cancelled && booking.approval == 3) approval_count++;
 
+    console.log(time_count, approval_count);
+
     if(time_count > 0 && !filters.approval) {
         return true;
     } else if(!filters.time && approval_count > 0) {
