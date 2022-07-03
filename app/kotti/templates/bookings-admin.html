@@ -68,6 +68,7 @@ function bookings_admin_refresh() {
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=7>' + item.name + '</th></tr>';
+            var booking_count = 0;
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
                 if(check_booking(booking, filters)) {
@@ -87,9 +88,12 @@ function bookings_admin_refresh() {
                     }
                     room_html += '<td>' + booking.persons + ' hlöä</td>';
                     room_html += '</tr>';
+                    booking_count++;
                 }
             }
-            $('#bookings-admin-table').append(room_html);
+            if(booking_count > 0) {
+                $('#bookings-admin-table').append(room_html);
+            }
         });
     });
 }

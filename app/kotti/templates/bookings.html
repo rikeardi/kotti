@@ -86,7 +86,7 @@ function booking_get_filters() {
     var filters = { query: '', any: false };
     if($('#bookings-old').is(':checked')) {
         filters.old = true
-        filters.any = true;
+        filters.time = true;
         filters.query += '&old=1';
     } else {
         filters.old = false;
@@ -94,7 +94,7 @@ function booking_get_filters() {
 
     if($('#bookings-current').is(':checked')) {
         filters.current = true;
-        filters.any = true;
+        filters.time = true;
         filters.query += '&current=1';
     } else {
         filters.current = false;
@@ -102,7 +102,7 @@ function booking_get_filters() {
 
     if($('#bookings-future').is(':checked')) {
         filters.future = true;
-        filters.any = true;
+        filters.time = true;
         filters.query += '&future=1';
     } else {
         filters.future = false;
@@ -110,7 +110,7 @@ function booking_get_filters() {
 
     if($('#bookings-waiting').is(':checked')) {
         filters.waiting = true;
-        filters.any = true;
+        filters.approval = true;
         filters.query += '&waiting=1';
     } else {
         filters.waiting = false;
@@ -118,7 +118,7 @@ function booking_get_filters() {
 
     if($('#bookings-approved').is(':checked')) {
         filters.approved = true;
-        filters.any = true;
+        filters.approval = true;
         filters.query += '&approved=1';
     } else {
         filters.approved = false;
@@ -126,7 +126,7 @@ function booking_get_filters() {
 
     if($('#bookings-denied').is(':checked')) {
         filters.denied = true;
-        filters.any = true;
+        filters.approval = true;
         filters.query += '&denied=1';
     } else {
         filters.denied = false;
@@ -134,7 +134,7 @@ function booking_get_filters() {
 
     if($('#bookings-cancelled').is(':checked')) {
         filters.cancelled = true;
-        filters.any = true;
+        filters.approval = true;
         filters.query += '&cancelled=1';
     } else {
         filters.cancelled = false;
@@ -165,16 +165,30 @@ function check_date(date) {
 }
 
 function check_booking(booking, filters) {
-    var count = 0;
-    if(filters.old && check_date(booking.date.date) == 1) count++;
-    if(filters.current && check_date(booking.date.date) == 2) count++;
-    if(filters.future && check_date(booking.date.date) == 3) count++;
-    if(filters.waiting && booking.approval == 0) count++;
-    if(filters.approved && booking.approval == 1) count++;
-    if(filters.denied && booking.approval == 2) count++;
-    if(filters.cancelled && booking.approval == 3) count++;
-    if(count == 0 && filters.any) return false;
-    return true;
+    if(!filters.time && !filters.approval) {
+        return true;
+    }
+
+    var time_count = 0;
+    if(filters.old && check_date(booking.date.date) == 1) time_count++;
+    if(filters.current && check_date(booking.date.date) == 2) time_count++;
+    if(filters.future && check_date(booking.date.date) == 3) time_count++;
+
+    var approval_count = 0;
+    if(filters.waiting && booking.approval == 0) approval_count++;
+    if(filters.approved && booking.approval == 1) approval_count++;
+    if(filters.denied && booking.approval == 2) approval_count++;
+    if(filters.cancelled && booking.approval == 3) approval_count++;
+
+    if(time_count > 0 && !filters.approval) {
+        return true;
+    } else if(!filters.time && approval_count > 0) {
+        return true;
+    } else if(time_count > 0 && approval_count > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function approval(approved) {
