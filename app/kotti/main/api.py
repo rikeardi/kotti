@@ -233,9 +233,9 @@ class RoomList(viewsets.ModelViewSet):
             if cancelled:
                 cancelled_q = Q(bookings__approved=3)
 
-            queryset = queryset.filter(wait_q | approved_q | denied_q | cancelled_q).distinct()
+            queryset = queryset.filter(wait_q | approved_q | denied_q | cancelled_q)
 
-        return queryset
+        return queryset.distinct()
 
 
 class KottiUserSerializer(serializers.HyperlinkedModelSerializer):
