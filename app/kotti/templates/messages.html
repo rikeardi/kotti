@@ -78,10 +78,10 @@ function show_question(question) {
     question_clone.attr('id', 'question-' + question_id);
     question_clone.find('.modal-card-title').text(question.title);
     question_clone.find('.question-text').text(question.text);
-    message_clone.find('.question-yes').attr('onclick', 'question_yes("' + question_id + '")');
-    message_clone.find('.question-no').attr('onclick', 'question_no("' + question_id + '")');
-    message_clone.find('.question-yes').text(question.yes);
-    message_clone.find('.question-no').attr(question.no);
+    question_clone.find('.question-yes').attr('onclick', 'question_yes("' + question_id + '")');
+    question_clone.find('.question-no').attr('onclick', 'question_no("' + question_id + '")');
+    question_clone.find('.question-yes').text(question.yes);
+    question_clone.find('.question-no').attr(question.no);
 
     question.id = question_id;
     questions.push(question);
