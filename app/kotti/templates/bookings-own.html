@@ -7,55 +7,16 @@
 <script>
 
 function bookings_own_refresh() {
-    if($('#bookings-old').is(':checked')) {
-        var old = '&old=1';
-    } else {
-        var old = '';
-    }
+    var filters = booking_get_filters();
 
-    if($('#bookings-current').is(':checked')) {
-        var current = '&current=1';
-    } else {
-        var current = '';
-    }
-
-    if($('#bookings-future').is(':checked')) {
-        var future = '&future=1';
-    } else {
-        var future = '';
-    }
-
-    if($('#bookings-waiting').is(':checked')) {
-        var waiting = '&waiting=1';
-    } else {
-        var waiting = '';
-    }
-
-    if($('#bookings-approved').is(':checked')) {
-        var approved = '&approved=1';
-    } else {
-        var approved = '';
-    }
-
-    if($('#bookings-denied').is(':checked')) {
-        var denied = '&denied=1';
-    } else {
-        var denied = '';
-    }
-
-    if($('#bookings-cancelled').is(':checked')) {
-        var cancelled = '&cancelled=1';
-    } else {
-        var cancelled = '';
-    }
-
-    $.get('/api/rooms/?bookings=1&booking_user=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
+    $.get('/api/rooms/?bookings=1&booking_user=' + user_id + filters.query, function(data) {
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=5>' + item.name + '</th></tr>';
+            var booking_count = 0;
             for(var i=0; i < item.bookings.length; i++) {
                 var booking = item.bookings[i];
-                if(booking.user.id == user_id &&((old != '' && check_date(booking.date.date) == 1)||(current != '' && check_date(booking.date.date) == 2)||(future != '' && check_date(booking.date.date) == 3)||(old == '' && current == '' && future == ''))) {
+                if(booking.user.id == user_id && check_booking(booking, filters)) {
                     room_html += '<tr>';
                     room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';

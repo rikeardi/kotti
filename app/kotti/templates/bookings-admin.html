@@ -62,7 +62,7 @@
 <script>
 
 function bookings_admin_refresh() {
-    filters = booking_get_filters();
+    var filters = booking_get_filters();
 
     $.get('/api/rooms/?bookings=1&admin=' + user_id + filters.query, function(data) {
         $('#bookings-admin-table').html('');
