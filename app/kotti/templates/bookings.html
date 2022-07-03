@@ -1,6 +1,6 @@
 {% block content %}
-
 <script>
+
 function bookings_refresh() {
     if (typeof bookings_admin_refresh !== "undefined") {
         bookings_admin_refresh();
@@ -9,18 +9,6 @@ function bookings_refresh() {
         bookings_own_refresh();
     }
 }
-
-$(".bookings-filter").change(function() {
-    bookings_refresh();
-    settings.bookings.old = $(this).is(":checked");
-    settings.bookings.current = $(this).is(":checked");
-    settings.bookings.future = $(this).is(":checked");
-    settings.bookings.waiting = $(this).is(":checked");
-    settings.bookings.approved = $(this).is(":checked");
-    settings.bookings.denied = $(this).is(":checked");
-    settings.bookings.cancelled = $(this).is(":checked");
-    refresh_settings();
-});
 
 function booking_get_filters() {
     var filters = { query: '', any: false };
@@ -138,16 +126,6 @@ function approval(approved) {
     return approval[approved];
 }
 
-if(settings.bookings.old) {
-    $("#bookings-old").prop("checked", true);
-}
-if(settings.bookings.current) {
-    $("#bookings-current").prop("checked", true);
-}
-if(settings.bookings.future) {
-    $("#bookings-future").prop("checked", true);
-}
-
 </script>
 
 <div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
@@ -210,5 +188,43 @@ if(settings.bookings.future) {
         </div>
     </div>
 </div>
+
+<script>
+
+$(".bookings-filter").change(function() {
+    bookings_refresh();
+    settings.bookings.old = $(this).is(":checked");
+    settings.bookings.current = $(this).is(":checked");
+    settings.bookings.future = $(this).is(":checked");
+    settings.bookings.waiting = $(this).is(":checked");
+    settings.bookings.approved = $(this).is(":checked");
+    settings.bookings.denied = $(this).is(":checked");
+    settings.bookings.cancelled = $(this).is(":checked");
+    refresh_settings();
+});
+
+if(settings.bookings.old) {
+    $("#bookings-old").prop("checked", true);
+}
+if(settings.bookings.current) {
+    $("#bookings-current").prop("checked", true);
+}
+if(settings.bookings.future) {
+    $("#bookings-future").prop("checked", true);
+}
+if(settings.bookings.waiting) {
+    $("#bookings-waiting").prop("checked", true);
+}
+if(settings.bookings.approved) {
+    $("#bookings-approved").prop("checked", true);
+}
+if(settings.bookings.denied) {
+    $("#bookings-denied").prop("checked", true);
+}
+if(settings.bookings.cancelled) {
+    $("#bookings-cancelled").prop("checked", true);
+}
+
+</script>
 
 {% endblock %}
