@@ -1,6 +1,6 @@
 {% block content %}
 <div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
-    <div class="columns">
+    <div class="columns" style="height: 100%;">
         <div class="column is-3 tile is-parent is-vertical">
             <h4 class="title">Suodattimet</h4>
             <div class="tile is-child">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="column">
+        <div class="column" style="overflow: auto;">
             {% include 'bookings-own.html' %}
             {% if user.is_room_admin %}
             {% include 'bookings-admin.html' %}
