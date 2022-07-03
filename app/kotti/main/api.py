@@ -192,13 +192,23 @@ class RoomList(viewsets.ModelViewSet):
         if admin:
             queryset = queryset.filter(admins__id=admin)
 
+        bookings = self.request.query_params.get('bookings')
+        if bookings:
+            queryset = queryset.filter(bookings__isnull=False)
+
         old = self.request.query_params.get('old')
         current = self.request.query_params.get('current')
         future = self.request.query_params.get('future')
+
+        old_qs = queryset
+        current_qs = queryset
+        future_qs = queryset
+        wait_qs = queryset
+        approved_qs = queryset
+        denied_qs = queryset
+        cancelled_qs = queryset
+
         if old or current or future:
-            old_qs = queryset
-            current_qs = queryset
-            future_qs = queryset
             if old:
                 old_qs = queryset.filter(bookings__date__date__lte=datetime.now().date())
             if current:
@@ -206,17 +216,11 @@ class RoomList(viewsets.ModelViewSet):
             if future:
                 future_qs = queryset.filter(bookings__date__date__gte=datetime.now().date())
 
-            queryset = old_qs.union(current_qs).union(future_qs)
-
         waiting = self.request.query_params.get('waiting')
         approved = self.request.query_params.get('approved')
         denied = self.request.query_params.get('denied')
         cancelled = self.request.query_params.get('cancelled')
         if waiting or approved or denied or cancelled:
-            wait_qs = queryset
-            approved_qs = queryset
-            denied_qs = queryset
-            cancelled_qs = queryset
             if waiting:
                 wait_qs = queryset.filter(bookings__approved=0)
             if approved:
@@ -226,11 +230,7 @@ class RoomList(viewsets.ModelViewSet):
             if cancelled:
                 cancelled_qs = queryset.filter(bookings__approved=3)
 
-            queryset = wait_qs.union(approved_qs).union(denied_qs).union(cancelled_qs)
-
-        bookings = self.request.query_params.get('bookings')
-        if bookings:
-            queryset = queryset.filter(bookings__isnull=False)
+        queryset = old_qs.union(current_qs).union(future_qs).union(wait_qs).union(approved_qs).union(denied_qs).union(cancelled_qs)
 
         return queryset
 
