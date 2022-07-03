@@ -195,13 +195,13 @@ function approval(approved) {
 
 $(".bookings-filter").change(function() {
     bookings_refresh();
-    settings.bookings.old = $(this).is(":checked");
-    settings.bookings.current = $(this).is(":checked");
-    settings.bookings.future = $(this).is(":checked");
-    settings.bookings.waiting = $(this).is(":checked");
-    settings.bookings.approved = $(this).is(":checked");
-    settings.bookings.denied = $(this).is(":checked");
-    settings.bookings.cancelled = $(this).is(":checked");
+    settings.bookings.old = $("#bookings-old").is(":checked");
+    settings.bookings.current = $("#bookings-current").is(":checked");
+    settings.bookings.future = $("#bookings-future").is(":checked");
+    settings.bookings.waiting = $("#bookings-waiting").is(":checked");
+    settings.bookings.approved = $("#bookings-approved").is(":checked");
+    settings.bookings.denied = $("#bookings-denied").is(":checked");
+    settings.bookings.cancelled = $("#bookings-cancelled").is(":checked");
     refresh_settings();
 });
 
