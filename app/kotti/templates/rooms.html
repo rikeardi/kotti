@@ -224,7 +224,13 @@
             <div class="field">
                 <label class="tag is-info">Henkilömäärä</label>
                 <div class="control">
-                    <input type="number" class="input" min="2" id="booking-modal-persons">
+                    <input type="number" class="input" min="1" id="booking-modal-persons">
+                </div>
+            </div>
+            <div class="field">
+                <label class="tag is-info">Lisätietoa ja huomautuksia</label>
+                <div class="control">
+                    <textarea class="textarea" id="booking-modal-information"></textarea>
                 </div>
             </div>
         </section>
@@ -603,6 +609,8 @@ function room_book(open_time_id, time_id) {
     $("#booking-modal-persons").attr("max", opened_room.capacity);
     $("#booking-modal-persons").val($("#rooms-search-seats").val());
 
+    $("#booking-modal-information").html("");
+
     $("#booking-modal").addClass("is-active");
 }
 
@@ -613,6 +621,7 @@ function booking_modal_close() {
 function booking_modal_save() {
     var name = $("#booking-modal-name").val();
     var persons = $("#booking-modal-persons").val();
+    var information = $("#booking-modal-information").val();
 
     if(persons > opened_room.capacity) {
         message_show({ type: "error", title: "Virhe", text: "Tilaan ei mahdu " + persons + " ihmistä." });
@@ -666,6 +675,7 @@ function booking_modal_save() {
             start_time: start_time[0] + ":" + start_time[1],
             end_time: end_time[0] + ":" + end_time[1],
             date: day_id,
+            information: information,
         },
         headers: {
             "X-CSRFToken": csrf_token

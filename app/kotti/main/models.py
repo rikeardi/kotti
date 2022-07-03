@@ -129,6 +129,7 @@ class Booking(models.Model):
     approved = models.IntegerField(default=0, choices=[(0, 'Odottaa hyväksyntää'), (1, 'Hyväksytty'), (2, 'Hylätty'), (3, 'Peruttu')])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    information = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.team} - {self.date.name} - {self.start_time} - {self.end_time}'

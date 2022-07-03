@@ -60,7 +60,7 @@ class BookingSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ('id', 'user', 'date', 'start_time', 'end_time', 'persons', 'approved')
+        fields = ('id', 'user', 'date', 'start_time', 'end_time', 'persons', 'approved', 'information')
 
 
 class BookingViewSet(viewsets.ModelViewSet):
@@ -70,7 +70,8 @@ class BookingViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         instance = Booking.objects.create(user=request.user, date=OpenDay.objects.get(pk=request.data.get('date')),
                                           start_time=request.data.get('start_time'),
-                                          end_time=request.data.get('end_time'), persons=request.data.get('persons'))
+                                          end_time=request.data.get('end_time'), persons=request.data.get('persons'),
+                                          information=request.data.get('information'))
         room = Room.objects.get(pk=request.data.get('room'))
         room.bookings.add(instance)
         room.save()
