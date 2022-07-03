@@ -208,6 +208,26 @@ class RoomList(viewsets.ModelViewSet):
 
             queryset = old_qs.union(current_qs).union(future_qs)
 
+        waiting = self.request.query_params.get('waiting')
+        approved = self.request.query_params.get('approved')
+        denied = self.request.query_params.get('denied')
+        cancelled = self.request.query_params.get('cancelled')
+        if waiting or approved or denied or cancelled:
+            wait_qs = queryset
+            approved_qs = queryset
+            denied_qs = queryset
+            cancelled_qs = queryset
+            if waiting:
+                wait_qs = queryset.filter(bookings__approved=0)
+            if approved:
+                approved_qs = queryset.filter(bookings__approved=1)
+            if denied:
+                denied_qs = queryset.filter(bookings__approved=2)
+            if cancelled:
+                cancelled_qs = queryset.filter(bookings__approved=3)
+
+            queryset = wait_qs.union(approved_qs).union(denied_qs).union(cancelled_qs)
+
         return queryset
 
 

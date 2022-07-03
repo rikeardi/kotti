@@ -80,7 +80,31 @@ function bookings_admin_refresh() {
         var future = '';
     }
 
-    $.get('/api/rooms/?admin=' + user_id + old + current + future, function(data) {
+    if($('#bookings-waiting').is(':checked')) {
+        var waiting = '&waiting=1';
+    } else {
+        var waiting = '';
+    }
+
+    if($('#bookings-approved').is(':checked')) {
+        var approved = '&approved=1';
+    } else {
+        var approved = '';
+    }
+
+    if($('#bookings-denied').is(':checked')) {
+        var denied = '&denied=1';
+    } else {
+        var denied = '';
+    }
+
+    if($('#bookings-cancelled').is(':checked')) {
+        var cancelled = '&cancelled=1';
+    } else {
+        var cancelled = '';
+    }
+
+    $.get('/api/rooms/?admin=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=7>' + item.name + '</th></tr>';
