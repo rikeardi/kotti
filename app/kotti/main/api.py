@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+from django.db.models import Q
 from rest_framework import serializers, viewsets, generics
 from rest_framework.response import Response
 from .models import *
@@ -199,38 +200,40 @@ class RoomList(viewsets.ModelViewSet):
         old = self.request.query_params.get('old')
         current = self.request.query_params.get('current')
         future = self.request.query_params.get('future')
-
-        old_qs = queryset
-        current_qs = queryset
-        future_qs = queryset
-        wait_qs = queryset
-        approved_qs = queryset
-        denied_qs = queryset
-        cancelled_qs = queryset
-
         if old or current or future:
+            old_q = Q()
+            current_q = Q()
+            future_q = Q()
+
             if old:
-                old_qs = queryset.filter(bookings__date__date__lte=datetime.now().date())
+                old_q = Q(bookings__date__date__lte=datetime.now().date())
             if current:
-                current_qs = queryset.filter(bookings__date__date=datetime.now().date())
+                current_q = Q(bookings__date__date=datetime.now().date())
             if future:
-                future_qs = queryset.filter(bookings__date__date__gte=datetime.now().date())
+                future_q = Q(bookings__date__date__gte=datetime.now().date())
+
+            queryset = queryset.filter(old_q | current_q | future_q).distinct()
 
         waiting = self.request.query_params.get('waiting')
         approved = self.request.query_params.get('approved')
         denied = self.request.query_params.get('denied')
         cancelled = self.request.query_params.get('cancelled')
         if waiting or approved or denied or cancelled:
-            if waiting:
-                wait_qs = queryset.filter(bookings__approved=0)
-            if approved:
-                approved_qs = queryset.filter(bookings__approved=1)
-            if denied:
-                denied_qs = queryset.filter(bookings__approved=2)
-            if cancelled:
-                cancelled_qs = queryset.filter(bookings__approved=3)
+            wait_q = Q()
+            approved_q = Q()
+            denied_q = Q()
+            cancelled_q = Q()
 
-        queryset = old_qs.union(current_qs).union(future_qs).union(wait_qs).union(approved_qs).union(denied_qs).union(cancelled_qs)
+            if waiting:
+                wait_q = Q(bookings__approved=0)
+            if approved:
+                approved_q = Q(bookings__approved=1)
+            if denied:
+                denied_q = Q(bookings__approved=2)
+            if cancelled:
+                cancelled_q = Q(bookings__approved=3)
+
+            queryset = queryset.filter(wait_q | approved_q | denied_q | cancelled_q).distinct()
 
         return queryset
 
