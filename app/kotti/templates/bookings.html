@@ -165,6 +165,8 @@ function check_date(date) {
 }
 
 function check_booking(booking, filters) {
+    console.log(booking, filters);
+
     if(!filters.time && !filters.approval) {
         return true;
     }
