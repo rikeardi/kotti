@@ -92,6 +92,10 @@ class BookingViewSet(viewsets.ModelViewSet):
         if approved:
             instance.approved = approved
 
+        information = request.data.get('information')
+        if information:
+            instance.information = information
+
         instance.save()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
