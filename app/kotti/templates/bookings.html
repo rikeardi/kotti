@@ -105,10 +105,10 @@ function check_booking(booking, filters) {
     if(filters.future && check_date(booking.date.date) == 3) time_count++;
 
     var approval_count = 0;
-    if(filters.waiting && booking.approval == 0) approval_count++;
-    if(filters.approved && booking.approval == 1) approval_count++;
-    if(filters.denied && booking.approval == 2) approval_count++;
-    if(filters.cancelled && booking.approval == 3) approval_count++;
+    if(filters.waiting && booking.approved == 0) approval_count++;
+    if(filters.approved && booking.approved == 1) approval_count++;
+    if(filters.denied && booking.approved == 2) approval_count++;
+    if(filters.cancelled && booking.approved == 3) approval_count++;
 
     console.log(time_count, approval_count);
 
