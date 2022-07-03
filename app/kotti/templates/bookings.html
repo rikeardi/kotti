@@ -93,8 +93,6 @@ function check_date(date) {
 }
 
 function check_booking(booking, filters) {
-    console.log(booking, filters);
-
     if(!filters.time && !filters.approval) {
         return true;
     }
@@ -109,8 +107,6 @@ function check_booking(booking, filters) {
     if(filters.approved && booking.approved == 1) approval_count++;
     if(filters.denied && booking.approved == 2) approval_count++;
     if(filters.cancelled && booking.approved == 3) approval_count++;
-
-    console.log(time_count, approval_count);
 
     if(time_count > 0 && !filters.approval) {
         return true;
