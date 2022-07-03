@@ -64,6 +64,12 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <div class="field">
+                    <label class="label">Lisätietoja ja huomautuksia</label>
+                    <p id="person-information"></p>
+                </div>
+            </div>
         </section>
         <footer class="modal-card-foot">
             <button class="button" onclick="person_modal_close();">Sulje</button>
@@ -156,6 +162,7 @@ function person_modal_open(booking_id) {
         $('#person-date').html(data.date.name + " " + parse_date(data.date.date));
         $('#person-time').html(parse_time(data.start_time) + " - " + parse_time(data.end_time));
         $('#person-persons').html(data.persons + " hlöä");
+        $('#person-information').html(data.information);
         $('#person-modal').addClass('is-active');
     });
 }
