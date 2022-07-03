@@ -49,7 +49,7 @@ function bookings_own_refresh() {
         var cancelled = '';
     }
 
-    $.get('/api/rooms/?booking_user=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
+    $.get('/api/rooms/?bookings=1&booking_user=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
         $('#bookings-own-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=5>' + item.name + '</th></tr>';

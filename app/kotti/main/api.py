@@ -228,6 +228,10 @@ class RoomList(viewsets.ModelViewSet):
 
             queryset = wait_qs.union(approved_qs).union(denied_qs).union(cancelled_qs)
 
+        bookings = self.request.query_params.get('bookings')
+        if bookings:
+            queryset = queryset.filter(bookings__length__gte=0)
+
         return queryset
 
 

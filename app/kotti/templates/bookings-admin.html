@@ -104,7 +104,7 @@ function bookings_admin_refresh() {
         var cancelled = '';
     }
 
-    $.get('/api/rooms/?admin=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
+    $.get('/api/rooms/?bookings=1&admin=' + user_id + old + current + future + waiting + approved + denied + cancelled, function(data) {
         $('#bookings-admin-table').html('');
         $.each(data, function(i, item) {
             var room_html = '<tr><th class="is-primary">Huone</th><th class="is-primary" colspan=7>' + item.name + '</th></tr>';
