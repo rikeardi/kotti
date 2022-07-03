@@ -10,6 +10,24 @@
     </div>
 </div>
 
+<div class="modal" id="question-template">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title"></p>
+        </header>
+        <section class="modal-card-body">
+            <div>
+                <p class="question-text"></p>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success question-yes">Kyllä</button>
+            <button class="button is-danger question-no">Ei</button>
+        </footer>
+    </div>
+</div>
+
 <script>
 message_id = 0;
 
@@ -50,6 +68,46 @@ function message_close(id) {
         $('#message-' + id).remove();
     }, 100);
 }
+
+question_id = 0;
+questions = [];
+
+function show_question(question) {
+    var question_clone = $('#question-template').clone();
+    question_clone.addClass('is-active');
+    question_clone.attr('id', 'question-' + question_id);
+    question_clone.find('.modal-card-title').text(question.title);
+    question_clone.find('.question-text').text(question.text);
+    message_clone.find('.question-yes').attr('onclick', 'question_yes("' + question_id + '")');
+    message_clone.find('.question-no').attr('onclick', 'question_no("' + question_id + '")');
+    message_clone.find('.question-yes').text(question.yes);
+    message_clone.find('.question-no').attr(question.no);
+
+    question.id = question_id;
+    questions.push(question);
+
+    $('body').append(question_clone);
+    question_id++;
+}
+
+function question_yes(id) {
+    questions[id].yes_function();
+    question_close(id);
+}
+
+function question_no(id) {
+    questions[id].no_function();
+    question_close(id);
+}
+
+function question_close(id) {
+    $('#question-' + id).removeClass('is-active');
+    setTimeout(function() {
+        $('#question-' + id).remove();
+        questions.splice(id, 1);
+    }, 300);
+}
+
 </script>
 {% endblock %}
 

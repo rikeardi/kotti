@@ -38,6 +38,11 @@ function bookings_own_refresh() {
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
                     room_html += '<td>' + approval(booking.approved) + '</td>';
                     room_html += '<td>' + booking.persons + ' hlöä</td>';
+                    if(booking.approved <= 1) {
+                        room_html += '<td><a href="#" onclick="bookings_own_cancel(' + booking.id + ');">Peru</a></td>';
+                    } else {
+                        room_html += '<td></td>';
+                    }
                     room_html += '</tr>';
                 }
             }
@@ -61,5 +66,33 @@ $("#bookings-future").change(function() {
 });
 
 bookings_own_refresh();
+
+function bookings_own_cancel(id) {
+    show_question({
+        title: 'Peru varaus',
+        text: 'Haluatko varmasti perua varauksen?',
+        yes: 'Peru varaus',
+        no: 'Ei',
+        yes_function: function() {
+            $.ajax({
+                url: '/api/booking/' + id + '/',
+                type: 'PATCH',
+                headers: {
+                    "X-CSRFToken": csrf_token
+                },
+                data: {
+                    approved: 3
+                },
+                success: function(data) {
+                    message_show({ type: "success", title: "Onnistui", text: "Varaus peruttu" });
+                    bookings_own_refresh();
+                }
+            });
+        },
+        no_function: function() {
+            bookings_own_refresh();
+        }
+    });
+}
 </script>
 {% endblock %}
