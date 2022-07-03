@@ -7,44 +7,44 @@
                 <span class="tag is-info">Varauksen aika</span>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-old">
+                        <input type="checkbox" class="bookings-filter" id="bookings-old">
                         Vanhat varaukset
                     </label>
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-current">
+                        <input type="checkbox" class="bookings-filter" id="bookings-current">
                         Varaukset tänään
                     </label>
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-future">
+                        <input type="checkbox" class="bookings-filter" id="bookings-future">
                         Tulevat varaukset
                     </label>
                 </div>
                 <span class="tag is-info">Varauksen tilanne</span>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-waiting">
+                        <input type="checkbox" class="bookings-filter" id="bookings-waiting">
                         Odottaa hyväksyntää
                     </label>
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-approved">
+                        <input type="checkbox" class="bookings-filter" id="bookings-approved">
                         Hyväksytty
                     </label>
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-denied">
+                        <input type="checkbox" class="bookings-filter" id="bookings-denied">
                         Hylätyt
                     </label>
                 </div>
                 <div class="field">
                     <label class="checkbox">
-                        <input type="checkbox" id="bookings-cancelled">
+                        <input type="checkbox" class="bookings-filter" id="bookings-cancelled">
                         Perutut
                     </label>
                 </div>
@@ -70,47 +70,78 @@ function bookings_refresh() {
     }
 }
 
-$("#bookings-old").change(function() {
+$(".bookings-filter").change(function() {
     bookings_refresh();
     settings.bookings.old = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-current").change(function() {
-    bookings_refresh();
     settings.bookings.current = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-future").change(function() {
-    bookings_refresh();
     settings.bookings.future = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-waiting").change(function() {
-    bookings_refresh();
     settings.bookings.waiting = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-approved").change(function() {
-    bookings_refresh();
     settings.bookings.approved = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-denied").change(function() {
-    bookings_refresh();
     settings.bookings.denied = $(this).is(":checked");
-    refresh_settings();
-});
-
-$("#bookings-cancelled").change(function() {
-    bookings_refresh();
     settings.bookings.cancelled = $(this).is(":checked");
     refresh_settings();
 });
+
+function booking_get_filters() {
+    var filters = { query: '', any: false };
+    if($('#bookings-old').is(':checked')) {
+        filters.old = true
+        filters.any = true;
+        filters.query += '&old=1';
+    } else {
+        filters.old = false;
+    }
+
+    if($('#bookings-current').is(':checked')) {
+        filters.current = true;
+        filters.any = true;
+        filters.query += '&current=1';
+    } else {
+        filters.current = false;
+    }
+
+    if($('#bookings-future').is(':checked')) {
+        filters.future = true;
+        filters.any = true;
+        filters.query += '&future=1';
+    } else {
+        filters.future = false;
+    }
+
+    if($('#bookings-waiting').is(':checked')) {
+        filters.waiting = true;
+        filters.any = true;
+        filters.query += '&waiting=1';
+    } else {
+        filters.waiting = false;
+    }
+
+    if($('#bookings-approved').is(':checked')) {
+        filters.approved = true;
+        filters.any = true;
+        filters.query += '&approved=1';
+    } else {
+        filters.approved = false;
+    }
+
+    if($('#bookings-denied').is(':checked')) {
+        filters.denied = true;
+        filters.any = true;
+        filters.query += '&denied=1';
+    } else {
+        filters.denied = false;
+    }
+
+    if($('#bookings-cancelled').is(':checked')) {
+        filters.cancelled = true;
+        filters.any = true;
+        filters.query += '&cancelled=1';
+    } else {
+        filters.cancelled = false;
+    }
+
+    return filters;
+}
 
 function check_date(date) {
     var today = new Date();
@@ -131,6 +162,19 @@ function check_date(date) {
         return 2;
     }
     return 3;
+}
+
+function check_booking(booking, filters) {
+    var count = 0;
+    if(filters.old && check_date(booking.date.date) == 1) count++;
+    if(filters.current && check_date(booking.date.date) == 2) count++;
+    if(filters.future && check_date(booking.date.date) == 3) count++;
+    if(filters.waiting && booking.approval == 0) count++;
+    if(filters.approved && booking.approval == 1) count++;
+    if(filters.denied && booking.approval == 2) count++;
+    if(filters.cancelled && booking.approval == 3) count++;
+    if(count == 0 && filters.any) return false;
+    return true;
 }
 
 function approval(approved) {
