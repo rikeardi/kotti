@@ -2,8 +2,9 @@
 <div class="content" style="height: calc(100% - 20px); overflow-y: clip;">
     <div class="columns">
         <div class="column is-3 tile is-parent is-vertical">
-            <span class="tag is-info">Suodattimet</span>
+            <h4 class="title">Suodattimet</h4>
             <div class="tile is-child">
+                <span class="tag is-info">Varauksen aika</span>
                 <div class="field">
                     <label class="checkbox">
                         <input type="checkbox" id="bookings-old">
@@ -22,8 +23,7 @@
                         Tulevat varaukset
                     </label>
                 </div>
-            </div>
-            <div class="tile is-child">
+                <span class="tag is-info">Varauksen tilanne</span>
                 <div class="field">
                     <label class="checkbox">
                         <input type="checkbox" id="bookings-waiting">
@@ -85,6 +85,30 @@ $("#bookings-current").change(function() {
 $("#bookings-future").change(function() {
     bookings_refresh();
     settings.bookings.future = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-waiting").change(function() {
+    bookings_refresh();
+    settings.bookings.waiting = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-approved").change(function() {
+    bookings_refresh();
+    settings.bookings.approved = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-denied").change(function() {
+    bookings_refresh();
+    settings.bookings.denied = $(this).is(":checked");
+    refresh_settings();
+});
+
+$("#bookings-cancelled").change(function() {
+    bookings_refresh();
+    settings.bookings.cancelled = $(this).is(":checked");
     refresh_settings();
 });
 
