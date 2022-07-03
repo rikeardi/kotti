@@ -4,6 +4,52 @@
     <table class="table" id="bookings-own-table">
     </table>
 </div>
+
+<div id="person-own-modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Varauksen tiedot</p>
+            <button class="delete" aria-label="close" onclick="person_own_modal_close();"></button>
+        </header>
+        <section class="modal-card-body">
+            <div>
+                <hr>
+                <h4 class="subtitle">Varaus</h4>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Päivämäärä</label>
+                        <p id="person-own-date"></p>
+                    </div>
+                    <div class="field">
+                        <label class="label">Henkilömäärä</label>
+                        <p id="person-own-persons"></p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Kello</label>
+                        <p id="person-own-time"></p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="field">
+                    <label class="label">Lisätietoja ja huomautuksia</label>
+                    <textarea class="textarea" id="person-own-information"></textarea>
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-primary" onclick="person_own_modal_save();">Tallenna</button>
+            <button class="button" onclick="person_own_modal_close();">Sulje</button>
+        </footer>
+    </div>
+</div>
+
+
 <script>
 
 function bookings_own_refresh() {
@@ -79,5 +125,41 @@ function bookings_own_cancel(id) {
         }
     });
 }
+
+var opened_booking_id = 0;
+
+function person_own_modal_open(booking_id) {
+    opened_booking_id = booking_id;
+    $.get('/api/booking/' + booking_id + '/', function(data) {
+        $('#person-own-date').html(data.date.name + " " + parse_date(data.date.date));
+        $('#person-own-time').html(parse_time(data.start_time) + " - " + parse_time(data.end_time));
+        $('#person-own-persons').html(data.persons + " hlöä");
+        $('#person-own-information').html(data.information);
+        $('#person-own-modal').addClass('is-active');
+    });
+}
+
+function person_own_modal_close() {
+    $('#person-own-modal').removeClass('is-active');
+}
+
+function person_own_modal_save() {
+    $.ajax({
+        url: '/api/booking/' + opened_booking_id + '/',
+        type: 'PATCH',
+        headers: {
+            "X-CSRFToken": csrf_token
+        },
+        data: {
+            information: $('#person-own-information').val()
+        },
+        success: function(data) {
+            message_show({ type: "success", title: "Onnistui", text: "Varaus tallennettu" });
+            person_own_modal_close();
+            bookings_own_refresh();
+        }
+    });
+}
+
 </script>
 {% endblock %}
