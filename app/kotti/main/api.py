@@ -230,8 +230,7 @@ class RoomList(viewsets.ModelViewSet):
 
         bookings = self.request.query_params.get('bookings')
         if bookings:
-            print(queryset)
-            #queryset = queryset.filter(bookings__length__gt=0)
+            queryset = queryset.filter(bookings__isnull=True)
 
         return queryset
 
