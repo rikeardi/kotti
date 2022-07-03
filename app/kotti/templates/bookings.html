@@ -11,7 +11,7 @@ function bookings_refresh() {
 }
 
 function booking_get_filters() {
-    var filters = { query: '', any: false };
+    var filters = { query: '', time: false, approval: false };
     if($('#bookings-old').is(':checked')) {
         filters.old = true
         filters.time = true;
