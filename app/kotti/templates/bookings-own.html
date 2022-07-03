@@ -64,7 +64,7 @@ function bookings_own_refresh() {
                 var booking = item.bookings[i];
                 if(booking.user.id == user_id && check_booking(booking, filters)) {
                     room_html += '<tr>';
-                    room_html += '<td>' + booking.date.name + ' ' + parse_date(booking.date.date) + '</td>';
+                    room_html += '<td><a href="#" onclick="person_own_modal_open(' + booking.id + ')">' + booking.date.name + ' ' + parse_date(booking.date.date) + '</a></td>';
                     room_html += '<td>' + parse_time(booking.start_time) + '</td>';
                     room_html += '<td>' + parse_time(booking.end_time) + '</td>';
                     room_html += '<td>' + approval(booking.approved) + '</td>';
