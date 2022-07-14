@@ -157,6 +157,7 @@ class Room(models.Model):
 
         for open_time in self.open_times.all():
             if open_time.day.date < date.today():
+                print("Date is in the past")
                 self.open_times.splice(self.open_times.index(open_time), 1)
                 continue
 
