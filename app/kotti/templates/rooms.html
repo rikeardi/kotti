@@ -345,7 +345,7 @@ function room_modal_open(room_id) {
                                 "<a href='#' class='icon has-text-danger' title='Poista' onclick='room_remove_time(" + time.id + ")'>" +
                                     "<i class='fas fa-ban'></i></a></td></tr>";
             }
-            time_html += "<tr><td colspan="3"></td></tr>
+            time_html += "<tr><td colspan='3'></td></tr>";
             $("#room-times-table").append(time_html);
         }
         var time_html = "<tr class='room-timetable-tools is-hidden'><td colspan='4'>Lisää aukioloaika</td></tr>" +
