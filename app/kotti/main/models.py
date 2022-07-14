@@ -157,8 +157,8 @@ class Room(models.Model):
 
         for open_time in self.open_times.all():
             if open_time.day.date < date.today():
-                print("Date is in the past")
                 self.open_times.splice(self.open_times.index(open_time), 1)
+                print(f'{open_time.day.date} is in the past, removing from open_times')
                 continue
 
             day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0, 'booking_percentage': 0 }
