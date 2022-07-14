@@ -156,9 +156,6 @@ class Room(models.Model):
         availability = []
 
         for open_time in self.open_times.all():
-            if open_time.date < datetime.date.today():
-                continue
-
             day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0, 'booking_percentage': 0 }
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
