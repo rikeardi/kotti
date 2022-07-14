@@ -157,6 +157,7 @@ class Room(models.Model):
 
         for open_time in self.open_times.all():
             print(open_time.day.date)
+            print(date.today())
             day_availability = {'day': open_time.day.id, 'times': [], 'total_capacity': 0, 'total_bookings': 0, 'booking_percentage': 0 }
             for opening_time in open_time.times.all():
                 avail_time = opening_time.start_time
