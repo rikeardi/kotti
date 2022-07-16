@@ -16,11 +16,12 @@ ul, li {
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    position: absolute;
+    position: relative;
 }
 
 #rooms-schedule-timeline {
     padding-top: 50px;
+    position: absolute;
 }
 
 .rooms-schedule-timeline {
@@ -41,6 +42,7 @@ ul, li {
 #rooms-schedule-bookings {
     width: calc(100% - 60px);
     left: 60px;
+    position: absolute;
 }
 
 </style>
@@ -131,14 +133,15 @@ function rooms_refresh() {
     timeline += "</ul>";
     $("#rooms-schedule-timeline").html(timeline);
 
-    var bookings = "<ul>";
+    var bookings = "";
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
+        bookings = "<ul>";
         bookings += "<li class='rooms-schedule-bookings'>";
-        bookings += "<div class='tile'><div class='box p-1'><div class='content'><h3 class='title is-size-7'>" + room.name + "</h3></div>></div></div>";
+        bookings += "<div class='tile'><div class='box p-1'><div class='content'><h3 class='title is-size-6'>" + room.name + "</h3></div></div></div>";
         bookings += "</li>";
+        bookings += "</ul>";
     }
-    bookings += "</ul>";
     $("#rooms-schedule-bookings").html(bookings);
 }
 
