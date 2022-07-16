@@ -147,6 +147,7 @@ function rooms_refresh() {
         bookings += "<div class='rooms-schedule-header'><span>" + room.name + "</span></div>";
         bookings += "<ul class='rooms-schedule-bookings'>";
         room.bookings.forEach(function(booking) {
+            console.log(booking);
             if(booking.day.id == $("#rooms-status-day").val()) {
                 var start = booking.start_time.split(":");
                 start = parseInt(start[0]) * 60 + parseInt(start[1]);
