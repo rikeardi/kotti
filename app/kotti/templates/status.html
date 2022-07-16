@@ -33,7 +33,7 @@
             </div>
 
             <div class="tile">
-                <table class="table" id="bookings-table"></table>
+                <div id="rooms-schedule"></div>
             </div>
         </div>
     </div>
@@ -78,14 +78,15 @@ function rooms_refresh() {
             }
         });
     }
-    var table = $("#bookings-table");
-    table.empty();
+
+    var timeline = "<ul>";
     for(var i = start_time; i < end_time; i) {
         var hours = Math.floor(i / 60);
-        var minutes = ("0" + i % 60).slice(-2);
-        console.log(hours + ":" + minutes);
-        i += 15;
+        timeline += "<li class='rooms-schedule-timeline'><span>" + hours + ":00<span></li>";
+        i += 60;
     }
+    timeline += "</ul>";
+    $("#rooms-schedule").html(timeline);
 }
 
 </script>
