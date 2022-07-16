@@ -82,7 +82,7 @@ function rooms_refresh() {
     table.empty();
     for(var i = start_time; i < end_time; i) {
         var hours = Math.floor(i / 60);
-        var minutes = i % 60;
+        var minutes = ("0" + i % 60).slice(-2);
         console.log(hours + ":" + minutes);
         i += 15;
     }
