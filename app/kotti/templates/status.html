@@ -63,12 +63,17 @@ function rooms_refresh() {
         var room = rooms[i];
         room.open_times.forEach(function(open_time) {
             if(open_time.day.id == $("#rooms-status-day").val()) {
-                var start = parse_time(open_time.start_time);
-                console.log(start);
-                var end = parse_time(open_time.end_time);
-                console.log(end);
+                var start = open_time.start_time.split(":");
+                if(start_time == null || start[0] < start_time[0] || (start[0] == start_time[0] && start[1] < start_time[1])) {
+                    start_time = start;
+                }
+                var end = open_time.end_time.split(":");
+                if(end_time == null || end[0] > end_time[0] || (end[0] == end_time[0] && end[1] > end_time[1])) {
+                    end_time = end;
+                }
             }
         });
+        console.log(start_time, end_time);
     }
 }
 
