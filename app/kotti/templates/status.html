@@ -159,8 +159,8 @@ function rooms_refresh() {
                 start = parseInt(start[0]) * 60 + parseInt(start[1]);
                 var end = booking.end_time.split(":");
                 end = parseInt(end[0]) * 60 + parseInt(end[1]);
-                var top = (start - start_time) * 50 / (end_time - start_time);
-                var height = (end - start) * 50 / (end_time - start_time);
+                var top = (start - start_time) * 100 / 60;
+                var height = (end - start) * 100 / 60;
                 bookings += "<li style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
             }
         });
