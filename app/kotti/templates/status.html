@@ -46,8 +46,10 @@ ul, li {
 }
 
 #rooms-schedule-bookings ul {
-    height: 100%;
-    padding: 0;
+    flex-basis: 0;
+    flex-grow: 1;
+    margin-bottom: 0;
+    border 1px solid #dbdbdb;
 }
 
 </style>
@@ -138,15 +140,24 @@ function rooms_refresh() {
     timeline += "</ul>";
     $("#rooms-schedule-timeline").html(timeline);
 
-    var bookings = "";
+    var bookings = "<ul>";
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
-        bookings += "<ul>";
-        bookings += "<li class='rooms-schedule-bookings'>";
-        bookings += "<div class='tile'><div class='box p-1'><div class='content'><h3 class='title is-size-6'>" + room.name + "</h3></div></div></div>";
-        bookings += "</li>";
-        bookings += "</ul>";
+        bookings += "<li>";
+        bookings += "<div class='rooms-schedule-header'><span>" + room.name + "</span></div>";
+        bookings += "<ul class='rooms-schedule-bookings'>";
+        room.bookings.forEach(function(booking) {
+            if(booking.day.id == $("#rooms-status-day").val()) {
+                var start = booking.start_time.split(":");
+                start = parseInt(start[0]) * 60 + parseInt(start[1]);
+                var end = booking.end_time.split(":");
+                end = parseInt(end[0]) * 60 + parseInt(end[1]);
+                bookings += "<li style=''>" + booking.user.team + </li>";
+            }
+        });
+        bookings += "</ul></li>";
     }
+    bookings += "</ul>";
     $("#rooms-schedule-bookings").html(bookings);
 }
 
