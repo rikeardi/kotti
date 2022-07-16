@@ -127,6 +127,11 @@ $("#rooms-status-day").change(function() {
     rooms_search();
 });
 
+function parse_time(time) {
+    var parts = time.split(":");
+    return parts[0] + ":" + parts[1];
+}
+
 function rooms_refresh() {
     var start_time = null;
     var end_time = null;
@@ -175,7 +180,7 @@ function rooms_refresh() {
                 end = parseInt(end[0]) * 60 + parseInt(end[1]);
                 var top = (start - start_time) * 100 / 60;
                 var height = (end - start) * 100 / 60;
-                bookings += "<li class='notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
+                bookings += "<li class='notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br><br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "</li>";
             }
         });
         bookings += "</ul></li>";
