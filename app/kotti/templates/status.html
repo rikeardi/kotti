@@ -50,6 +50,11 @@ ul, li {
     flex-wrap: nowrap;
 }
 
+.rooms-schedule-booking {
+    position: absolute;
+    width: 100%;
+}
+
 .rooms-schedule-column {
     display: flex;
     flex-direction: column;
@@ -151,7 +156,7 @@ function rooms_refresh() {
         var room = rooms[i];
         bookings += "<li class='rooms-schedule-column'>";
         bookings += "<div class='rooms-schedule-header'><span>" + room.name + "</span></div>";
-        bookings += "<ul class='rooms-schedule-bookings'>";
+        bookings += "<ul>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
                 console.log(booking);
