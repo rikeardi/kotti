@@ -182,7 +182,7 @@ function rooms_refresh() {
                             color = "success";
                             break;
                     }
-                    bookings += "<li class='notification is-" + color + " has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br><br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "</li>";
+                    bookings += "<li class='notification is-" + color + " has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "<br>" + booking.user.first_name + " " + booking.user.last_name + "</li>";
                 }
             }
         });
