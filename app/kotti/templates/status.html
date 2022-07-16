@@ -48,12 +48,29 @@ function rooms_search() {
     $.get("/api/rooms/?day=" + day, function(data) {
         rooms = data;
         console.log(rooms);
+        rooms_refresh();
     });
 }
 
 $("#rooms-status-day").change(function() {
     rooms_search();
 });
+
+function rooms_refresh() {
+    var start_time = null;
+    var end_time = null;
+    for(var i = 0; i < rooms.length; i++) {
+        var room = rooms[i];
+        room.open_times.forEach(function(open_time) {
+            if(open_time.day.id == $("#rooms-status-day").val()) {
+                var start = parse_time(open_time.start_time);
+                console.log(start);
+                var end = parse_time(open_time.end_time);
+                console.log(end);
+            }
+        });
+    }
+}
 
 </script>
 
