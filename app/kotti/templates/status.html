@@ -170,7 +170,7 @@ function rooms_refresh() {
         var room = rooms[i];
         bookings += "<li class='rooms-schedule-column is-size-6'>";
         bookings += "<div class='rooms-schedule-header notification is-primary p-1 has-text-centered'><span>" + room.name + "</span></div>";
-        bookings += "<ul>";
+        bookings += "<ul style='position: absolute;'>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
                 console.log(booking);
