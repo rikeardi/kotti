@@ -41,8 +41,19 @@
 
 <script>
 
-var rooms = {{ rooms | safe }};
-console.log(rooms);
+var rooms = null;
+$(document).ready(function() {
+    $.ajax({
+        url: "/api/room/",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            rooms = data;
+            console.log(rooms);
+
+        }
+    });
+});
 
 </script>
 
