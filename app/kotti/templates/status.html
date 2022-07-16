@@ -112,7 +112,6 @@ function rooms_search() {
 
     $.get("/api/rooms/?day=" + day, function(data) {
         rooms = data;
-        console.log(rooms);
         rooms_refresh();
     });
 }
