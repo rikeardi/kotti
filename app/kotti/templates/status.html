@@ -132,21 +132,7 @@ function rooms_refresh() {
         bookings += "<li class='rooms-schedule-bookings'>";
         bookings += "<div class='tile is-3'><div class='tile is-parent'><div class='tile is-child'><div class='box'><div class='content'><h3 class='title'>" + room.name + "</h3></div></div></div></div></div>";
         bookings += "<div class='tile is-9'><div class='tile is-parent'><div class='tile is-child'><div class='box'><div class='content'><ul>";
-        room.open_times.forEach(function(open_time) {
-            if(open_time.day.id == $("#rooms-status-day").val()) {
-                open_time.times.forEach(function(time) {
-                    var start = time.start_time.split(":");
-                    start = parseInt(start[0]) * 60 + parseInt(start[1]);
-                    var end = time.end_time.split(":");
-                    end = parseInt(end[0]) * 60 + parseInt(end[1]);
-                    var booking = "<li class='rooms-schedule-bookings-time' style='left: " + (start / (end_time - start_time) * 100) + "%; width: " + ((end - start) / (end_time - start_time) * 100) + "%;'>";
-                    booking += "<div class='box'><div class='content'><h3 class='title'>" + time.booking.name + "</h3>";
-                    booking += "<p>" + time.booking.description + "</p>";
-                    booking += "</div></div></li>";
-                    bookings += booking;
-                });
-            }
-        });
+
         bookings += "</ul></div></div></div></div></li>";
     }
 }
