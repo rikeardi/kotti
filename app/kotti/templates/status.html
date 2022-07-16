@@ -12,6 +12,23 @@ ul, li {
     padding: 0;
 }
 
+#rooms-schedule {
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    position: absolute;
+}
+
+#rooms-schedule li:after {
+    content: "";
+    width: calc(100% - 60px);
+    left: 60px;
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background-color: #dbdbdb;
+}
+
 </style>
 <div class="columns" style="height: 100%; margin: 0px;">
     <div class="column p-2 is-1 has-text-centered">
