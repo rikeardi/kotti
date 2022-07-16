@@ -177,14 +177,24 @@ function rooms_refresh() {
         bookings += "<ul style='position: absolute;'>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
-                console.log(booking);
-                var start = booking.start_time.split(":");
-                start = parseInt(start[0]) * 60 + parseInt(start[1]);
-                var end = booking.end_time.split(":");
-                end = parseInt(end[0]) * 60 + parseInt(end[1]);
-                var top = (start - start_time) / 60 * 100 + 66;
-                var height = (end - start) / 60 * 100;
-                bookings += "<li class='notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br><br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "</li>";
+                if(booking.approved < 2) {
+                    var start = booking.start_time.split(":");
+                    start = parseInt(start[0]) * 60 + parseInt(start[1]);
+                    var end = booking.end_time.split(":");
+                    end = parseInt(end[0]) * 60 + parseInt(end[1]);
+                    var top = (start - start_time) / 60 * 100 + 66;
+                    var height = (end - start) / 60 * 100;
+                    var color = "success";
+                    switch(booking.status) {
+                        case 0:
+                            color = "secondary";
+                            break;
+                        case 1:
+                            color = "success";
+                            break;
+                    }
+                    bookings += "<li class='notification is-" + color + " has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br><br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "</li>";
+                }
             }
         });
         bookings += "</ul></li>";
