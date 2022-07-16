@@ -10,6 +10,7 @@ from . import views, forms
 app_name = 'main'
 urlpatterns = [
     path('', views.home, name='home'),
+    path('status/', views.status, name='status'),
     path('accounts/login/', django.contrib.auth.views.LoginView.as_view(authentication_form=forms.LoginForm), name='login'),
     path('accounts/create/', views.register, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
