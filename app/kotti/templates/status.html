@@ -18,7 +18,7 @@
                     <div class="field" style="width: 100%;">
                         <label>Päivä</label>
                         <div class="control">
-                            <select class="input" id="bookings-date">
+                            <select class="input" id="rooms-status-day">
                                 <option value="">Valitse päivä</option>
                                 {% for day in open_days %}
                                 <option value="{{ day.id }}">{{ day }}</option>
@@ -42,17 +42,17 @@
 <script>
 
 var rooms = null;
-$(document).ready(function() {
-    $.ajax({
-        url: "/api/room/",
-        type: "GET",
-        dataType: "json",
-        success: function(data) {
-            rooms = data;
-            console.log(rooms);
+function rooms_search() {
+    var day = $("#rooms-status-day").val();
 
-        }
+    $.get("/api/rooms/?day=" + day, function(data) {
+        rooms = data;
+        console.log(rooms);
     });
+}
+
+$("#rooms-status-day").change(function() {
+    rooms_search();
 });
 
 </script>
