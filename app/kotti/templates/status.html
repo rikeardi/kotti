@@ -80,8 +80,11 @@ function rooms_refresh() {
     }
     var table = $("#bookings-table");
     table.empty();
-    for(var i = start_time; i < end_time; i + 15) {
-        console.log(i);
+    for(var i = start_time; i < end_time; i) {
+        var hours = Math.floor(i / 60);
+        var minutes = i % 60;
+        console.log(hours + ":" + minutes);
+        i += 15;
     }
 }
 
