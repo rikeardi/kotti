@@ -19,6 +19,10 @@ ul, li {
     position: absolute;
 }
 
+#rooms-schedule li {
+    height: 50px;
+}
+
 #rooms-schedule li:after {
     content: "";
     width: calc(100% - 60px);
@@ -57,7 +61,7 @@ ul, li {
                 </div>
             </div>
 
-            <div class="tile">
+            <div class="tile" style="overflow-y: auto; height: calc(100% - 60px); position: relative;">
                 <div id="rooms-schedule"></div>
             </div>
         </div>
