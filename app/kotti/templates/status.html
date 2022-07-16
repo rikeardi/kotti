@@ -69,8 +69,8 @@ function rooms_refresh() {
                         start_time = start;
                     }
                     var end = open_time.times[j].end_time;
-                    if(end_time == null || time.end > end_time) {
-                        end_time = time.end;
+                    if(end_time == null || end > end_time) {
+                        end_time = end;
                     }
                 }
             }
