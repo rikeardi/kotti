@@ -63,7 +63,10 @@ ul, li {
             </div>
 
             <div class="tile" style="overflow-y: auto; height: calc(100% - 60px); position: relative;">
-                <div id="rooms-schedule"></div>
+                <div id="rooms-schedule">
+                    <div id="rooms-schedule-timeline"></div>
+                    <div id="rooms-schedule-bookings"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -117,7 +120,7 @@ function rooms_refresh() {
         i += 60;
     }
     timeline += "</ul>";
-    $("#rooms-schedule").html(timeline);
+    $("#rooms-schedule-timeline").html(timeline);
 }
 
 </script>
