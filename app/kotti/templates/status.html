@@ -77,7 +77,11 @@ function rooms_refresh() {
                 }
             }
         });
-        console.log(start_time, end_time);
+    }
+    var table = $("#bookings-table");
+    table.empty();
+    for(var i = start_time; i < end_time; i + 15) {
+        console.log(i);
     }
 }
 
