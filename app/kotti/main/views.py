@@ -17,6 +17,14 @@ def home(request):
     return render(request, 'front.html', context)
 
 
+def status(request):
+    context = {
+        'open_days': OpenDay.objects.all().filter(date__gte=date.today()).order_by('date'),
+        'rooms': Room.objects.all(),
+    }
+    return render(request, 'status.html')
+
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
