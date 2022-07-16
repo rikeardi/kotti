@@ -166,7 +166,7 @@ function rooms_refresh() {
                 end = parseInt(end[0]) * 60 + parseInt(end[1]);
                 var top = (start - start_time) * 100 / 60;
                 var height = (end - start) * 100 / 60;
-                bookings += "<li class='is-notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
+                bookings += "<li class='notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
             }
         });
         bookings += "</ul></li>";
