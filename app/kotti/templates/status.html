@@ -113,6 +113,7 @@ function rooms_refresh() {
     for(var i = start_time; i < end_time; i) {
         var hours = Math.floor(i / 60);
         timeline += "<li class='rooms-schedule-timeline'><span>" + hours + ":00<span></li>";
+        timeline += "<li class='rooms-schedule-timeline'></li>";
         i += 60;
     }
     timeline += "</ul>";
