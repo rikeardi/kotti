@@ -135,10 +135,8 @@ function rooms_refresh() {
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
         bookings += "<li class='rooms-schedule-bookings'>";
-        bookings += "<div class='tile is-3'><div class='tile is-parent'><div class='tile is-child'><div class='box'><div class='content'><h3 class='title'>" + room.name + "</h3></div></div></div></div></div>";
-        bookings += "<div class='tile is-9'><div class='tile is-parent'><div class='tile is-child'><div class='box'><div class='content'><ul>";
-
-        bookings += "</ul></div></div></div></div></li>";
+        bookings += "<div class='tile'><div class='box p-1'><div class='content'><h3 class='title is-size-7'>" + room.name + "</h3></div>></div></div>";
+        bookings += "</li>";
     }
     bookings += "</ul>";
     $("#rooms-schedule-bookings").html(bookings);
