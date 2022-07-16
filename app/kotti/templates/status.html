@@ -155,7 +155,7 @@ function rooms_refresh() {
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
         bookings += "<li class='rooms-schedule-column'>";
-        bookings += "<div class='rooms-schedule-header'><span>" + room.name + "</span></div>";
+        bookings += "<div class='rooms-schedule-header box p-1 has-text-centered'><span>" + room.name + "</span></div>";
         bookings += "<ul>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
@@ -166,7 +166,7 @@ function rooms_refresh() {
                 end = parseInt(end[0]) * 60 + parseInt(end[1]);
                 var top = (start - start_time) * 100 / 60;
                 var height = (end - start) * 100 / 60;
-                bookings += "<li style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
+                bookings += "<li class='is-notification is-primary has-text-centered p-1' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "</li>";
             }
         });
         bookings += "</ul></li>";
