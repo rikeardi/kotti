@@ -64,11 +64,13 @@ function rooms_refresh() {
         room.open_times.forEach(function(open_time) {
             if(open_time.day.id == $("#rooms-status-day").val()) {
                 for(var j = 0; j < open_time.times.length; j++) {
-                    var start = open_time.times[j].start_time;
+                    var start = open_time.times[j].start_time.split(":");
+                    start = parseInt(start[0]) * 60 + parseInt(start[1]);
                     if(start_time == null || start < start_time) {
                         start_time = start;
                     }
-                    var end = open_time.times[j].end_time;
+                    var end = open_time.times[j].end_time.split(":");
+                    end = parseInt(end[0]) * 60 + parseInt(end[1]);
                     if(end_time == null || end > end_time) {
                         end_time = end;
                     }
