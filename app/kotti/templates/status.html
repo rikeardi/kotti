@@ -154,6 +154,7 @@ function rooms_refresh() {
         bookings += "<ul class='rooms-schedule-bookings'>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
+                console.log(booking);
                 var start = booking.start_time.split(":");
                 start = parseInt(start[0]) * 60 + parseInt(start[1]);
                 var end = booking.end_time.split(":");
