@@ -154,8 +154,8 @@ function rooms_refresh() {
     var bookings = "<ul>";
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
-        bookings += "<li class='rooms-schedule-column'>";
-        bookings += "<div class='rooms-schedule-header box p-1 has-text-centered'><span>" + room.name + "</span></div>";
+        bookings += "<li class='rooms-schedule-column is-size-6'>";
+        bookings += "<div class='rooms-schedule-header notification is-primary p-1 has-text-centered'><span>" + room.name + "</span></div>";
         bookings += "<ul>";
         room.bookings.forEach(function(booking) {
             if(booking.date.id == $("#rooms-status-day").val()) {
