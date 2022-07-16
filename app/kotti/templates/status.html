@@ -178,7 +178,7 @@ function rooms_refresh() {
                 start = parseInt(start[0]) * 60 + parseInt(start[1]);
                 var end = booking.end_time.split(":");
                 end = parseInt(end[0]) * 60 + parseInt(end[1]);
-                var top = (start - start_time) / 60 * 104;
+                var top = (start - start_time) / 60 * 104 + 50;
                 var height = (end - start) / 60 * 104;
                 bookings += "<li class='notification is-primary has-text-centered p-1 rooms-schedule-booking' style='top: " + top + "px; height: " + height + "px;' class='rooms-schedule-booking'>" + booking.user.team + "<br><br>" + parse_time(booking.start_time) + " - " + parse_time(booking.end_time) + "</li>";
             }
