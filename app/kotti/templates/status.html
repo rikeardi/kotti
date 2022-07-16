@@ -136,7 +136,7 @@ function rooms_refresh() {
     var bookings = "";
     for(var i = 0; i < rooms.length; i++) {
         var room = rooms[i];
-        bookings = "<ul>";
+        bookings += "<ul>";
         bookings += "<li class='rooms-schedule-bookings'>";
         bookings += "<div class='tile'><div class='box p-1'><div class='content'><h3 class='title is-size-6'>" + room.name + "</h3></div></div></div>";
         bookings += "</li>";
