@@ -13,15 +13,17 @@
     </div>
     <div class="column" style="width: auto;">
         <div class="box content p-4" id="pages-content" style="height: calc(100% - 20px);">
-            <div class="block is-4">
-                <label>Päivä</label>
-                <div class="control">
-                    <select class="select" id="bookings-date">
-                        <option value="">Valitse päivä</option>
-                        {% for day in open_days %}
-                        <option value="{{ day.id }}">{{ day.name }}</option>
-                        {% endfor %}
-                    </select>
+            <div class="tile">
+                <div class="tile is-4">
+                    <label>Päivä</label>
+                    <div class="control">
+                        <select class="input" id="bookings-date">
+                            <option value="">Valitse päivä</option>
+                            {% for day in open_days %}
+                            <option value="{{ day.id }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ def status(request):
         'open_days': OpenDay.objects.all().filter(date__gte=date.today()).order_by('date'),
         'rooms': Room.objects.all(),
     }
-    return render(request, 'status.html')
+    return render(request, 'status.html', context)
 
 
 def register(request):
