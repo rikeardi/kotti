@@ -17,6 +17,11 @@ sys.path.insert(0, os.path.abspath('..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'kotti.settings'
 django.setup()
 
+intersphinx_mapping = {
+    'http://docs.python.org/': None,
+    'https://docs.djangoproject.com/en/stable': 'https://docs.djangoproject.com/en/stable/_objects',
+}
+
 # -- Project information -----------------------------------------------------
 
 project = 'Kotti'
