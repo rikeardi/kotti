@@ -150,7 +150,8 @@ STATIC_URL = '/static/'
 
 if DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static')
+        os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'docs/_build/html/static'),
     ]
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
