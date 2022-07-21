@@ -2,7 +2,6 @@
 
 cd /code/kotti/docs
 
-sphinx-apidoc -o . ..
 make json
 
 cd /code/kotti
