@@ -83,6 +83,9 @@ class KottiUser(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    def is_superuser(self):
+        return self.is_admin
+
 
 class OpenDay(models.Model):
     """
