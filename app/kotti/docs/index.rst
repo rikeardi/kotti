@@ -9,5 +9,4 @@ Kotti
 .. toctree::
    :maxdepth: 2
    :caption: Sisällys:
-   tilat/haku
-   tilat/varaus
+   tilat.rst
