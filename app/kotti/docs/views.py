@@ -25,12 +25,12 @@ def page(request, page_name):
     return render(request, 'docs/front.html', context)
 
 
-def page_edit(request, page_id):
-    page = DocsPage.objects.get(id=page_id)
+def page_edit(request, id):
+    page = DocsPage.objects.get(id=id)
 
     if request.method == 'PATCH':
-        page.title = request.POST['title'].lower()
-        page.header_id = request.POST['header_id']
+        print(request.PATCH)
+        page.title = request.PATCH['title'].lower()
         page.save()
         return redirect('/docs/' + page.title + '/')
 
