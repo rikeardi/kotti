@@ -9,6 +9,5 @@ Kotti
 .. toctree::
    :maxdepth: 2
    :caption: Sisällys:
-   tilat
-   varaukset
-   kalenteri
+   tilat/haku
+   tilat/varaus
