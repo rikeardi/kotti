@@ -40,18 +40,24 @@ ul ol {
                         {% endfor %}
                             <li class="docs-edit is-hidden">
                                 <div class="field has-addons">
+                                    <form method="post" action="/docs/new-page">
+                                    {% csrf_token %}
                                     <div class="control is-expanded">
-                                        <input class="input is-small" type="text" placeholder="New page..." autocomplete="no">
+                                        <input type="hidden" name="header_id" value="{{ header.id }}">
+                                        <input class="input is-small" name="title" type="text" placeholder="New page..." autocomplete="no">
                                     </div>
                                     <div class="control">
-                                        <button class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick=""></i></button>
+                                        <button type="submit" class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick=""></i></button>
                                     </div>
+                                    </form>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     {% endfor %}
                     <div class="docs-edit is-hidden">
+                        <form method="post" action="/docs/new-header">
+                        {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input class="input is-small" type="text" placeholder="New header..." autocomplete="no">
@@ -60,6 +66,7 @@ ul ol {
                                 <button class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick=""></i></button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </aside>
             </div>

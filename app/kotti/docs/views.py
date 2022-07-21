@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 
 
@@ -23,3 +23,17 @@ def page(request, page_name):
         'page_chapters': DocsChapter.objects.filter(page_id=page.id),
     }
     return render(request, 'docs/front.html', context)
+
+
+def new_header(request):
+    if request.method == 'POST':
+        header = DocsHeader(title=request.POST['title'])
+        header.save()
+        return redirect('/docs/')
+
+
+def new_page(request):
+    if request.method == 'POST':
+        page = DocsPage(title=request.POST['title'])
+        page.save()
+        return redirect('/docs/' + page.title + '/')
