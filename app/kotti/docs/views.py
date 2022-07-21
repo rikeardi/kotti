@@ -36,6 +36,6 @@ def new_page(request):
     if request.method == 'POST':
         print(request.POST)
         page = DocsPage.objects.create(title=request.POST['title'].lower(),
-                                       header_id=request.POST['header'])
+                                       header_id=request.POST['header_id'])
         page.save()
         return redirect('/docs/' + page.title + '/')
