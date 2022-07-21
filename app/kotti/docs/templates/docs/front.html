@@ -24,7 +24,7 @@ ul ol {
                 <aside class="menu">
                     {% for header in headers %}
                     <div>
-                        {% if page in header.pages %}
+                        {% if page in header.docspage_set.all %}
                         <p class="menu-label" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
                             <span class="icon is-small"><i class="fas fa-angle-down"></i></span> {{ header.title }}
                         </p>
