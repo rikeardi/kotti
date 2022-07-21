@@ -1,9 +1,5 @@
 #!/bin/bash
 
-cd /code/kotti/docs
-
-make json
-
 cd /code/kotti
 
 python manage.py makemigrations --noinput

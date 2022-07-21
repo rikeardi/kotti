@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'main.apps.MainConfig',
-    'sphinx_view',
+    'docs.apps.DocsConfig',
 ]
 
 MIDDLEWARE = [
@@ -61,8 +61,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'kotti.urls'
-
-DOCS_ROOT = BASE_DIR / 'docs/_build/html'
 
 TEMPLATES = [
     {
