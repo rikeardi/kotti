@@ -2,7 +2,7 @@
 
 cd /code/kotti
 
-python manage.py updatedoc -b
+#python manage.py updatedoc -b
 python manage.py makemigrations --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput
