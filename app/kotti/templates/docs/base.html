@@ -48,6 +48,7 @@
     <div class="column is-two-thirds">
         <div class="box">
             {% block doc %}
+            {{ doc.body | safe }}
             {% endblock doc %}
         </div>
     </div>
