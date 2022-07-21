@@ -23,7 +23,7 @@ ul ol {
             <div class="block">
                 <aside class="menu">
                     {% for header in headers %}
-                    <div class="m-1">
+                    <div class="m-2">
                         {% if page in header.docspage_set.all %}
                         <p class="menu-label" id="docs-label-{{ header.id }}" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
                             <span class="icon is-small"><i class="fas fa-angle-down"></i></span> {{ header.title }}
@@ -44,13 +44,23 @@ ul ol {
                                         <input class="input is-small" type="text" placeholder="New page..." autocomplete="no">
                                     </div>
                                     <div class="control">
-                                        <button class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick="new_contact_modal_open();"></i></button>
+                                        <button class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick=""></i></button>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     {% endfor %}
+                    <div class="docs-edit is-hidden">
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input is-small" type="text" placeholder="New header..." autocomplete="no">
+                            </div>
+                            <div class="control">
+                                <button class="button is-small is-success"><i class="fa fa-plus" title="Add..." onclick=""></i></button>
+                            </div>
+                        </div>
+                    </div>
                 </aside>
             </div>
         </div>
