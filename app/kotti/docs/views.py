@@ -110,9 +110,10 @@ def section_edit(request, id):
     section = DocsSection.objects.get(id=id)
 
     if request.method == 'POST':
-        if request.POST['text']:
+
+        if request.POST.get('text'):
             section.text = request.POST['text']
-        if request.POST['image']:
+        if request.POST.get('image'):
             print(request.POST['image'])
         section.save()
         return redirect('/docs/')
