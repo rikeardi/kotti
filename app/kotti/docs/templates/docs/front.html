@@ -95,11 +95,12 @@ ul ol {
             </form>
             <hr>
             {% for chapter in page.docschapter_set.all %}
-            <form id="docs-chapter-form" method="post" action="/docs/chapters/{{ chapter.id }}/">
+            <form method="post" action="/docs/chapters/{{ chapter.id }}/">
                 {% csrf_token %}
-                <div class="block">
+                <div class="block" style="position: relative;">
                     <h3 class="title docs-view is-5">{{ chapter.title | title }}<a name="{{ chapter.title | lower }}">&nbsp;</a></h3>
                     <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
+                    <button class="button is-success is-small docs-edit is-hidden" type="submit" style="position: absolute; top: 10px; right: 10px;" title="Save"><i class="fas fa-download"></i></button>
                 </div>
             </form>
             <hr>
