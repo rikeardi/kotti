@@ -92,13 +92,14 @@ ul ol {
                     <h2 class="title docs-view is-4">{{ page.title | title }}</h2>
                     <input class="input docs-edit is-hidden" name="title" type="text" value="{{ page.title }}">
                 </div>
-                {% for chapter in page.docschapter_set.all %}
-                <div class="block">
-                    <h3 class="title docs-view is-5"><a name="{{ chapter.title | lower }}">{{ chapter.title | title }}</a></h3>
-                    <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
-                </div>
-                {% endfor %}
             </form>
+
+            {% for chapter in page.docschapter_set.all %}
+            <div class="block">
+                <h3 class="title docs-view is-5">{{ chapter.title | title }}<a name="{{ chapter.title | lower }}"></a></h3>
+                <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
+            </div>
+            {% endfor %}
             {% else %}
             <div class="content">
                 <h3 class="title">User manual</h3>
