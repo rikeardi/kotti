@@ -34,6 +34,7 @@ def new_header(request):
 
 def new_page(request):
     if request.method == 'POST':
+        print(request.POST)
         page = DocsPage.objects.create(title=request.POST['title'].lower(),
                                        header_id=request.POST['header'])
         page.save()
