@@ -27,13 +27,13 @@ def page(request, page_name):
 
 def new_header(request):
     if request.method == 'POST':
-        header = DocsHeader(title=request.POST['title'])
+        header = DocsHeader(title=request.POST['title'].lower())
         header.save()
         return redirect('/docs/')
 
 
 def new_page(request):
     if request.method == 'POST':
-        page = DocsPage(title=request.POST['title'])
+        page = DocsPage(title=request.POST['title'].lower())
         page.save()
         return redirect('/docs/' + page.title + '/')
