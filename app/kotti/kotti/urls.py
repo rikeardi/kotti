@@ -20,6 +20,8 @@ from rest_framework import routers
 from django.views.static import serve
 from main import api
 
+from app.kotti.kotti import settings
+
 router = routers.DefaultRouter()
 router.register(r'room', api.RoomViewSet)
 router.register(r'rooms', api.RoomList, basename='Room')
