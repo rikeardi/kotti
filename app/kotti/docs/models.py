@@ -34,7 +34,7 @@ class DocsSection(models.Model):
     chapter = models.ForeignKey(DocsChapter, on_delete=models.DO_NOTHING)
     order = models.IntegerField(default=0)
     text = models.TextField(blank=True, default='')
-#    image = models.ImageField(upload_to='docs/images', blank=True, null=True)
+    image = models.TextField(blank=True, default='')
 
     class Meta:
         ordering = ['order']

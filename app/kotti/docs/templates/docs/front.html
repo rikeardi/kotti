@@ -13,7 +13,7 @@
     <div class="column is-quarter">
         <div class="box">
             <div class="content">
-                <h3>User manual</h3>
+                <h4>User manual</h4>
             </div>
             <div class="content">
                 <aside class="menu">
@@ -26,8 +26,13 @@
     </div>
     <div class="column is-two-thirds">
         <div class="box">
+            {% if page %}
             <div class="content">
-                <p><span class="icon"><a href="/docs"><i class="fas fa-home"></i></a></span> >></p>
+                <p><span class="icon is-small"><a href="/docs"><i class="fas fa-home"></i></a></span></p>
+            </div>
+            {% endif %}
+            <div class="content">
+                
             </div>
         </div>
     </div>
