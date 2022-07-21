@@ -38,8 +38,10 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx_view',
     'sphinx_autodoc_annotation',
-    'sphinxcontrib_django',
+    'sphinxcontrib_django2',
 ]
+
+django_settings = 'kotti.settings'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
