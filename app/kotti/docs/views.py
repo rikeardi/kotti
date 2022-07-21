@@ -19,4 +19,4 @@ def page(request, page_name):
         'page': page,
         'chapters': DocsChapter.objects.filter(page_id=page.id),
     }
-    return render(request, 'docs/page.html', context)
+    return render(request, 'docs/front.html', context)
