@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.template.defaulttags import url
 from django.urls import path, include
 from rest_framework import routers
 from django.views.static import serve
@@ -30,7 +31,8 @@ router.register(r'users', api.KottiUserViewSet)
 
 
 urlpatterns = [
-    path(r'^docs/(?P<path>.*)$', serve(document_root=kotti.settings.DOCS_ROOT, show_indexes=True)),
+    url(r'^docs/(?P<path>.*)$', serve, {'document_root': kotti.settings.DOCS_ROOT}),
+    url(r'^docs/', serve, {'document_root': kotti.settings.DOCS_ROOT, 'path': 'index.html'}),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
