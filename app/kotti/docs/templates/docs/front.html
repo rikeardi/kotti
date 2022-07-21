@@ -38,7 +38,7 @@ ul ol {
                         {% for page in header.docspage_set.all %}
                             <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title | title }}</a></li>
                         {% endfor %}
-                            <li class="docs-edit">
+                            <li class="docs-edit is-hidden">
                                 <div class="field has-addons">
                                     <div class="control is-expanded">
                                         <input class="input is-small" type="text" placeholder="New page..." autocomplete="no">
