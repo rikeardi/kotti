@@ -82,9 +82,9 @@ ul ol {
                 <p><span class="icon is-small"><a href="/docs"><i class="fas fa-home"></i></a></span></p>
                 <form method="delete" action="/docs/{{ page.id }}/">
                     {% csrf_token %}
-                    <button class="button is-small is-danger" style="position: absolute; top: 10px; right: 65px;" type="submit"><i class="fa fa-trash" title="Delete..."></i></button>
+                    <button class="button is-small docs-edit is-hidden is-danger" style="position: absolute; top: 10px; right: 65px;" type="submit"><i class="fa fa-trash" title="Delete..."></i></button>
                 </form>
-                <button class="button is-success is-small docs-edit is-hidden" style="position: absolute; top: 10px; right: 134px;">Save</button>
+                <button class="button is-success is-small docs-edit is-hidden" style="position: absolute; top: 10px; right: 110px;"><i class="fas fa-floppy-disk"></i></button>
             </div>
             <div class="block">
                 <h2 class="title is-4">{{ page.title | title }}</h2>
