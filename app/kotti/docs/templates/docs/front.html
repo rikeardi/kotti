@@ -76,7 +76,20 @@ ul ol {
             </div>
             {% else %}
             <div class="content">
-                <h4>User manual</h4>
+                <h4 class="title">User manual</h4>
+                <hr>
+                <ul>
+                    {% for header in headers %}
+                    <li>
+                        <a href="/docs/{{ header.title | lower | escape }}">{{ header.title | title }}</a>
+                        <ul>
+                        {% for page in header.docspage_set.all %}
+                            <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title | title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
             {% endif %}
             <div class="content">
