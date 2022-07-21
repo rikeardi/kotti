@@ -31,7 +31,7 @@ router.register(r'users', api.KottiUserViewSet)
 
 urlpatterns = [
     path('', include('main.urls')),
-    path('docs<path:path>', DocumentationView.as_view(json_build_dir=Path('docs/build/json'),
+    path('docs<path:path>', DocumentationView.as_view(json_build_dir='docs/build/json',
                                                       base_template_name='templates/docs/base.html'), name='docs'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
