@@ -93,12 +93,16 @@ ul ol {
                     <input class="input docs-edit is-hidden" name="title" type="text" value="{{ page.title }}">
                 </div>
             </form>
-
+            <hr>
             {% for chapter in page.docschapter_set.all %}
-            <div class="block">
-                <h3 class="title docs-view is-5">{{ chapter.title | title }}<a name="{{ chapter.title | lower }}">&nbsp;</a></h3>
-                <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
-            </div>
+            <form id="docs-chapter-form" method="post" action="/docs/chapters/{{ chapter.id }}/">
+                {% csrf_token %}
+                <div class="block">
+                    <h3 class="title docs-view is-5">{{ chapter.title | title }}<a name="{{ chapter.title | lower }}">&nbsp;</a></h3>
+                    <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
+                </div>
+            </form>
+            <hr>
             {% endfor %}
             {% else %}
             <div class="content">
