@@ -113,7 +113,7 @@ ul ol {
             {% for section in chapter.docssection_set.all %}
             <form method="post" action="/docs/sections/{{ section.id }}/">
                 {% csrf_token %}
-                <div class="block" style="position: relative;">
+                <div class="block mb-3" style="position: relative;">
                     <p class="docs-view">{{ section.text }}</p>
                     <textarea class="textarea docs-edit is-hidden" name="text">{{ section.text }}</textarea>
                 </div>
