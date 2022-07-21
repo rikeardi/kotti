@@ -19,6 +19,9 @@
                 <aside class="menu">
                     {% for header in headers %}
                     <p class="menu-label">{{ header.title }}</p>
+                    {% for page in header.pages %}
+                    <a class="menu-item" href="/docs/{{ page.name }}/">{{ page.title }}</a>
+                    {% endfor %}
                     {% endfor %}
                 </aside>
             </div>
@@ -32,7 +35,7 @@
             </div>
             {% endif %}
             <div class="content">
-                
+
             </div>
         </div>
     </div>
