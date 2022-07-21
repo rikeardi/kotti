@@ -23,8 +23,12 @@ ul ol {
             <div class="block">
                 <aside class="menu">
                     {% for header in headers %}
-                    <p class="menu-label">{{ header.title }}</p>
-                    <ul class="menu-list">
+                    <p class="menu-label" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">{{ header.title }}</p>
+                    {% if page in header.pages %}
+                    <ul class="menu-list" id="docs-menu-{{ header.id }}">
+                    {% else %}
+                    <ul class="menu-list is-hidden" id="docs-menu-{{ header.id }}">
+                    {% endif %}
                     {% for page in header.docspage_set.all %}
                         <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title | title }}</a></li>
                     {% endfor %}
@@ -55,6 +59,11 @@ ul ol {
 var edit_mode = false;
 function docs_toggle_edit() {
     edit_mode = !edit_mode;
+}
+
+function docs_toggle_menu(id) {
+    $(".menu-list").addClass("is-hidden");
+    $("#docs-menu-" + id).removeClass("is-hidden");
 }
 
 </script>
