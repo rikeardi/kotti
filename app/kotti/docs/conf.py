@@ -32,7 +32,6 @@ author = 'Risto Lievonen'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx_view',
-    'sphinx_autodoc_annotation',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

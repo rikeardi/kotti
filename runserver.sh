@@ -4,7 +4,7 @@ cd /code/kotti
 
 #python manage.py updatedoc -b
 sphinx-apidoc -o docs/ .
-docs/make json
+sphinx-build -b html docs/ docs/html
 python manage.py makemigrations --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput
