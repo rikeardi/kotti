@@ -25,6 +25,22 @@ def page(request, page_name):
     return render(request, 'docs/front.html', context)
 
 
+def page_edit(request, page_id):
+    page = DocsPage.objects.get(id=page_id)
+
+    if request.method == 'PATCH':
+        page.title = request.POST['title'].lower()
+        page.header_id = request.POST['header_id']
+        page.save()
+        return redirect('/docs/' + page.title + '/')
+
+    if request.method == 'DELETE':
+        page.delete()
+        return redirect('/docs/')
+
+    return redirect('/docs/' + page.title + '/')
+
+
 def new_header(request):
     if request.method == 'POST':
         header = DocsHeader.objects.create(title=request.POST['title'].lower())
