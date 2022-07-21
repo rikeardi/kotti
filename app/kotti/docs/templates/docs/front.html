@@ -19,8 +19,9 @@
                 <aside class="menu">
                     {% for header in headers %}
                     <p class="menu-label">{{ header.title }}</p>
+                    <ul class="menu-list">
                     {% for page in header.docspage_set.all %}
-                    <a class="menu-item" href="/docs/{{ page.title }}/">{{ page.title }}</a>
+                        <li><a href="{{ page.title | escape }}">{{ page.title }}</a></li>
                     {% endfor %}
                     {% endfor %}
                 </aside>
