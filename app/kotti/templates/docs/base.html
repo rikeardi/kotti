@@ -38,10 +38,20 @@
 }
 </style>
 <div id="background"></div>
-{% block toc %}
-{% endblock toc %}
-{% block doc %}
-{% endblock doc %}
+<div class="columns">
+    <div class="column is-third">
+        <div class="box">
+            {% block toctree %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="column">
+        <div class="box">
+            {% block doc %}
+            {% endblock doc %}
+        </div>
+    </div>
+</div>
 <div id="messages">{% include 'messages.html' %}</div>
 <div style="position: fixed; right: 0.75rem; bottom: 0.75rem; font-size: 0.6rem; z-index: -1;">
     &copy;2022 Risto Lievonen, taustakuva Markus Kuoppala
