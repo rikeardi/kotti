@@ -16,7 +16,10 @@ def home(request):
 def page(request, page_name):
     page = DocsPage.objects.get(title=page_name)
     context = {
+        'headers': DocsHeader.objects.all(),
+        'pages': DocsPage.objects.all(),
+        'chapters': DocsChapter.objects.all(),
         'page': page,
-        'chapters': DocsChapter.objects.filter(page_id=page.id),
+        'page_chapters': DocsChapter.objects.filter(page_id=page.id),
     }
     return render(request, 'docs/front.html', context)
