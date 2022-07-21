@@ -78,9 +78,9 @@ ul ol {
             <button class="button is-primary is-small" style="position: absolute; top: 10px; right: 10px;" onclick="docs_toggle_edit();">Edit</button>
             {% endif %}
             {% if page %}
-            <div class="content" style="position: relative;">
+            <div class="block">
                 <p><span class="icon is-small"><a href="/docs"><i class="fas fa-home"></i></a></span></p>
-                <button class="button is-danger is-small" style="position: absolute; top: 10px; right: 10px;">Delete</button>
+                <button class="button is-danger is-small docs-edit is-hidden" style="position: absolute; top: 10px; right: 10px;">Delete</button>
             </div>
             {% else %}
             <div class="content">
