@@ -71,8 +71,7 @@ function docs_toggle_edit() {
 function docs_toggle_menu(id) {
     $(".menu-list").addClass("is-hidden");
     $(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-right");
-    console.log($("#docs-label-" + id + " svg"));
-    $("#docs-label-" + id + " i").removeClass("fa-angle-right").addClass("fa-angle-down");
+    $("#docs-label-" + id + " svg").removeClass("fa-angle-right").addClass("fa-angle-down");
     $("#docs-menu-" + id).removeClass("is-hidden");
 }
 
