@@ -1,10 +1,12 @@
 #!/bin/bash
 
+cd /code/kotti/docs
+
+sphinx-apidoc -o . ..
+make json
+
 cd /code/kotti
 
-#python manage.py updatedoc -b
-sphinx-apidoc -o docs/ .
-sphinx-build -b json docs/ docs/json
 python manage.py makemigrations --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput
