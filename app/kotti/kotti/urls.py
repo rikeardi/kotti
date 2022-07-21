@@ -16,10 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from django.views.static import serve
 from main import api
-
-from kotti import settings
 
 router = routers.DefaultRouter()
 router.register(r'room', api.RoomViewSet)
@@ -32,8 +29,7 @@ router.register(r'users', api.KottiUserViewSet)
 
 
 urlpatterns = [
-    path('docs/<path>', serve, {'document_root': settings.DOCS_ROOT}),
-    path('docs/', serve, {'document_root': settings.DOCS_ROOT, 'path': 'index.html'}),
+    path('docs<path>', DocumentationView.as_view(json_build_dir='docs/_build/json', base_template_name='docs/base.html'), name='docs'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
