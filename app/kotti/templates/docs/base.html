@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    {% block title %}<title>Kokoustilanvaraus Kotti Dokumentaatio</title>{% endblock %}
+    <title>Kokoustilanvaraus Kotti Dokumentaatio</title>
     <meta charset="UTF-8">
     {% load static %}
 
@@ -41,6 +41,7 @@
 <div class="columns m-1">
     <div class="column is-third">
         <div class="box">
+            <h3>{% block title %}{% endblock title %}</h3>
             {% block toc %}
             {% endblock %}
         </div>
