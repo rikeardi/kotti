@@ -14,7 +14,7 @@ class DocsHeader(models.Model):
 
 
 class DocsPage(models.Model):
-    header = models.ForeignKey(DocsHeader, on_delete=models.DO_NOTHING)
+    header = models.ForeignKey(DocsHeader, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     class Meta:
@@ -25,7 +25,7 @@ class DocsPage(models.Model):
 
 
 class DocsChapter(models.Model):
-    page = models.ForeignKey(DocsPage, on_delete=models.DO_NOTHING)
+    page = models.ForeignKey(DocsPage, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     order = models.IntegerField(default=0)
 
@@ -37,7 +37,7 @@ class DocsChapter(models.Model):
 
 
 class DocsSection(models.Model):
-    chapter = models.ForeignKey(DocsChapter, on_delete=models.DO_NOTHING)
+    chapter = models.ForeignKey(DocsChapter, on_delete=models.CASCADE)
     order = models.IntegerField(default=0)
     text = models.TextField(blank=True, default='')
     image = models.TextField(blank=True, default='')
