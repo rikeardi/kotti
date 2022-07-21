@@ -28,9 +28,9 @@ def page(request, page_name):
 def page_edit(request, id):
     page = DocsPage.objects.get(id=id)
 
-    if request.method == 'PATCH':
-        print(request.PATCH)
-        page.title = request.PATCH['title'].lower()
+    if request.method == 'POST':
+        print(request.POST)
+        page.title = request.POST['title'].lower()
         page.save()
         return redirect('/docs/' + page.title + '/')
 

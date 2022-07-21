@@ -86,7 +86,8 @@ ul ol {
                 </form>
                 <button class="button is-success is-small docs-edit is-hidden" style="position: absolute; top: 10px; right: 110px;" title="Save" onclick="docs_save_page();"><i class="fas fa-download"></i></button>
             </div>
-            <form id="docs-page-form" method="patch" action="/docs/pages/{{ page.id }}/">
+            <form id="docs-page-form" method="post" action="/docs/pages/{{ page.id }}/">
+                {% csrf_token %}
                 <div class="block">
                     <h2 class="title docs-view is-4">{{ page.title | title }}</h2>
                     <input class="input docs-edit is-hidden" name="title" type="text" value="{{ page.title }}">
