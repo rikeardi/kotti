@@ -3,7 +3,7 @@
 cd /code/kotti/docs
 
 sphinx-apidoc -o . ..
-make html
+make json
 
 cd /code/kotti
 
