@@ -18,7 +18,7 @@ ul ol {
     <div class="column is-quarter">
         <div class="box">
             <div class="block">
-                <h4>User manual</h4>
+                <h4 class="title is-4">User manual</h4>
             </div>
             <div class="block">
                 <aside class="menu">
@@ -26,7 +26,7 @@ ul ol {
                     <p class="menu-label">{{ header.title }}</p>
                     <ul class="menu-list">
                     {% for page in header.docspage_set.all %}
-                        <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title }}</a></li>
+                        <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title | title }}</a></li>
                     {% endfor %}
                     </ul>
                     {% endfor %}
