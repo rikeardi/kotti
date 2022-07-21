@@ -41,9 +41,9 @@ ul ol {
                             <li class="docs-edit is-hidden">
                                 <div class="field has-addons">
                                     <form method="post" action="/docs/new-page">
+                                    <input type="hidden" name="header_id" value="{{ header.id }}">
                                     {% csrf_token %}
                                     <div class="control is-expanded">
-                                        <input type="hidden" name="header_id" value="{{ header.id }}">
                                         <input class="input is-small" name="title" type="text" placeholder="New page..." autocomplete="no">
                                     </div>
                                     <div class="control">
