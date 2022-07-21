@@ -3,6 +3,8 @@
 cd /code/kotti
 
 #python manage.py updatedoc -b
+sphinx-apidoc -o docs/ .
+docs/make json
 python manage.py makemigrations --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput

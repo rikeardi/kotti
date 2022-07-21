@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'main.apps.MainConfig',
-#    'sphinxdoc',
+    'sphinx_view',
 ]
 
 MIDDLEWARE = [
