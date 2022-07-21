@@ -25,12 +25,12 @@ ul ol {
                     {% for header in headers %}
                     <div>
                         {% if page in header.docspage_set.all %}
-                        <p class="menu-label" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
+                        <p class="menu-label" id="docs-label-{{ header.id }}" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
                             <span class="icon is-small"><i class="fas fa-angle-down"></i></span> {{ header.title }}
                         </p>
                         <ul class="menu-list" id="docs-menu-{{ header.id }}">
                         {% else %}
-                        <p class="menu-label" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
+                        <p class="menu-label" id="docs-label-{{ header.id }}" style="cursor: pointer;" onclick="docs_toggle_menu({{ header.id }})">
                             <span class="icon is-small"><i class="fas fa-angle-right"></i></span> {{ header.title }}
                         </p>
                         <ul class="menu-list is-hidden" id="docs-menu-{{ header.id }}">
@@ -71,7 +71,7 @@ function docs_toggle_edit() {
 function docs_toggle_menu(id) {
     $(".menu-list").addClass("is-hidden");
     $(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-right");
-    $("#docs-menu-" + id).parent().find("i.fas").removeClass("fa-angle-right").addClass("fa-angle-down");
+    $("#docs-label-" + id + " i").removeClass("fa-angle-right").addClass("fa-angle-down");
     $("#docs-menu-" + id).removeClass("is-hidden");
 }
 
