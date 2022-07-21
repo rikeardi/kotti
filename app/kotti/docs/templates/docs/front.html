@@ -99,8 +99,14 @@ ul ol {
                 {% csrf_token %}
                 <div class="block" style="position: relative;">
                     <h3 class="title docs-view is-5">{{ chapter.title | title }}<a name="{{ chapter.title | lower }}">&nbsp;</a></h3>
-                    <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
-                    <button class="button is-success is-small docs-edit is-hidden" type="submit" style="position: absolute; top: 10px; right: 10px;" title="Save"><i class="fas fa-download"></i></button>
+                    <div class="field has-addons docs-edit is-hidden">
+                        <div class="control is-expanded">
+                            <input class="input" name="title" type="text" value="{{ chapter.title }}">
+                        </div>
+                        <div class="control">
+                            <button class="button is-small is-success" type="submit"><i class="fa fa-save" title="Save..."></i></button>
+                        </div>
+                    </div>
                 </div>
             </form>
             <hr>
