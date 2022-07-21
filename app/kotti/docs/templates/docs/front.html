@@ -21,7 +21,7 @@
                     <p class="menu-label">{{ header.title }}</p>
                     <ul class="menu-list">
                     {% for page in header.docspage_set.all %}
-                        <li><a href="/docs/{{ page.title | escape }}">{{ page.title }}</a></li>
+                        <li><a href="/docs/{{ page.title | lower | escape }}">{{ page.title }}</a></li>
                     {% endfor %}
                     </ul>
                     {% endfor %}
