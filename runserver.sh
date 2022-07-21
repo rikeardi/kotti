@@ -1,5 +1,10 @@
 #!/bin/bash
 
+cd /code/kotti/docs
+
+sphinx-apidoc -o . ..
+make html
+
 cd /code/kotti
 
 python manage.py makemigrations --noinput
