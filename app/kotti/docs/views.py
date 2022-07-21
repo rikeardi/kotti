@@ -33,11 +33,13 @@ def page_edit(request, id):
         page.save()
         return redirect('/docs/' + page.title + '/')
 
-    if request.method == 'DELETE':
-        page.delete()
-        return redirect('/docs/')
-
     return redirect('/docs/' + page.title + '/')
+
+
+def page_delete(request, id):
+    page = DocsPage.objects.get(id=id)
+    page.delete()
+    return redirect('/docs/')
 
 
 def new_header(request):
