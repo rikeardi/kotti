@@ -89,6 +89,11 @@ ul ol {
             <div class="block">
                 <h2 class="title is-4">{{ page.title | title }}</h2>
             </div>
+            {% for chapter in page.docschapter_set.all %}
+            <div class="block">
+                <h3 class="title is-5"><a name="{{ chapter.title | lower }}">{{ chapter.title | title }}</a></h3>
+            </div>
+            {% endfor %}
             {% else %}
             <div class="content">
                 <h3 class="title">User manual</h3>
