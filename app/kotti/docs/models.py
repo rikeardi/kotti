@@ -6,6 +6,12 @@ class DocsHeader(models.Model):
     title = models.CharField(max_length=100)
     order = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f'{self.title}'
+
 
 class DocsPage(models.Model):
     header = models.ForeignKey(DocsHeader, on_delete=models.DO_NOTHING)
