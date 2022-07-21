@@ -80,20 +80,24 @@ ul ol {
             {% if page %}
             <div class="block">
                 <p><span class="icon is-small"><a href="/docs"><i class="fas fa-home"></i></a></span></p>
-                <form method="delete" action="/docs/{{ page.id }}/">
+                <form method="delete" action="/docs/pages/{{ page.id }}/">
                     {% csrf_token %}
                     <button class="button is-small docs-edit is-hidden is-danger" style="position: absolute; top: 10px; right: 65px;" type="submit"><i class="fa fa-trash" title="Delete..."></i></button>
                 </form>
                 <button class="button is-success is-small docs-edit is-hidden" style="position: absolute; top: 10px; right: 110px;" title="Save"><i class="fas fa-download"></i></button>
             </div>
-            <div class="block">
-                <h2 class="title is-4">{{ page.title | title }}</h2>
-            </div>
-            {% for chapter in page.docschapter_set.all %}
-            <div class="block">
-                <h3 class="title is-5"><a name="{{ chapter.title | lower }}">{{ chapter.title | title }}</a></h3>
-            </div>
-            {% endfor %}
+            <form method="patch" action="/docs/pages/{{ page.id }}/">
+                <div class="block">
+                    <h2 class="title docs-view is-4">{{ page.title | title }}</h2>
+                    <input class="input docs-edit is-hidden" name="title" type="text" value="{{ page.title }}">
+                </div>
+                {% for chapter in page.docschapter_set.all %}
+                <div class="block">
+                    <h3 class="title docs-view is-5"><a name="{{ chapter.title | lower }}">{{ chapter.title | title }}</a></h3>
+                    <input class="input docs-edit is-hidden" name="chapter_title[{{ chapter.id }}]" type="text" value="{{ chapter.title }}">
+                </div>
+                {% endfor %}
+            </form>
             {% else %}
             <div class="content">
                 <h3 class="title">User manual</h3>
@@ -126,8 +130,10 @@ function docs_toggle_edit() {
     edit_mode = !edit_mode;
     if(edit_mode) {
         $(".docs-edit").removeClass("is-hidden");
+        $(".docs-view").addClass("is-hidden");
     } else {
         $(".docs-edit").addClass("is-hidden");
+        $(".docs-view").removeClass("is-hidden");
     }
 }
 
