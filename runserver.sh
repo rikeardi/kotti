@@ -1,12 +1,8 @@
 #!/bin/bash
 
-cd /code/kotti/docs
-
-sphinx-apidoc -o . ..
-make html
-
 cd /code/kotti
 
+python manage.py updatedoc -b
 python manage.py makemigrations --noinput
 python manage.py migrate
 python manage.py collectstatic --noinput
