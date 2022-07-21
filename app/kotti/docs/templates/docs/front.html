@@ -19,7 +19,7 @@
                 <aside class="menu">
                     {% for header in headers %}
                     <p class="menu-label">{{ header.title }}</p>
-                    {% for page in header.pages %}
+                    {% for page in header.page__list %}
                     <a class="menu-item" href="/docs/{{ page.title }}/">{{ page.title }}</a>
                     {% endfor %}
                     {% endfor %}
