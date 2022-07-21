@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <title>Kokoustilanvaraus Kotti Dokumentaatio</title>
+    {% block title %}<title>Kotti User manual</title>{% endblock title %}
     <meta charset="UTF-8">
     {% load static %}
 
@@ -38,22 +38,14 @@
 }
 </style>
 <div id="background"></div>
-<div class="columns m-1">
-    <div class="column is-third">
-        <div class="box">
-            <h3>{% block title %}{% endblock title %}</h3>
-            {% block toc %}
-            {% endblock %}
-        </div>
-    </div>
-    <div class="column is-two-thirds">
-        <div class="box">
-            {% block doc %}
-            {{ doc.body | safe }}
-            {% endblock doc %}
-        </div>
-    </div>
-</div>
+{% if user.is_authenticated %}
+{% endif %}
+{% block content %}{% endblock %}
+{% if user.is_authenticated %}
+
+{% else %}
+
+{% endif %}
 <div id="messages">{% include 'messages.html' %}</div>
 <div style="position: fixed; right: 0.75rem; bottom: 0.75rem; font-size: 0.6rem; z-index: -1;">
     &copy;2022 Risto Lievonen, taustakuva Markus Kuoppala
